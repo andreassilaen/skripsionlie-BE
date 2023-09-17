@@ -1,0 +1,11 @@
+server:
+  port: ":8080"
+database:
+  pharmalink-development__master: "[username]:[password]@tcp([addr]:[port])/sttk?loc=Asia%2FJakarta&parseTime=true"
+  pharmalink-development__sttk: "sqlserver://prog2-login:PQliQFDsi0BEmY@34.128.71.20:1433?database=STTK_CFU"
+api:
+  auth: "http://auth.staging/auth"
+swagger:
+  host: "staging.example.com"
+  schemes:
+    - https

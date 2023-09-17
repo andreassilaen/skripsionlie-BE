@@ -1,0 +1,10 @@
+server:
+  port: ":8080"
+database:
+  master: "chc-logistic:ZZz345ZVnb7I#@Yw@tcp(logistic-chc.default)/sttk?loc=Asia%2FJakarta&parseTime=true"
+api:
+  auth: "http://auth.production/auth"
+swagger:
+  host: ""
+  schemes:
+    - https

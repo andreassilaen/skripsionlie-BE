@@ -1,0 +1,11 @@
+server:
+  port: ":4334"
+database:
+  master: "dev:d3v3l0p8015@tcp(dev.db.pharmalink.id:3306)/job_order?loc=Asia%2FJakarta&parseTime=true"
+  # master: "PharmanetBois:d3v3l0p8015@tcp(34.87.44.167:3306)/sttk"
+api:
+  auth: "https://staging-api.cfu.pharmalink.id/auth"
+swagger:
+  host: "localhost:8080"
+  schemes:
+    - http

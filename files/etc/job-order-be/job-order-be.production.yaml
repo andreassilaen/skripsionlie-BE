@@ -1,0 +1,11 @@
+server:
+  port: ":8080"
+database:
+  logistic-aurora__master: "[username]:[password]@tcp([addr]:[port])/sttk?loc=Asia%2FJakarta&parseTime=true"
+  pharmalink-development__sttk: "user=proces;pwd=wicdt;database=STTK_CFU;host=175.106.8.162:9460"
+api:
+  auth: "http://auth.production/auth"
+swagger:
+  host: ""
+  schemes:
+    - https
