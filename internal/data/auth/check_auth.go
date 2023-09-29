@@ -3,9 +3,9 @@ package auth
 import (
 	"context"
 	"net/http"
-	"job-order-be/internal/entity/auth"
-	"job-order-be/pkg/errors"
-	"job-order-be/pkg/httpclient"
+	"skripsi-online-BE/internal/entity/auth"
+	"skripsi-online-BE/pkg/errors"
+	"skripsi-online-BE/pkg/httpclient"
 )
 
 // Data ...

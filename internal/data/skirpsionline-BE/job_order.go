@@ -1,4 +1,4 @@
-package joborder
+package skirpsionlineBE
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/opentracing/opentracing-go"
 
-	jaegerLog "job-order-be/pkg/log"
+	jaegerLog "skripsi-online-BE/pkg/log"
 )
 
 type (
@@ -30,15 +30,63 @@ type (
 // Tambahkan query di dalam const
 // getAllUser = "GetAllUser"
 // qGetAllUser = "SELECT * FROM users"
+
+
 const (
-// getJadwal  = "GetJadwal"
-// qGetJadwal = "SELECT * FROM m_jadwal"
+////__________________________________________ T_Admin ____________________________________________
+	//	+ selesai +
+	getAllAdmin = "GetAllAdmin"
+	qGetAllAdmin = `
+	SELECT adm_id,
+		adm_name,
+		adm_username,
+		adm_password,
+		adm_phone,
+		adm_email,
+		adm_address 
+	FROM t_admin`
+
+////__________________________________________ T_Customer ____________________________________________
+	//  - belum -
+	getAllCustomer = "GetAllCustomer"
+	qGetAllCustomer = `
+	SELECT cust_id,
+		cust_name,
+		cust_username,
+		cust_password,
+		cust_phone,
+		cust_email,
+		cust_address 
+	FROM t_customer`
+
+
+////__________________________________________ T_Product ____________________________________________
+	//  - belum -
+	getAllProduct = "GetAllProduct"
+	qGetAllProduct = `
+	INSERT INTO t_product
+		(prod_id,
+		ctg_id,
+		prod_name,
+		prod_stock,
+		prod_price,
+		prod_desc)
+	VALUES (?, ?, ?, ?, ?, ?)`
+
+////__________________________________________ T_Category____________________________________________
+
+////__________________________________________ TH_Order ____________________________________________
+
+////__________________________________________ TD_Order ____________________________________________
+
+////__________________________________________ T_Delivery ____________________________________________
 
 )
 
 var (
 	readStmt = []statement{
 		//jadwalsttk
+		{getAllAdmin, qGetAllAdmin},
 	}
 	insertStmt = []statement{}
 	updateStmt = []statement{}

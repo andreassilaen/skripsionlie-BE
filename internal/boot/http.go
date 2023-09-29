@@ -1,15 +1,15 @@
 package boot
 
 import (
-	"job-order-be/docs"
-	"job-order-be/internal/data/auth"
-	"job-order-be/pkg/httpclient"
-	"job-order-be/pkg/tracing"
 	"log"
 	"net/http"
+	"skripsi-online-BE/docs"
+	"skripsi-online-BE/internal/data/auth"
+	"skripsi-online-BE/pkg/httpclient"
+	"skripsi-online-BE/pkg/tracing"
 
-	"job-order-be/internal/config"
-	jaegerLog "job-order-be/pkg/log"
+	"skripsi-online-BE/internal/config"
+	jaegerLog "skripsi-online-BE/pkg/log"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/jmoiron/sqlx"
@@ -17,10 +17,10 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	joborderData "job-order-be/internal/data/joborder"
-	joborderServer "job-order-be/internal/delivery/http"
-	joborderHandler "job-order-be/internal/delivery/http/joborder"
-	joborderService "job-order-be/internal/service/joborder"
+	skripsionlineData "skripsi-online-BE/internal/data/skirpsionline-BE"
+	skripsionlineServer "skripsi-online-BE/internal/delivery/http"
+	skripsionlineHandler "skripsi-online-BE/internal/delivery/http/skirpsionline-BE"
+	skripsionlineService "skripsi-online-BE/internal/service/skirpsionline-BE"
 )
 
 // HTTP will load configuration, do dependency injection and then start the HTTP server
@@ -45,20 +45,20 @@ func HTTP() error {
 		zap.AddStacktrace(zapcore.FatalLevel),
 		zap.AddCallerSkip(1),
 	)
-	zapLogger := logger.With(zap.String("service", "joborder"))
+	zapLogger := logger.With(zap.String("service", "skirpsionline-BE"))
 	zlogger := jaegerLog.NewFactory(zapLogger)
 
 	// Set tracer for service
-	tracer, closer := tracing.Init("joborder", zlogger)
+	tracer, closer := tracing.Init("skirpsionline-BE", zlogger)
 	defer closer.Close()
 
 	httpc := httpclient.NewClient(tracer)
 	ad := auth.New(httpc, cfg.API.Auth)
 
 	// Diganti dengan domain yang anda buat
-	sd := joborderData.New(db, tracer, zlogger)
-	ss := joborderService.New(sd, ad, tracer, zlogger)
-	sh := joborderHandler.New(ss, tracer, zlogger)
+	sd := skripsionlineData.New(db, tracer, zlogger)
+	ss := skripsionlineService.New(sd, ad, tracer, zlogger)
+	sh := skripsionlineHandler.New(ss, tracer, zlogger)
 
 	config.PrepareWatchPath()
 	viper.WatchConfig()
@@ -77,8 +77,8 @@ func HTTP() error {
 		}
 
 	})
-	s := joborderServer.Server{
-		Joborder: sh,
+	s := skripsionlineServer.Server{
+		SkripsionlineBE: sh,
 	}
 
 	if err := s.Serve(cfg.Server.Port); err != http.ErrServerClosed {

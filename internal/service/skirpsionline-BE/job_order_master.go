@@ -1,4 +1,4 @@
-package joborder
+package skirpsionlineBE
 
 // func (s Service) GetMasterJadwal(ctx context.Context, ptid int, code string, sttktype string) ([]sttk.GetMasterJadwal, error) {
 // 	log.Println("service jadwal object", code)

@@ -9,7 +9,7 @@ package main
 
 import (
 	"log"
-	"job-order-be/internal/boot"
+	"skripsi-online-BE/internal/boot"
 
 	_ "github.com/go-sql-driver/mysql"
 )

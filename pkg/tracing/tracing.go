@@ -9,7 +9,7 @@ import (
 	"github.com/uber/jaeger-client-go/config"
 	"go.uber.org/zap"
 
-	"job-order-be/pkg/log"
+	"skripsi-online-BE/pkg/log"
 )
 
 // Init creates a new instance of Jaeger tracer.

@@ -73,12 +73,12 @@ func WithConfigFile(file string) Option {
 }
 
 func getDefaultConfigFile() string {
-	configPath := "./files/etc/job-order-be/job-order-be.development.yaml"
+	configPath := "./files/etc/skripsi-online-BE/skripsi-online-BE.development.yaml"
 	namespace, _ := ioutil.ReadFile("/var/run/secrets/kubernetes.io/serviceaccount/namespace")
 
 	env := string(namespace)
 	if os.Getenv("GOPATH") == "" {
-		configPath = "files/etc/job-order-be/job-order-be.development.yaml"
+		configPath = "files/etc/skripsi-online-BE/skripsi-online-BE.development.yaml"
 	}
 
 	if env != "" {
@@ -90,12 +90,12 @@ func getDefaultConfigFile() string {
 			time.Sleep(30 * time.Second)
 			configPath = "/vault/secrets/database.yaml"
 		default:
-			configPath = "./job-order-be.development.yaml"
+			configPath = "./skripsi-online-BE.development.yaml"
 		}
 	}
 
 	if os.Getenv("chc") == "sementara" {
-		configPath = "./job-order-be.chc.production.yaml"
+		configPath = "./skripsi-online-BE.chc.production.yaml"
 	}
 
 	return configPath

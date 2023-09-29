@@ -1,44 +1,38 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "description": "PHAROS Example API",
-        "title": "Example API",
-        "contact": {},
-        "version": "1.0"
-    },
-    "basePath": "/example",
-    "paths": {
-        "/v1/profiles": {
-            "get": {
-                "security": [
-                    {
-                        "BearerAuth": []
-                    }
-                ],
-                "description": "Get entries of all joborders",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "job-order-be"
-                ],
-                "summary": "Get entries of all joborders",
-                "responses": {
-                    "200": {
-                        "description": ""
-                    }
-                }
-            }
+  "swagger": "2.0",
+  "info": {
+    "description": "PHAROS Example API",
+    "title": "Example API",
+    "contact": {},
+    "version": "1.0"
+  },
+  "basePath": "/example",
+  "paths": {
+    "/v1/profiles": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "Get entries of all skripsionlines",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "tags": ["skripsi-online-BE"],
+        "summary": "Get entries of all skripsionlines",
+        "responses": {
+          "200": {
+            "description": ""
+          }
         }
-    },
-    "securityDefinitions": {
-        "BearerAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        }
+      }
     }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
 }

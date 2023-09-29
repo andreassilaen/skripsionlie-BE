@@ -1,8 +1,8 @@
-package joborder
+package skirpsionlineBE
 
 import (
-	httpHelper "job-order-be/internal/delivery/http"
-	"job-order-be/pkg/response"
+	httpHelper "skripsi-online-BE/internal/delivery/http"
+	"skripsi-online-BE/pkg/response"
 	"log"
 	"net/http"
 
@@ -11,7 +11,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Getjoborder godoc
+// Getskripsionline godoc
 // @Summary Get entries of all sttks
 // @Description Get entries of all sttks
 // @Tags sttk
@@ -19,9 +19,8 @@ import (
 // @Produce  json
 // @Security BearerAuth
 // @Success 200
-
 // @Router /v1/profiles [get]
-func (h *Handler) GetJobOrder(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) DeleteSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	var (
 		result   interface{}
 		metadata interface{}
@@ -32,24 +31,20 @@ func (h *Handler) GetJobOrder(w http.ResponseWriter, r *http.Request) {
 	defer resp.RenderJSON(w, r)
 
 	spanCtx, _ := h.tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(r.Header))
-	span := h.tracer.StartSpan("Getjoborder", ext.RPCServerOption(spanCtx))
+	span := h.tracer.StartSpan("Getskripsionline", ext.RPCServerOption(spanCtx))
 	defer span.Finish()
 
 	ctx := r.Context()
 	ctx = opentracing.ContextWithSpan(ctx, span)
 	h.logger.For(ctx).Info("HTTP request received", zap.String("method", r.Method), zap.Stringer("url", r.URL))
 
-	// Your code here
 	types = r.FormValue("type")
 	switch types {
-	case "":
-
-		// case "":
 	}
 
 	if err != nil {
 		resp = httpHelper.ParseErrorCode(err.Error())
-
+		//
 		log.Printf("[ERROR] %s %s - %v\n", r.Method, r.URL, err)
 		h.logger.For(ctx).Error("HTTP request error", zap.String("method", r.Method), zap.Stringer("url", r.URL), zap.Error(err))
 		return

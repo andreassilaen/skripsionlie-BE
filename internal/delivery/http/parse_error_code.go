@@ -1,8 +1,8 @@
 package http
 
 import (
+	"skripsi-online-BE/pkg/response"
 	"strings"
-	"job-order-be/pkg/response"
 )
 
 // ParseErrorCode ...

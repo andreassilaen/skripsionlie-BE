@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"job-order-be/pkg/response"
+	"skripsi-online-BE/pkg/response"
 
 	httpSwagger "github.com/swaggo/http-swagger"
 
@@ -22,7 +22,7 @@ func (s *Server) Handler() *mux.Router {
 	r.HandleFunc("/", defaultHandler).Methods("GET")
 
 	// Tambahan Prefix di depan API endpoint
-	router := r.PathPrefix("/job-order").Subrouter()
+	router := r.PathPrefix("/skirpsi-online-BE").Subrouter()
 
 	// Health Check /sttk
 	router.HandleFunc("", defaultHandler).Methods("GET")
@@ -31,12 +31,12 @@ func (s *Server) Handler() *mux.Router {
 	sub := router.PathPrefix("/v2").Subrouter()
 
 	// Routes
-	joborder := sub.PathPrefix("/jadwal").Subrouter()
+	skirpsionlineBE := sub.PathPrefix("/toko").Subrouter()
 	//sttk.Use(s.JWTMiddleware)
-	joborder.HandleFunc("", s.Joborder.GetJobOrder).Methods("GET")
-	joborder.HandleFunc("", s.Joborder.InsertJobOrder).Methods("POST")
-	joborder.HandleFunc("", s.Joborder.UpdateJobOrder).Methods("PUT")
-	joborder.HandleFunc("", s.Joborder.DeleteJobOrder).Methods("DELETE")
+	skirpsionlineBE.HandleFunc("", s.SkripsionlineBE.GetSkripsiOnlineBE).Methods("GET")
+	skirpsionlineBE.HandleFunc("", s.SkripsionlineBE.InsertSkripsiOnlineBE).Methods("POST")
+	skirpsionlineBE.HandleFunc("", s.SkripsionlineBE.UpdateSkripsiOnlineBE).Methods("PUT")
+	skirpsionlineBE.HandleFunc("", s.SkripsionlineBE.DeleteSkripsiOnlineBE).Methods("DELETE")
 
 	router.PathPrefix("/swagger").Handler(httpSwagger.WrapHandler)
 	return r

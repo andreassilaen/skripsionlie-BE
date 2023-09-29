@@ -1,4 +1,4 @@
-package joborder
+package skirpsionlineBE
 
 // type InsertSttkMJadwal struct {
 // 	JadwalData SttkMJadwal ` json:"data"` //struct didalam struct
@@ -61,3 +61,15 @@ package joborder
 // 	JwlValueEdpharos    float32     `db:"jwl_value_edpharos" json:"jwl_value_edpharos"`
 // 	JwlValueEdnonpharos float32     `db:"jwl_value_ednonpharos" json:"jwl_value_ednonpharos"`
 // }
+
+
+
+type T_Admin struct {
+	AdmId			string 		`db:"adm_id" json:"adm_id"`
+	AdmName			string		`db:"adm_name" json:"adm_name"`
+	AdmUserName 	string		`db:"adm_username" json:"adm_username"`
+	AdmPassWord 	string		`db:"adm_password" json:"adm_password"`
+	AdmPhone 		string		`db:"adm_phone" json:"adm_phone"`
+	AdmEmail 		string		`db:"adm_email" json:"adm_email"`
+	AdmAddress		string		`db:"adm_address" json:"adm_address"`
+}

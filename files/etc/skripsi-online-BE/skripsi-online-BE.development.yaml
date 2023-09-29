@@ -1,0 +1,10 @@
+server:
+  port: ":4334"
+database:
+  master: "root:@tcp(localhost:3306)/gracia_water"
+api:
+  auth:
+swagger:
+  host: "localhost:8080"
+  schemes:
+    - http

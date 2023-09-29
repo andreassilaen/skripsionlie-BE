@@ -31,7 +31,7 @@ var doc = `{
                         "BearerAuth": []
                     }
                 ],
-                "description": "Get entries of all joborders",
+                "description": "Get entries of all skripsionlines",
                 "consumes": [
                     "application/json"
                 ],
@@ -39,9 +39,9 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "job-order-be"
+                    "skripsi-online-BE"
                 ],
-                "summary": "Get entries of all joborders",
+                "summary": "Get entries of all skripsionlines",
                 "responses": {
                     "200": {
                         "description": ""

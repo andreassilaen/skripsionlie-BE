@@ -1,4 +1,4 @@
-package joborder
+package skirpsionlineBE
 
 // func (d Data) GetMasterJadwal(ctx context.Context, ptid int, code string, sttktype string) ([]sttkEntity.GetMasterJadwal, error) {
 // 	var (

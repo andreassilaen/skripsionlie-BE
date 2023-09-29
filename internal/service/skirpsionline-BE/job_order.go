@@ -1,30 +1,35 @@
-package joborder
+package skirpsionlineBE
 
 import (
 	"context"
 	"errors"
-	"job-order-be/internal/entity"
-	"job-order-be/internal/entity/auth"
-	jaegerLog "job-order-be/pkg/log"
+
+	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
+	"skripsi-online-BE/internal/entity"
+	"skripsi-online-BE/internal/entity/auth"
+	jaegerLog "skripsi-online-BE/pkg/log"
 
 	"github.com/opentracing/opentracing-go"
 )
 
 // Data ...
 // Masukkan function dari package data ke dalam interface ini
-type Data interface {
+type Data interface {	
 	// GetTableSelisih(ctx context.Context, ptid int, code string, tglsttk string, sttktype string) ([]sttkEntity.GetTableSelisih, error)
+
+	GetAllAdmin(ctx context.Context) ([]SBeEntity.T_Admin, error)
 }
 
 // AuthData ...
 type AuthData interface {
 	CheckAuth(ctx context.Context, _token, code string) (auth.Auth, error)
+	
 }
 
 // Service ...
 // Tambahkan variable sesuai banyak data layer yang dibutuhkan
 type Service struct {
-	joborder     Data
+	skirpsionlineBE     Data
 	authData AuthData
 	tracer   opentracing.Tracer
 	logger   jaegerLog.Factory
@@ -32,10 +37,10 @@ type Service struct {
 
 // New ...
 // Tambahkan parameter sesuai banyak data layer yang dibutuhkan
-func New(joborderData Data, authData AuthData, tracer opentracing.Tracer, logger jaegerLog.Factory) Service {
+func New(skripsionlineData Data, authData AuthData, tracer opentracing.Tracer, logger jaegerLog.Factory) Service {
 	// Assign variable dari parameter ke object
 	return Service{
-		joborder:     joborderData,
+		skirpsionlineBE:     skripsionlineData,
 		authData: authData,
 		tracer:   tracer,
 		logger:   logger,

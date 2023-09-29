@@ -1,4 +1,4 @@
-module job-order-be
+module skripsi-online-BE
 
 go 1.17
 

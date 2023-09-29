@@ -1,7 +1,7 @@
-package joborder
+package skirpsionlineBE
 
 import (
-	"job-order-be/pkg/response"
+	"skripsi-online-BE/pkg/response"
 	"log"
 	"net/http"
 
@@ -10,7 +10,7 @@ import (
 	"go.uber.org/zap"
 )
 
-// Getjoborder godoc
+// Getskripsionline godoc
 // @Summary Get entries of all sttks
 // @Description Get entries of all sttks
 // @Tags sttk
@@ -19,7 +19,7 @@ import (
 // @Security BearerAuth
 // @Success 200
 // @Router /v1/profiles [get]
-func (h *Handler) InsertJobOrder(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	var (
 		result   interface{}
 		metadata interface{}
@@ -31,7 +31,7 @@ func (h *Handler) InsertJobOrder(w http.ResponseWriter, r *http.Request) {
 	defer resp.RenderJSON(w, r)
 
 	spanCtx, _ := h.tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(r.Header))
-	span := h.tracer.StartSpan("Getjoborder", ext.RPCServerOption(spanCtx))
+	span := h.tracer.StartSpan("Getskripsionline", ext.RPCServerOption(spanCtx))
 	defer span.Finish()
 
 	ctx := r.Context()

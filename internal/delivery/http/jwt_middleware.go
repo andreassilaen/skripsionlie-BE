@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"skripsi-online-BE/internal/entity"
+	"skripsi-online-BE/pkg/response"
 	"strings"
-	"job-order-be/internal/entity"
-	"job-order-be/pkg/response"
 
 	"github.com/dgrijalva/jwt-go"
 )

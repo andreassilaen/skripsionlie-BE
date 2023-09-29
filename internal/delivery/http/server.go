@@ -3,17 +3,17 @@ package http
 import (
 	"net/http"
 
-	"job-order-be/pkg/grace"
+	"skripsi-online-BE/pkg/grace"
 
 	"github.com/rs/cors"
 )
 
 // SttkHandler ...
 type SttkHandler interface {
-	GetJobOrder(w http.ResponseWriter, r *http.Request)
-	InsertJobOrder(w http.ResponseWriter, r *http.Request)
-	DeleteJobOrder(w http.ResponseWriter, r *http.Request)
-	UpdateJobOrder(w http.ResponseWriter, r *http.Request)
+	GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request)
+	InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request)
+	DeleteSkripsiOnlineBE(w http.ResponseWriter, r *http.Request)
+	UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request)
 	// PrintSelisih(w http.ResponseWriter, r *http.Request)
 	// PrintExpiredTerpajang(w http.ResponseWriter, r *http.Request)
 	// PrintExpiredTerkumpul(w http.ResponseWriter, r *http.Request)
@@ -31,7 +31,7 @@ type SttkHandler interface {
 
 // Server ...
 type Server struct {
-	Joborder SttkHandler
+	SkripsionlineBE SttkHandler
 }
 
 // Serve is serving HTTP gracefully on port x ...
