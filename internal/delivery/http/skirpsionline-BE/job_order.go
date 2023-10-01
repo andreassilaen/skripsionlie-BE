@@ -14,14 +14,15 @@ import (
 // IsttkSvc is an interface to sttk Service
 type IskripsionlineSvc interface {
 	GetAllAdmin(ctx context.Context) ([]SBeEntity.T_Admin, error)
+	GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error)
 }
 
 type (
 	// Handler ...
 	Handler struct {
 		skripsionlineSvc IskripsionlineSvc
-		tracer  opentracing.Tracer
-		logger  jaegerLog.Factory
+		tracer           opentracing.Tracer
+		logger           jaegerLog.Factory
 	}
 )
 
@@ -29,7 +30,7 @@ type (
 func New(is IskripsionlineSvc, tracer opentracing.Tracer, logger jaegerLog.Factory) *Handler {
 	return &Handler{
 		skripsionlineSvc: is,
-		tracer:  tracer,
-		logger:  logger,
+		tracer:           tracer,
+		logger:           logger,
 	}
 }

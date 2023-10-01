@@ -1,10 +1,10 @@
 package skirpsionlineBE
 
 import (
-	httpHelper "skripsi-online-BE/internal/delivery/http"
-	"skripsi-online-BE/pkg/response"
 	"log"
 	"net/http"
+	httpHelper "skripsi-online-BE/internal/delivery/http"
+	"skripsi-online-BE/pkg/response"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -44,6 +44,9 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	switch types {
 	case "getalladmin":
 		result, err = h.skripsionlineSvc.GetAllAdmin(ctx)
+
+	case "getallproduct":
+		result, err = h.skripsionlineSvc.GetAllProduct(ctx)
 	}
 
 	if err != nil {
