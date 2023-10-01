@@ -31,7 +31,7 @@ func (d Data) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error) 
 		}
 		headers = append(headers, header)
 	}
-	log.Println("Master Admin : ", headers)
+	log.Println("Master Product : ", headers)
 
 	defer row.Close()
 	return headers, nil

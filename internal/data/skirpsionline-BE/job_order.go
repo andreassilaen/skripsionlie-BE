@@ -31,11 +31,10 @@ type (
 // getAllUser = "GetAllUser"
 // qGetAllUser = "SELECT * FROM users"
 
-
 const (
-////__________________________________________ T_Admin ____________________________________________
+	////__________________________________________ T_Admin ____________________________________________
 	//	+ selesai +
-	getAllAdmin = "GetAllAdmin"
+	getAllAdmin  = "GetAllAdmin"
 	qGetAllAdmin = `
 	SELECT adm_id,
 		adm_name,
@@ -46,9 +45,9 @@ const (
 		adm_address 
 	FROM t_admin`
 
-////__________________________________________ T_Customer ____________________________________________
+	////__________________________________________ T_Customer ____________________________________________
 	//  - belum -
-	getAllCustomer = "GetAllCustomer"
+	getAllCustomer  = "GetAllCustomer"
 	qGetAllCustomer = `
 	SELECT cust_id,
 		cust_name,
@@ -59,11 +58,21 @@ const (
 		cust_address 
 	FROM t_customer`
 
-
-////__________________________________________ T_Product ____________________________________________
+	////__________________________________________ T_Product ____________________________________________
 	//  - belum -
-	getAllProduct = "GetAllProduct"
+	getAllProduct  = "GetAllProduct"
 	qGetAllProduct = `
+	SELECT prod_id,
+		ctg_id,
+		prod_name,
+		prod_stock,
+		prod_price,
+		prod_desc
+	FROM t_product`
+	// VALUES (?, ?, ?, ?, ?, ?)`
+
+	insertProduct  = "InsertProduct"
+	qInsertProduct = `
 	INSERT INTO t_product
 		(prod_id,
 		ctg_id,
@@ -87,6 +96,7 @@ var (
 	readStmt = []statement{
 		//jadwalsttk
 		{getAllAdmin, qGetAllAdmin},
+		{getAllProduct, qGetAllProduct},
 	}
 	insertStmt = []statement{}
 	updateStmt = []statement{}
