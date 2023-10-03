@@ -8,3 +8,5 @@ type T_Product struct {
 	ProdPrice string `db:"prod_price" json:"prod_price"`
 	ProdDesc  string `db:"prod_desc" json:"prod_desc"`
 }
+
+// product
