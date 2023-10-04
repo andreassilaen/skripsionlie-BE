@@ -36,3 +36,29 @@ func (d Data) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error) 
 	defer row.Close()
 	return headers, nil
 }
+
+
+
+
+func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertProduct].ExecContext(ctx,
+		header.ProdId,
+		header.CtgId,
+		header.ProdName,
+		header.ProdStock,
+		header.ProdPrice,
+		header.ProdDesc,)
+
+	if err != nil {
+		result = "Gagal update Data"
+		return result, errors.Wrap(err, "[DATA][insertProduct]")
+	}
+	result = " Sukses Data"
+	return result, err
+}
+

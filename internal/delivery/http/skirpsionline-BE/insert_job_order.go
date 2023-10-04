@@ -4,7 +4,10 @@ import (
 	"skripsi-online-BE/pkg/response"
 	"log"
 	"net/http"
+	"encoding/json"
+	"io/ioutil"
 
+	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"go.uber.org/zap"
@@ -43,7 +46,13 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 	switch types {
 	case "":
 
-		// case "":
+
+	case "insertproduct":
+		var header SBeEntity.InsertProduct
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertProduct(ctx, header)
+		log.Println("header Delivery : ", header)
 
 	}
 

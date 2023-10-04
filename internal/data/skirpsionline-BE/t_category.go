@@ -12,28 +12,27 @@ import (
 	"skripsi-online-BE/pkg/errors"
 )
 
-func (d Data) GetAllAdmin(ctx context.Context) ([]SBeEntity.T_Admin, error) {
+func (d Data) GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, error) {
 	var (
-		header  SBeEntity.T_Admin
-		headers []SBeEntity.T_Admin
+		header  SBeEntity.T_Category
+		headers []SBeEntity.T_Category
 	)
 
-	row, err := (*d.stmt)[getAllAdmin].QueryxContext(ctx)
+	row, err := (*d.stmt)[getAllCategory].QueryxContext(ctx)
 
 	if err != nil {
-		return headers, errors.Wrap(err, "[DATA][GetAllAdmin][Query]")
+		return headers, errors.Wrap(err, "[DATA][GetAllCategory][Query]")
 	}
 
 	for row.Next() {
 		err = row.StructScan(&header)
 		if err != nil {
-			return headers, errors.Wrap(err, "[DATA][GetAllAdmin][Query]")
+			return headers, errors.Wrap(err, "[DATA][GetAllCategory][Query]")
 		}
 		headers = append(headers, header)
 	}
-	log.Println("Master Admin : ", headers)
+	log.Println("Master Product : ", headers)
 
 	defer row.Close()
 	return headers, nil
 }
-

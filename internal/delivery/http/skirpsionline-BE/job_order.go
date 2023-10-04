@@ -15,6 +15,9 @@ import (
 type IskripsionlineSvc interface {
 	GetAllAdmin(ctx context.Context) ([]SBeEntity.T_Admin, error)
 	GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error)
+	GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, error) 
+	InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error)
+	GetAllOrder(ctx context.Context) ([]SBeEntity.TH_Order, error)
 }
 
 type (

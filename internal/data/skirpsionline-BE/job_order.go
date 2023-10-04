@@ -84,9 +84,31 @@ const (
 
 ////__________________________________________ T_Category____________________________________________
 
+	getAllCategory = "GetAllCategory"
+	qGetAllCategory = `
+	SELECT ctg_id, ctg_type FROM t_category`
+
 ////__________________________________________ TH_Order ____________________________________________
 
+	getAllOrder = "GetAllOrder" 
+	qGetAllOrder = `
+	SELECT ord_id,
+		customer_id, 
+		ord_status,
+		ord_total,
+		ord_payment	
+	FROM th_order`		
+
 ////__________________________________________ TD_Order ____________________________________________
+
+	getAllOrderDetail = "GetAllOrderDetail" 
+	qGetAllOrderDetail = `
+	SELECT orddetail_id,
+		order_id, 
+		product_id,
+		orddetail_qty,
+		orddetail_total		
+	FROM td_order`						
 
 ////__________________________________________ T_Delivery ____________________________________________
 
@@ -97,8 +119,13 @@ var (
 		//jadwalsttk
 		{getAllAdmin, qGetAllAdmin},
 		{getAllProduct, qGetAllProduct},
+		{getAllCategory, qGetAllCategory},
+		{getAllOrder,qGetAllOrder},
+		{getAllOrderDetail, qGetAllOrderDetail},
 	}
-	insertStmt = []statement{}
+	insertStmt = []statement{
+		{insertProduct,qInsertProduct},
+	}
 	updateStmt = []statement{}
 	deleteStmt = []statement{}
 )

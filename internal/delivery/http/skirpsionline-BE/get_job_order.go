@@ -47,6 +47,12 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 
 	case "getallproduct":
 		result, err = h.skripsionlineSvc.GetAllProduct(ctx)
+
+	case "getallcategory":
+		result, err = h.skripsionlineSvc.GetAllCategory(ctx)
+
+	case "getallorder":
+		result, err = h.skripsionlineSvc.GetAllOrder(ctx)
 	}
 
 	if err != nil {

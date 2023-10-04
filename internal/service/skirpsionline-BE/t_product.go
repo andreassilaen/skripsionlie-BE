@@ -5,7 +5,7 @@ import (
 	// "fmt"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
-	// "log"
+	"log"
 	// "strconv"
 	// "strings"
 	// "job-order-be/pkg/errors"
@@ -20,4 +20,26 @@ func (s Service) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, erro
 	}
 
 	return headers, err
+}
+
+
+func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+
+	result, err = s.skirpsionlineBE.InsertProduct(ctx, header.InsertProductBody)
+	log.Println("header Service = ", header)
+	if err != nil {
+		result = "Gagal Insert"
+		return result, errors.Wrap(err, "[Service][InsertProduct]")
+	} else {
+		result = "Sukses InsertProduct"
+	}
+	return result, err
+
+	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
+	
 }
