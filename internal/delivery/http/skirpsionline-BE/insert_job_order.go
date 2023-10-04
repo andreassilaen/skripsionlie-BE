@@ -54,6 +54,13 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertProduct(ctx, header)
 		log.Println("header Delivery : ", header)
 
+	case "insertcustomer":
+		var header SBeEntity.InsertCustomer
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertCustomer(ctx, header)
+		log.Println("header Delivery : ", header)
+
 	}
 
 	if err != nil {

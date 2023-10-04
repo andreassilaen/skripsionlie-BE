@@ -17,7 +17,18 @@ func (s Service) GetAllAdmin(ctx context.Context) ([]SBeEntity.T_Admin, error) {
 	headers, err := s.skirpsionlineBE.GetAllAdmin(ctx)
 
 	if err != nil {
-		return headers, errors.Wrap(err, "[SERVICE][GetMasterPack]")
+		return headers, errors.Wrap(err, "[SERVICE][GetAllAdmin]")
+	}
+
+	return headers, err
+}
+
+
+func (s Service) GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error) {
+	headers, err := s.skirpsionlineBE.GetAdmByLogin(ctx, username, password)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetAdmByLogin]")
 	}
 
 	return headers, err

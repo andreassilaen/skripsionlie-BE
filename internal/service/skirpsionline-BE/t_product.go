@@ -29,6 +29,7 @@ func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProdu
 		err    error
 	)
 
+	
 
 	result, err = s.skirpsionlineBE.InsertProduct(ctx, header.InsertProductBody)
 	log.Println("header Service = ", header)

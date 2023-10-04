@@ -22,6 +22,12 @@ type Data interface {
 	GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, error)
 	InsertProduct(ctx context.Context, header SBeEntity.T_Product) (string, error)
 	GetAllOrder(ctx context.Context) ([]SBeEntity.TH_Order, error)
+	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
+	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
+	InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (string, error)
+	GetCountCust(ctx context.Context) (int, error)
+	
+	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 }
 
 // AuthData ...

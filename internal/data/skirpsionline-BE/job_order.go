@@ -45,6 +45,20 @@ const (
 		adm_address 
 	FROM t_admin`
 
+
+	getAdmByLogin = "GetCustByLogin"
+	qGetAdmByLogin = `
+	SELECT adm_id,
+		adm_name,
+		adm_username,
+		adm_password,
+		adm_phone,
+		adm_email,
+		adm_address 
+	FROM t_admin
+	WHERE  adm_username = ?
+	AND adm_password = ?`
+
 	////__________________________________________ T_Customer ____________________________________________
 	//  - belum -
 	getAllCustomer  = "GetAllCustomer"
@@ -57,6 +71,43 @@ const (
 		cust_email,
 		cust_address 
 	FROM t_customer`
+
+	getCountCust = "GetCountCust"
+	qGetCountCust = `
+	SELECT COUNT(cust_id) AS total
+	FROM t_customer`
+
+	getCustLastData = "GetCustLastData"
+	qGetCustLastData = `
+	SELECT * FROM t_customer
+	ORDER BY cust_id DESC
+	LIMIT 1`
+
+	insertCustomer = "InsertCustomer"
+	qInsertCustomer = `
+	INSERT INTO t_customer
+		(cust_id,
+		cust_name,
+		cust_username,
+		cust_password,
+		cust_phone,
+		cust_email,
+		cust_address)
+	VALUES(?, ?, ?, ?, ?,  ?, ?)`
+
+	getCustByLogin = "GetCustByLogin"
+	qGetCustByLogin = `
+	SELECT cust_id,
+		cust_name,
+		cust_username,
+		cust_password,
+		cust_phone,
+		cust_email,
+		cust_address 
+	FROM t_customer
+	WHERE  
+	cust_username = ?
+	AND cust_password = ?`
 
 	////__________________________________________ T_Product ____________________________________________
 	//  - belum -
@@ -112,6 +163,16 @@ const (
 
 ////__________________________________________ T_Delivery ____________________________________________
 
+
+///___________________________________________ JOIN TABLES = T_Admin & T_Customer ____________________________________
+	
+	// belum tentu bener
+	getJoinAdmCust = "GetJoinAdmCust"
+	qGetJoinAdmCust =`
+	SELECT a.adm_id, a.adm_username, a.adm_password,
+       c.cust_id, c.cust_username, c.cust_password
+  	FROM t_admin a, t_customer c`
+
 )
 
 var (
@@ -122,9 +183,16 @@ var (
 		{getAllCategory, qGetAllCategory},
 		{getAllOrder,qGetAllOrder},
 		{getAllOrderDetail, qGetAllOrderDetail},
+		{getCustByLogin, qGetCustByLogin},
+		{getAdmByLogin, qGetAdmByLogin},
+		{getCountCust, qGetCountCust},
+		{getCustLastData,qGetCustLastData},
+
+		{getJoinAdmCust, qGetJoinAdmCust},
 	}
 	insertStmt = []statement{
 		{insertProduct,qInsertProduct},
+		{insertCustomer, qInsertCustomer},
 	}
 	updateStmt = []statement{}
 	deleteStmt = []statement{}

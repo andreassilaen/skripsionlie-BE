@@ -71,3 +71,8 @@ type T_Customer struct {
 	CustEmail    string `db:"cust_email" json:"cust_email"`
 	CustAddress  string `db:"cust_address" json:"cust_address"`
 }
+
+
+type InsertCustomer struct {
+	InsertCustomerBody		T_Customer	`json:"data"`
+}

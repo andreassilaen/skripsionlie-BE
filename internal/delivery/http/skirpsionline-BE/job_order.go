@@ -18,6 +18,16 @@ type IskripsionlineSvc interface {
 	GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, error) 
 	InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error)
 	GetAllOrder(ctx context.Context) ([]SBeEntity.TH_Order, error)
+	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
+	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
+	InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) 
+
+	
+
+
+	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
+
+	TokenUser(ctx context.Context) error
 }
 
 type (
