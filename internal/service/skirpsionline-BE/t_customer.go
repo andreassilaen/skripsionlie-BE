@@ -23,7 +23,7 @@ func (s Service) GetCustByLogin(ctx context.Context, username string, password s
 	return headers, err
 }
 
-func (s Service) InsertCustomer(ctx context.Context, newId string, header SBeEntity.InsertCustomer) (string, error) {
+func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) {
 	var (
 		result string
 		err    error

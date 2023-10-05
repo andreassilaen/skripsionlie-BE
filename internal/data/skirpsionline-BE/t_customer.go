@@ -37,7 +37,10 @@ func (d Data) GetCustByLogin(ctx context.Context, username string, password stri
 	return headers, nil
 }
 
-SBeEntity
+// func (d Data) GetCustLastData(ctx context.Context) {int, error} {
+
+// }
+
 
 func (d Data) GetCountCust(ctx context.Context) (int, error) {
 	var (
