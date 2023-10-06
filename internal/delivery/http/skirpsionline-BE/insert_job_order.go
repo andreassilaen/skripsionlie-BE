@@ -52,14 +52,21 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		body, _ := ioutil.ReadAll(r.Body)
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.InsertProduct(ctx, header)
-		log.Println("header Delivery : ", header)
+		log.Println("Delivery InsertProduct : ", header)
 
 	case "insertcustomer":
 		var header SBeEntity.InsertCustomer
 		body, _ := ioutil.ReadAll(r.Body)
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.InsertCustomer(ctx, header)
-		log.Println("header Delivery : ", header)
+		log.Println("Delivery InsertCustomer : ", header)
+
+	case "insertadmin":
+		var header SBeEntity.InsertAdmin
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertAdmin(ctx, header)
+		log.Println("Delivery InsertAdmin : ", header)
 
 	}
 

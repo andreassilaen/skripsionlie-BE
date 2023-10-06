@@ -37,9 +37,29 @@ func (d Data) GetCustByLogin(ctx context.Context, username string, password stri
 	return headers, nil
 }
 
-// func (d Data) GetCustLastData(ctx context.Context) {int, error} {
+func (d Data) GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) {
+	var (
+		header  SBeEntity.T_Customer
+		// headers []SBeEntity.T_Customer
+	)
 
-// }
+	row, err := (*d.stmt)[getCustLastData].QueryxContext(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][GetCustLastData][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][GetCustLastData][Query]")
+		}
+		// headers = append(headers, header)
+	}
+	log.Println("Data GetCustLastData : ", header)
+	defer row.Close()
+	return header, nil
+}
 
 
 func (d Data) GetCountCust(ctx context.Context) (int, error) {
@@ -88,7 +108,7 @@ func (d Data) InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (
 
 	if err != nil {
 		result = "Gagal Insert Data"
-		return result, errors.Wrap(err, "[DATA][insertProduct]")
+		return result, errors.Wrap(err, "[DATA][insertCustomer]")
 	}
 	result = " Data Sukses"
 	return result, err

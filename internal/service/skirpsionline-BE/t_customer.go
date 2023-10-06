@@ -2,6 +2,9 @@ package skirpsionlineBE
 
 import (
 	"context"
+	// "fmt"
+	"strconv"
+
 	// "strconv"
 	// "fmt"
 	"log"
@@ -23,6 +26,17 @@ func (s Service) GetCustByLogin(ctx context.Context, username string, password s
 	return headers, err
 }
 
+func (s Service) GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) {
+	header, err := s.skirpsionlineBE.GetCustLastData(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetCustLastData]")
+	}
+
+	return header, err
+}
+
+
 func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) {
 	var (
 		result string
@@ -31,24 +45,34 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 
 	// total, err := s.skirpsionlineBE.GetCountCust(ctx)
 
+	last, err:= s.skirpsionlineBE.GetCustLastData(ctx)
+
+	
+
 	// word := "adm001"
 
-    // // Take left three characters
-    // leftThree := word[5:]
+    // Take left three characters
+    leftThree := last.CustId[4:]
 
-    // // Print the result
-    // fmt.Println(leftThree)
+    // Print the result
+    log.Println("leftThree",leftThree)
 
-    // test, _ = strconv.Atoi(leftThree)
+    test, _ := strconv.Atoi(leftThree)
+	log.Println("test = ", test)
 
+	test +=1
+	log.Println("test =>", test)
+	testing := strconv.Itoa(test)
+	header.InsertCustomerBody.CustId = "cust" + testing
+	log.Println("hasil akhir : ",header.InsertCustomerBody.CustId)
 
 	result, err = s.skirpsionlineBE.InsertCustomer(ctx, header.InsertCustomerBody)
 	log.Println("header Service = ", header)
 	if err != nil {
 		result = "Gagal Insert"
-		return result, errors.Wrap(err, "[Service][InsertProduct]")
+		return result, errors.Wrap(err, "[Service][InsertCustomer]")
 	} else {
-		result = "Sukses InserCustomer"
+		result = "Sukses InsertCustomer = " + header.InsertCustomerBody.CustId
 	}
 	return result, err
 

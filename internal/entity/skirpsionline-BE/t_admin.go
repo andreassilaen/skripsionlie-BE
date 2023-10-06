@@ -73,3 +73,8 @@ type T_Admin struct {
 	AdmEmail 		string		`db:"adm_email" json:"adm_email"`
 	AdmAddress		string		`db:"adm_address" json:"adm_address"`
 }
+
+
+type InsertAdmin struct {
+	InsertAdminBody		T_Admin	`json:"data"`
+}

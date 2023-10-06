@@ -67,6 +67,13 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		log.Println("getadmbylogin", r.FormValue("username"), r.FormValue("password"))
 
 
+	case "getadmlastdata":
+		result, err = h.skripsionlineSvc.GetAdmLastData(ctx)
+
+	case "getcustlastdata":
+		result, err = h.skripsionlineSvc.GetCustLastData(ctx)
+
+
 
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)

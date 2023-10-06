@@ -21,6 +21,9 @@ type IskripsionlineSvc interface {
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) 
+	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
+	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error)
+	InsertAdmin(ctx context.Context, header SBeEntity.InsertAdmin) (string, error) 
 
 	
 

@@ -26,6 +26,9 @@ type Data interface {
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (string, error)
 	GetCountCust(ctx context.Context) (int, error)
+	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error) 
+	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) 
+	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error) 
 	
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 }

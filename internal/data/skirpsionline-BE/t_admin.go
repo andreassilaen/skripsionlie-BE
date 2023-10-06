@@ -37,6 +37,32 @@ func (d Data) GetAllAdmin(ctx context.Context) ([]SBeEntity.T_Admin, error) {
 	return headers, nil
 }
 
+
+
+func (d Data) GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error) {
+	var (
+		header  SBeEntity.T_Admin
+		// headers []SBeEntity.T_Customer
+	)
+
+	row, err := (*d.stmt)[getAdmLastData].QueryxContext(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][GetAdmLastData][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][GetAdmLastData][Query]")
+		}
+		// headers = append(headers, header)
+	}
+	log.Println("Data GetAdmLastData : ", header)
+	defer row.Close()
+	return header, nil
+}
+
 func (d Data) GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error) {
 	var (
 		header  SBeEntity.T_Admin
@@ -62,3 +88,26 @@ func (d Data) GetAdmByLogin(ctx context.Context, username string, password strin
 	return headers, nil
 }
 
+func (d Data) InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertAdmin].ExecContext(ctx,
+		header.AdmId,
+		header.AdmName,
+		header.AdmUserName,
+		header.AdmPassWord,
+		header.AdmPhone,
+		header.AdmEmail,
+		header.AdmAddress,
+	)
+
+	if err != nil {
+		result = "Gagal Insert Data"
+		return result, errors.Wrap(err, "[DATA][insertAdmin]")
+	}
+	result = " Data Sukses"
+	return result, err
+}

@@ -45,6 +45,25 @@ const (
 		adm_address 
 	FROM t_admin`
 
+	getAdmLastData = "GetAdmLastData"
+	qGetAdmLastData = `
+	SELECT * FROM t_admin
+	ORDER BY adm_id DESC
+	LIMIT 1`
+
+	insertAdmin = "InsertAdmin"
+	qInsertAdmin = `
+	INSERT INTO t_admin
+		(adm_id,
+		adm_name,
+		adm_username,
+		adm_password,
+		adm_phone,
+		adm_email,
+		adm_address)
+	VALUES(?, ?, ?, ?, ?,  ?, ?)`
+
+
 
 	getAdmByLogin = "GetCustByLogin"
 	qGetAdmByLogin = `
@@ -186,13 +205,16 @@ var (
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},
 		{getCountCust, qGetCountCust},
+		{getAdmLastData, qGetAdmLastData},
 		{getCustLastData,qGetCustLastData},
+		
 
 		{getJoinAdmCust, qGetJoinAdmCust},
 	}
 	insertStmt = []statement{
 		{insertProduct,qInsertProduct},
 		{insertCustomer, qInsertCustomer},
+		{insertAdmin, qInsertAdmin},
 	}
 	updateStmt = []statement{}
 	deleteStmt = []statement{}
