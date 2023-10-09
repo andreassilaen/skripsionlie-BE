@@ -65,7 +65,7 @@ const (
 
 
 
-	getAdmByLogin = "GetCustByLogin"
+	getAdmByLogin = "GetAdmByLogin"
 	qGetAdmByLogin = `
 	SELECT adm_id,
 		adm_name,

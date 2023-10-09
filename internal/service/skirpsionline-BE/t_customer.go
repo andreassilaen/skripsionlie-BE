@@ -63,7 +63,7 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 	test +=1
 	log.Println("test =>", test)
 	testing := strconv.Itoa(test)
-	header.InsertCustomerBody.CustId = "cust" + testing
+	header.InsertCustomerBody.CustId = "cus" + testing
 	log.Println("hasil akhir : ",header.InsertCustomerBody.CustId)
 
 	result, err = s.skirpsionlineBE.InsertCustomer(ctx, header.InsertCustomerBody)

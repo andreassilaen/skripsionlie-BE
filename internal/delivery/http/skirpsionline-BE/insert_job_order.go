@@ -68,6 +68,14 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertAdmin(ctx, header)
 		log.Println("Delivery InsertAdmin : ", header)
 
+
+	case "checkuser":
+		var header SBeEntity.CheckUser
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, metadata, err = h.skripsionlineSvc.CheckUser(ctx, header.CheckUserBody)
+		log.Println("Delivery CheckUser : ", header)
+
 	}
 
 	if err != nil {

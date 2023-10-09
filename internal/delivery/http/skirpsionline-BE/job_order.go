@@ -24,6 +24,7 @@ type IskripsionlineSvc interface {
 	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
 	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error)
 	InsertAdmin(ctx context.Context, header SBeEntity.InsertAdmin) (string, error) 
+	CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (interface{}, SBeEntity.B_Role, error)
 
 	
 
