@@ -91,6 +91,19 @@ const (
 		cust_address 
 	FROM t_customer`
 
+	getCustById= "GetCustById"
+	qGetCustById = `
+	SELECT cust_id,
+		cust_name,
+		cust_username,
+		cust_password,
+		cust_phone,
+		cust_email,
+		cust_address 
+	FROM t_customer
+	WHERE  
+	cust_id = ?`
+
 	getCountCust = "GetCountCust"
 	qGetCountCust = `
 	SELECT COUNT(cust_id) AS total
@@ -127,6 +140,17 @@ const (
 	WHERE  
 	cust_username = ?
 	AND cust_password = ?`
+
+	updateCustomerById = "UpdateCustomerById"
+	qUpdateCustomerById = `
+	UPDATE t_customer
+	SET cust_name = ?,
+		cust_username = ?,
+		cust_password = ?,
+		cust_phone = ?,
+		cust_email = ?,
+		cust_address = ?
+	WHERE cust_id= ?`
 
 	////__________________________________________ T_Product ____________________________________________
 	//  - belum -
@@ -202,6 +226,7 @@ var (
 		{getAllCategory, qGetAllCategory},
 		{getAllOrder,qGetAllOrder},
 		{getAllOrderDetail, qGetAllOrderDetail},
+		{getCustById, qGetCustById},
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},
 		{getCountCust, qGetCountCust},
@@ -216,7 +241,9 @@ var (
 		{insertCustomer, qInsertCustomer},
 		{insertAdmin, qInsertAdmin},
 	}
-	updateStmt = []statement{}
+	updateStmt = []statement{
+		{updateCustomerById, qUpdateCustomerById},
+	}
 	deleteStmt = []statement{}
 )
 

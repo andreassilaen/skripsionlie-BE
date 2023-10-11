@@ -24,12 +24,18 @@ type Data interface {
 	GetAllOrder(ctx context.Context) ([]SBeEntity.TH_Order, error)
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
+	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (string, error)
 	GetCountCust(ctx context.Context) (int, error)
 	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error) 
 	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) 
 	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error) 
 	
+
+	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
+
+
+
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 }
 

@@ -62,6 +62,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetCustByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getcustbylogin", r.FormValue("username"), r.FormValue("password"))
 
+	case "getcustbyid":
+		result, err = h.skripsionlineSvc.GetCustById(ctx, r.FormValue("cusid"))
+		log.Println("getcustbyid",r.FormValue("cusid"))
+
 	case "getadmbylogin":
 		result, err = h.skripsionlineSvc.GetAdmByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getadmbylogin", r.FormValue("username"), r.FormValue("password"))

@@ -19,6 +19,7 @@ type IskripsionlineSvc interface {
 	InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error)
 	GetAllOrder(ctx context.Context) ([]SBeEntity.TH_Order, error)
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
+	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error) 
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) 
 	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
@@ -27,6 +28,11 @@ type IskripsionlineSvc interface {
 	CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (interface{}, SBeEntity.B_Role, error)
 
 	
+
+	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
+
+
+
 
 
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)

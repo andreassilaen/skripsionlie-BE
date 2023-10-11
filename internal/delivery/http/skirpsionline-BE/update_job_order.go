@@ -1,10 +1,14 @@
 package skirpsionlineBE
 
 import (
-	httpHelper "skripsi-online-BE/internal/delivery/http"
-	"skripsi-online-BE/pkg/response"
+	"encoding/json"
+	"io/ioutil"
 	"log"
 	"net/http"
+	httpHelper "skripsi-online-BE/internal/delivery/http"
+	"skripsi-online-BE/pkg/response"
+
+	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -41,8 +45,19 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 	// Your code here
 	types = r.FormValue("type")
 	switch types {
-	case "":
-		// case "":
+	case "updatecustomerbyid":
+		var header SBeEntity.UpdateCustomerById
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.UpdateCustomerById(ctx, header, r.FormValue("cusid"))
+		log.Println("UpdateCustomerById", header, r.FormValue("cusid"))
+
+	// case "insertcustomer":
+	// 	var header SBeEntity.InsertCustomer
+	// 	body, _ := ioutil.ReadAll(r.Body)
+	// 	json.Unmarshal(body, &header)
+	// 	result, err = h.skripsionlineSvc.InsertCustomer(ctx, header)
+	// 	log.Println("Delivery InsertCustomer : ", header)
 	}
 
 	if err != nil {

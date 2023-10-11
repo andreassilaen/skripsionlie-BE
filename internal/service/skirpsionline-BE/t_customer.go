@@ -25,6 +25,16 @@ func (s Service) GetCustByLogin(ctx context.Context, username string, password s
 
 	return headers, err
 }
+func (s Service) GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error) {
+	headers, err := s.skirpsionlineBE.GetCustById(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetCustById]")
+	}
+
+	return headers, err
+}
+
 
 func (s Service) GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) {
 	header, err := s.skirpsionlineBE.GetCustLastData(ctx)
@@ -52,7 +62,7 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 	// word := "adm001"
 
     // Take left three characters
-    leftThree := last.CustId[4:]
+    leftThree := last.CustId[3:]
 
     // Print the result
     log.Println("leftThree",leftThree)
@@ -78,4 +88,21 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 
 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
 	
+}
+
+func (s Service) UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	result, err = s.skirpsionlineBE.UpdateCustomerById(ctx, header.UpdateCustomerByIdBody, cusId)
+	log.Println("cusId =>", cusId)
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[Service][UpdateCustomerById]")
+	} else {
+		result = "Sukses UpdateCustomerById"
+	}
+	return result, err
 }
