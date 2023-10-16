@@ -17,7 +17,7 @@ type IskripsionlineSvc interface {
 	GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error)
 	GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, error) 
 	InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error)
-	GetAllOrder(ctx context.Context) ([]SBeEntity.TH_Order, error)
+	GetAllCart(ctx context.Context) ([]SBeEntity.TH_Cart, error)
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
 	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error) 
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)

@@ -51,8 +51,8 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "getallcategory":
 		result, err = h.skripsionlineSvc.GetAllCategory(ctx)
 
-	case "getallorder":
-		result, err = h.skripsionlineSvc.GetAllOrder(ctx)
+	case "getallcart":
+		result, err = h.skripsionlineSvc.GetAllCart(ctx)
 
 
 	case "tokenuser" :

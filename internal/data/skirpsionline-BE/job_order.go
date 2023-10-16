@@ -157,11 +157,13 @@ const (
 	getAllProduct  = "GetAllProduct"
 	qGetAllProduct = `
 	SELECT prod_id,
+		adm_id,
 		ctg_id,
 		prod_name,
-		prod_stock,
+		prod_desc,
 		prod_price,
-		prod_desc
+		prod_stock,
+		prod_lastupdate
 	FROM t_product`
 	// VALUES (?, ?, ?, ?, ?, ?)`
 
@@ -169,12 +171,14 @@ const (
 	qInsertProduct = `
 	INSERT INTO t_product
 		(prod_id,
+		adm_id,
 		ctg_id,
 		prod_name,
-		prod_stock,
+		prod_desc,
 		prod_price,
-		prod_desc)
-	VALUES (?, ?, ?, ?, ?, ?)`
+		prod_stock,
+		prod_lastupdate)
+	VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`
 
 ////__________________________________________ T_Category____________________________________________
 
@@ -182,27 +186,28 @@ const (
 	qGetAllCategory = `
 	SELECT ctg_id, ctg_type FROM t_category`
 
-////__________________________________________ TH_Order ____________________________________________
+////__________________________________________ TH_Cart ____________________________________________
 
-	getAllOrder = "GetAllOrder" 
-	qGetAllOrder = `
-	SELECT ord_id,
-		customer_id, 
-		ord_status,
-		ord_total,
-		ord_payment	
-	FROM th_order`		
+	getAllCart = "GetAllCart" 
+	qGetAllCart = `
+	SELECT 
+		cart_id,
+		cust_id,
+		cart_total, 
+		cart_lastupdate
+	FROM th_cart`		
 
-////__________________________________________ TD_Order ____________________________________________
+////__________________________________________ TD_Cart ____________________________________________
 
-	getAllOrderDetail = "GetAllOrderDetail" 
-	qGetAllOrderDetail = `
-	SELECT orddetail_id,
-		order_id, 
-		product_id,
-		orddetail_qty,
-		orddetail_total		
-	FROM td_order`						
+	getAllCartDetail = "GetAllCartDetail" 
+	qGetAllCartDetail = `
+	SELECT 
+		cart_id,
+		ord_id,
+		prod_id,
+		cartdtl_qty,
+		cartdtl_total
+	FROM td_cart`						
 
 ////__________________________________________ T_Delivery ____________________________________________
 
@@ -224,8 +229,8 @@ var (
 		{getAllAdmin, qGetAllAdmin},
 		{getAllProduct, qGetAllProduct},
 		{getAllCategory, qGetAllCategory},
-		{getAllOrder,qGetAllOrder},
-		{getAllOrderDetail, qGetAllOrderDetail},
+		{getAllCart,qGetAllCart},
+		{getAllCartDetail, qGetAllCartDetail},
 		{getCustById, qGetCustById},
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},
@@ -234,7 +239,7 @@ var (
 		{getCustLastData,qGetCustLastData},
 		
 
-		{getJoinAdmCust, qGetJoinAdmCust},
+		// {getJoinAdmCust, qGetJoinAdmCust},
 	}
 	insertStmt = []statement{
 		{insertProduct,qInsertProduct},

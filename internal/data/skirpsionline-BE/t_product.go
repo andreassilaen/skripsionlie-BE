@@ -40,7 +40,7 @@ func (d Data) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error) 
 
 
 
-func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product) (string, error) {
+func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (string, error) {
 	var (
 		result string
 		err    error
@@ -48,11 +48,14 @@ func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product) (st
 
 	_, err = (*d.stmt)[insertProduct].ExecContext(ctx,
 		header.ProdId,
+		header.AdmId,
 		header.CtgId,
 		header.ProdName,
-		header.ProdStock,
+		header.ProdDesc,
 		header.ProdPrice,
-		header.ProdDesc,)
+		header.ProdStock,
+		// header.ProdLastupdate,
+	)
 
 	if err != nil {
 		result = "Gagal update Data"
