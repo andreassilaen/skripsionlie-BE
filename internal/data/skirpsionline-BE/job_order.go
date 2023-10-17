@@ -78,6 +78,55 @@ const (
 	WHERE  adm_username = ?
 	AND adm_password = ?`
 
+
+	////__________________________________________ T_Employee____________________________________________
+	//	+ selesai +
+	getAllEmployee  = "GetAllEmployee"
+	qGetAllEmployee = `
+	SELECT emp_id,
+		emp_name,
+		emp_username,
+		emp_password,
+		emp_phone,
+		emp_email,
+		emp_address 				
+	FROM t_employee`
+
+	getEmpLastData = "GetEmpLastData"
+	qGetEmpLastData = `
+	SELECT * FROM t_employee
+	ORDER BY emp_id DESC
+	LIMIT 1`
+
+	insertEmployee = "InsertEmployee"
+	qInsertEmployee = `
+	INSERT INTO t_employee
+		( emp_id, 
+		emp_name,
+		emp_username,
+		emp_password,
+		emp_phone,
+		emp_email,
+		emp_address )
+	VALUES(?, ?, ?, ?,?, ?, ?)`
+
+
+
+	getEmpByLogin = "GetEmpByLogin"
+	qGetEmpByLogin = `
+	SELECT emp_id,
+		emp_name,
+		emp_username,
+		emp_password,
+		emp_phone,
+		emp_email,
+		emp_address 								
+	FROM t_employee	
+	WHERE  emp_username = ?
+	AND emp_password = ?`
+
+
+
 	////__________________________________________ T_Customer ____________________________________________
 	//  - belum -
 	getAllCustomer  = "GetAllCustomer"
@@ -197,6 +246,16 @@ const (
 		cart_lastupdate
 	FROM th_cart`		
 
+	getCartByCustId = "GetCartByCustId"
+	qGetCartByCustId = `
+	SELECT 
+		cart_id,														
+		cust_id,
+		cart_total, 
+		cart_lastupdate
+		FROM th_cart
+	WHERE cust_id = ?`
+
 ////__________________________________________ TD_Cart ____________________________________________
 
 	getAllCartDetail = "GetAllCartDetail" 
@@ -237,7 +296,12 @@ var (
 		{getCountCust, qGetCountCust},
 		{getAdmLastData, qGetAdmLastData},
 		{getCustLastData,qGetCustLastData},
-		
+
+		{getCartByCustId,qGetCartByCustId},
+
+		{getAllEmployee, qGetAllEmployee},	
+		{getEmpByLogin, qGetEmpByLogin},	
+		{getEmpLastData, qGetEmpLastData},
 
 		// {getJoinAdmCust, qGetJoinAdmCust},
 	}
@@ -245,6 +309,7 @@ var (
 		{insertProduct,qInsertProduct},
 		{insertCustomer, qInsertCustomer},
 		{insertAdmin, qInsertAdmin},
+		{insertEmployee, qInsertEmployee},
 	}
 	updateStmt = []statement{
 		{updateCustomerById, qUpdateCustomerById},

@@ -27,7 +27,16 @@ type IskripsionlineSvc interface {
 	InsertAdmin(ctx context.Context, header SBeEntity.InsertAdmin) (string, error) 
 	CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (interface{}, SBeEntity.B_Role, error)
 
-	
+	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
+
+
+
+	GetAllEmployee(ctx context.Context) ([]SBeEntity.T_Employee, error)
+	GetEmpLastData(ctx context.Context) (SBeEntity.T_Employee, error)
+	GetEmpByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Employee, error)
+	InsertEmployee(ctx context.Context, header SBeEntity.InsertEmployee) (string, error)
+
+
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
 

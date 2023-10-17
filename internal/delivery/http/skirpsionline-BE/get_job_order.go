@@ -78,9 +78,25 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetCustLastData(ctx)
 
 
+	case "getallemployee":
+		result, err = h.skripsionlineSvc.GetAllEmployee(ctx)
+	case "getemplastdata":
+		result, err = h.skripsionlineSvc.GetEmpLastData(ctx)
+	case "getempbylogin":
+		result, err = h.skripsionlineSvc.GetEmpByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
+		log.Println("getempbylogin", r.FormValue("username"), r.FormValue("password"))
+
+
+
+	case "getcartbycustid":
+		result, err = h.skripsionlineSvc.GetCartByCustId(ctx, r.FormValue("cusid"))
+		log.Println("getcartbycustid",r.FormValue("cusid"))
+
 
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)
+
+	
 		
 	}
 

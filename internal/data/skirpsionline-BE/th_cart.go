@@ -36,3 +36,28 @@ func (d Data) GetAllCart(ctx context.Context) ([]SBeEntity.TH_Cart, error) {
 	defer row.Close()
 	return headers, nil
 }
+
+func (d Data) GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error) {
+	var (
+		header  SBeEntity.TH_Cart
+		headers []SBeEntity.TH_Cart
+	)
+
+	row, err := (*d.stmt)[getCartByCustId].QueryxContext(ctx,custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][GetCartByCustId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][GetCartByCustId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master Product : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}

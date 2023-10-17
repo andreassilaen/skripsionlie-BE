@@ -99,12 +99,20 @@ func (s Service) CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (in
 
 	tAdmin, err := s.GetAdmByLogin(ctx, header.UserName, header.PassWord)
 
+	tEmployee, err := s.GetEmpByLogin(ctx, header.UserName, header.PassWord)
+
 	tCustomer, err := s.GetCustByLogin(ctx, header.UserName, header.PassWord)
 
 	if len(tAdmin) != 0 {
 		// if tAdmin.UserName == header.UserName && t
 		result.Role = "adm"
 			result2 = tAdmin
+		// return result, err
+	}
+
+	if len (tEmployee) != 0 {
+		result.Role = "emp"
+	result2 = tEmployee
 		// return result, err
 	}
 
@@ -116,7 +124,7 @@ func (s Service) CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (in
 
 	// errs := &SBeEntity.CustomError{Code: 101, Message: "Error 101: This is a custom error with code 101."}
 
-	if len(tAdmin) == 0 && len(tCustomer) == 0 {
+	if len(tAdmin) == 0 && len(tCustomer) == 0 && len(tEmployee) == 0 {
 		// error.Error.()
 		// return result, errs
 		result.Role = "gagal" 

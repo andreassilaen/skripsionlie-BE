@@ -31,8 +31,15 @@ type Data interface {
 	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) 
 	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error) 
 	
+	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
+
+	GetAllEmployee(ctx context.Context) ([]SBeEntity.T_Employee, error)
+	GetEmpLastData(ctx context.Context) (SBeEntity.T_Employee, error)
+	GetEmpByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Employee, error)
+	InsertEmployee(ctx context.Context, header SBeEntity.T_Employee) (string, error)
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
+	
 
 
 
