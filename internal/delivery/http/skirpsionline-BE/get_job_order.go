@@ -93,6 +93,12 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		log.Println("getcartbycustid",r.FormValue("cusid"))
 
 
+
+	case "gettranbycartid":
+		result, err = h.skripsionlineSvc.GetTranByCartId(ctx, r.FormValue("cartid"))
+		log.Println("gettranbycartid",r.FormValue("cartid"))
+
+
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)
 

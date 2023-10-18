@@ -212,7 +212,8 @@ const (
 		prod_desc,
 		prod_price,
 		prod_stock,
-		prod_lastupdate
+		prod_lastupdate,
+		prod_img
 	FROM t_product`
 	// VALUES (?, ?, ?, ?, ?, ?)`
 
@@ -258,15 +259,28 @@ const (
 
 ////__________________________________________ TD_Cart ____________________________________________
 
-	getAllCartDetail = "GetAllCartDetail" 
-	qGetAllCartDetail = `
+	// getAllCartDetail = "GetAllCartDetail" 
+	// qGetAllCartDetail = `
+	// SELECT 
+	// 	cart_id,
+	// 	prod_id,
+	// 	cartdtl_qty,
+	// FROM td_cart`		
+	
+	
+////__________________________________________ T_Transaction____________________________________________
+	
+	getTranByCartId = "GetTranByCartId"
+	qGetTranByCartId = `
 	SELECT 
+		tra_id,
 		cart_id,
-		ord_id,
-		prod_id,
-		cartdtl_qty,
-		cartdtl_total
-	FROM td_cart`						
+		tra_total,
+		tra_img,
+		tra_date
+	FROM th_transaction
+	WHERE cart_id = ?`
+
 
 ////__________________________________________ T_Delivery ____________________________________________
 
@@ -289,7 +303,7 @@ var (
 		{getAllProduct, qGetAllProduct},
 		{getAllCategory, qGetAllCategory},
 		{getAllCart,qGetAllCart},
-		{getAllCartDetail, qGetAllCartDetail},
+		// {getAllCartDetail, qGetAllCartDetail},
 		{getCustById, qGetCustById},
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},
@@ -298,6 +312,8 @@ var (
 		{getCustLastData,qGetCustLastData},
 
 		{getCartByCustId,qGetCartByCustId},
+
+		{getTranByCartId, qGetTranByCartId},
 
 		{getAllEmployee, qGetAllEmployee},	
 		{getEmpByLogin, qGetEmpByLogin},	

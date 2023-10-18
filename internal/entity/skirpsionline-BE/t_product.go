@@ -10,7 +10,8 @@ type T_Product struct {
 	ProdDesc  			string 		`db:"prod_desc" json:"prod_desc"`
 	ProdPrice 			int 		`db:"prod_price" json:"prod_price"`
 	ProdStock 			int 		`db:"prod_stock" json:"prod_stock"`
-	ProdLastupdate		string	`db:"prod_lastupdate" json:"prod_lastupdate"`
+	ProdLastupdate		string		`db:"prod_lastupdate" json:"prod_lastupdate"`
+	ProdImage			string		`db:"prod_img" json:"prod_img"`
 }
 
 type T_Product2 struct {

@@ -37,6 +37,9 @@ type IskripsionlineSvc interface {
 	InsertEmployee(ctx context.Context, header SBeEntity.InsertEmployee) (string, error)
 
 
+	GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error) 
+
+
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
 
