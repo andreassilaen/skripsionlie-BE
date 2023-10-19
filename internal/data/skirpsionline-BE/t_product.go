@@ -38,6 +38,31 @@ func (d Data) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error) 
 }
 
 
+func (d Data) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error) {
+	var (
+		header  SBeEntity.T_Product
+		// headers []SBeEntity.T_Customer
+	)
+
+	row, err := (*d.stmt)[getProdLastData].QueryxContext(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][GetProdLastData][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][GetProdLastData][Query]")
+		}
+		// headers = append(headers, header)
+	}
+	log.Println("Data GetProdLastData : ", header)
+	defer row.Close()
+	return header, nil
+}
+
+
 
 
 func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (string, error) {
@@ -47,13 +72,13 @@ func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (s
 	)
 
 	_, err = (*d.stmt)[insertProduct].ExecContext(ctx,
-		header.ProdId,
 		header.AdmId,
 		header.CtgId,
 		header.ProdName,
 		header.ProdDesc,
 		header.ProdPrice,
 		header.ProdStock,
+		header.ProdImage,
 		// header.ProdLastupdate,
 	)
 

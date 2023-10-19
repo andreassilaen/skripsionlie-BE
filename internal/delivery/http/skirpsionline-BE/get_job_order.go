@@ -76,7 +76,8 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 
 	case "getcustlastdata":
 		result, err = h.skripsionlineSvc.GetCustLastData(ctx)
-
+	case "getprodlastdata":
+		result, err = h.skripsionlineSvc.GetProdLastData(ctx)
 
 	case "getallemployee":
 		result, err = h.skripsionlineSvc.GetAllEmployee(ctx)

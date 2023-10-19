@@ -54,14 +54,13 @@ const (
 	insertAdmin = "InsertAdmin"
 	qInsertAdmin = `
 	INSERT INTO t_admin
-		(adm_id,
-		adm_name,
+		(adm_name,
 		adm_username,
 		adm_password,
 		adm_phone,
 		adm_email,
 		adm_address)
-	VALUES(?, ?, ?, ?, ?,  ?, ?)`
+	VALUES(?, ?, ?, ?,  ?, ?)`
 
 
 
@@ -101,14 +100,13 @@ const (
 	insertEmployee = "InsertEmployee"
 	qInsertEmployee = `
 	INSERT INTO t_employee
-		( emp_id, 
-		emp_name,
+		(emp_name,
 		emp_username,
 		emp_password,
 		emp_phone,
 		emp_email,
 		emp_address )
-	VALUES(?, ?, ?, ?,?, ?, ?)`
+	VALUES(?, ?, ?,?, ?, ?)`
 
 
 
@@ -167,14 +165,13 @@ const (
 	insertCustomer = "InsertCustomer"
 	qInsertCustomer = `
 	INSERT INTO t_customer
-		(cust_id,
-		cust_name,
+		(cust_name,
 		cust_username,
 		cust_password,
 		cust_phone,
 		cust_email,
 		cust_address)
-	VALUES(?, ?, ?, ?, ?,  ?, ?)`
+	VALUES( ?, ?, ?, ?,  ?, ?)`
 
 	getCustByLogin = "GetCustByLogin"
 	qGetCustByLogin = `
@@ -220,15 +217,21 @@ const (
 	insertProduct  = "InsertProduct"
 	qInsertProduct = `
 	INSERT INTO t_product
-		(prod_id,
-		adm_id,
+		(adm_id,
 		ctg_id,
 		prod_name,
 		prod_desc,
 		prod_price,
 		prod_stock,
-		prod_lastupdate)
-	VALUES (?, ?, ?, ?, ?, ?, ?, NOW())`
+		prod_lastupdate,
+		prod_img)
+	VALUES(?, ?, ?, ?, ?, ?,  NOW(), ?)`
+
+	getProdLastData = "GetProdLastData"
+	qGetProdLastData = `
+	SELECT * FROM t_product
+	ORDER BY prod_id DESC
+	LIMIT 1`
 
 ////__________________________________________ T_Category____________________________________________
 
@@ -310,6 +313,7 @@ var (
 		{getCountCust, qGetCountCust},
 		{getAdmLastData, qGetAdmLastData},
 		{getCustLastData,qGetCustLastData},
+		{getProdLastData, qGetProdLastData},
 
 		{getCartByCustId,qGetCartByCustId},
 

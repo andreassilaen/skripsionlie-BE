@@ -3,7 +3,7 @@ package skirpsionlineBE
 import (
 	"context"
 	// "fmt"
-	"strconv"
+	// "strconv"
 
 	// "strconv"
 	// "fmt"
@@ -53,42 +53,66 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 		err    error
 	)
 
-	// total, err := s.skirpsionlineBE.GetCountCust(ctx)
-
-	last, err:= s.skirpsionlineBE.GetCustLastData(ctx)
-
-	
-
-	// word := "adm001"
-
-    // Take left three characters
-    leftThree := last.CustId[3:]
-
-    // Print the result
-    log.Println("leftThree",leftThree)
-
-    test, _ := strconv.Atoi(leftThree)
-	log.Println("test = ", test)
-
-	test +=1
-	log.Println("test =>", test)
-	testing := strconv.Itoa(test)
-	header.InsertCustomerBody.CustId = "cus" + testing
-	log.Println("hasil akhir : ",header.InsertCustomerBody.CustId)
-
 	result, err = s.skirpsionlineBE.InsertCustomer(ctx, header.InsertCustomerBody)
 	log.Println("header Service = ", header)
 	if err != nil {
 		result = "Gagal Insert"
 		return result, errors.Wrap(err, "[Service][InsertCustomer]")
 	} else {
-		result = "Sukses InsertCustomer = " + header.InsertCustomerBody.CustId
+		// result = "Sukses InsertCustomer = " + header.InsertCustomerBody.CustId
+		result = "Sukses InsertCustomer"
 	}
 	return result, err
 
 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
 	
 }
+
+
+
+
+// func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) {
+// 	var (
+// 		result string
+// 		err    error
+// 	)
+
+// 	// total, err := s.skirpsionlineBE.GetCountCust(ctx)
+
+// 	last, err:= s.skirpsionlineBE.GetCustLastData(ctx)
+
+	
+
+// 	// word := "adm001"
+
+//     // Take left three characters
+//     leftThree := last.CustId[3:]
+
+//     // Print the result
+//     log.Println("leftThree",leftThree)
+
+//     test, _ := strconv.Atoi(leftThree)
+// 	log.Println("test = ", test)
+
+// 	test +=1
+// 	log.Println("test =>", test)
+// 	testing := strconv.Itoa(test)
+// 	header.InsertCustomerBody.CustId = "cus" + testing
+// 	log.Println("hasil akhir : ",header.InsertCustomerBody.CustId)
+
+// 	result, err = s.skirpsionlineBE.InsertCustomer(ctx, header.InsertCustomerBody)
+// 	log.Println("header Service = ", header)
+// 	if err != nil {
+// 		result = "Gagal Insert"
+// 		return result, errors.Wrap(err, "[Service][InsertCustomer]")
+// 	} else {
+// 		result = "Sukses InsertCustomer = " + header.InsertCustomerBody.CustId
+// 	}
+// 	return result, err
+
+// 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
+	
+// }
 
 func (s Service) UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error) {
 	var (

@@ -2,10 +2,11 @@ package skirpsionlineBE
 
 import (
 	"context"
+	// "strconv"
 	// "fmt"
+	"log"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
-	"log"
 	// "strconv"
 	// "strings"
 	// "job-order-be/pkg/errors"
@@ -28,9 +29,7 @@ func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProdu
 		result string
 		err    error
 	)
-
 	
-
 	result, err = s.skirpsionlineBE.InsertProduct(ctx, header.InsertProductBody)
 	log.Println("header Service = ", header)
 	if err != nil {
@@ -43,4 +42,57 @@ func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProdu
 
 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
 	
+}
+
+// func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error) {
+// 	var (
+// 		result string
+// 		err    error
+// 	)
+
+// 	last, err:= s.skirpsionlineBE.GetProdLastData(ctx)
+
+	
+
+// 	// word := "adm001"
+
+//     // Take left three characters
+//     leftThree := last.ProdId[3:]
+
+//     // Print the result
+//     log.Println("leftThree",leftThree)
+
+//     test, _ := strconv.Atoi(leftThree)
+// 	log.Println("test = ", test)
+
+// 	test +=1
+// 	log.Println("test =>", test)
+// 	testing := strconv.Itoa(test)
+// 	header.InsertProductBody.ProdId = "pro" + testing
+// 	log.Println("hasil akhir : ",header.InsertProductBody.ProdId)
+	
+
+// 	result, err = s.skirpsionlineBE.InsertProduct(ctx, header.InsertProductBody)
+// 	log.Println("header Service = ", header)
+// 	if err != nil {
+// 		result = "Gagal Insert"
+// 		return result, errors.Wrap(err, "[Service][InsertProduct]")
+// 	} else {
+// 		result = "Sukses InsertProduct"
+// 	}
+// 	return result, err
+
+// 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
+	
+// }
+
+
+func (s Service) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error) {
+	header, err := s.skirpsionlineBE.GetProdLastData(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetProdLastData]")
+	}
+
+	return header, err
 }

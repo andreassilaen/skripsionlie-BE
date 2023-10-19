@@ -63,7 +63,7 @@ package skirpsionlineBE
 // }
 
 type T_Customer struct {
-	CustId       string `db:"cust_id" json:"cust_id"`
+	CustId       int `db:"cust_id" json:"cust_id"`
 	CustName     string `db:"cust_name" json:"cust_name"`
 	CustUserName string `db:"cust_username" json:"cust_username"`
 	CustPassWord string `db:"cust_password" json:"cust_password"`

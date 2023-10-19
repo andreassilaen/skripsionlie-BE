@@ -95,7 +95,6 @@ func (d Data) InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string
 	)
 
 	_, err = (*d.stmt)[insertAdmin].ExecContext(ctx,
-		header.AdmId,
 		header.AdmName,
 		header.AdmUserName,
 		header.AdmPassWord,

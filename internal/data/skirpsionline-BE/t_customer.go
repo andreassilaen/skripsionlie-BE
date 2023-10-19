@@ -123,7 +123,6 @@ func (d Data) InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (
 	)
 
 	_, err = (*d.stmt)[insertCustomer].ExecContext(ctx,
-		header.CustId,
 		header.CustName,
 		header.CustUserName,
 		header.CustPassWord,

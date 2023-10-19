@@ -95,7 +95,6 @@ func (d Data) InsertEmployee(ctx context.Context, header SBeEntity.T_Employee) (
 	)
 
 	_, err = (*d.stmt)[insertEmployee].ExecContext(ctx,
-		header.EmpId,
 		header.EmpName,
 		header.EmpUserName,
 		header.EmpPassWord,

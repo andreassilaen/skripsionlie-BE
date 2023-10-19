@@ -3,7 +3,7 @@ package skirpsionlineBE
 import (
 	"context"
 	"log"
-	"strconv"
+	// "strconv"
 	// "fmt"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
@@ -53,27 +53,13 @@ func (s Service) InsertEmployee(ctx context.Context, header SBeEntity.InsertEmpl
 		err    error
 	)
 
-	last, err:= s.skirpsionlineBE.GetEmpLastData(ctx)
-	
-    leftFour:= last.EmpId[3:]
-    log.Println("leftFour = ",leftFour)
-
-    test, _ := strconv.Atoi(leftFour)
-	log.Println("test = ", test)
-
-	test +=1
-	log.Println("test =>", test)
-	testing := strconv.Itoa(test)
-	header.InsertEmployeeBody.EmpId = "emp" + testing
-	log.Println("hasil akhir : ",header.InsertEmployeeBody.EmpId)
-
 	result, err = s.skirpsionlineBE.InsertEmployee(ctx, header.InsertEmployeeBody)
 	log.Println("header Service = ", header)
 	if err != nil {
 		result = "Gagal Insert"
 		return result, errors.Wrap(err, "[Service][InsertEmployee]")
 	} else {
-		result = "Sukses InsertEmployee = " + header.InsertEmployeeBody.EmpId
+		result = "Sukses InsertEmployee"
 	}
 	return result, err
 	
