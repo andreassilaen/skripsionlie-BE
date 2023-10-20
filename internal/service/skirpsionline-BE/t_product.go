@@ -29,7 +29,7 @@ func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProdu
 		result string
 		err    error
 	)
-	
+
 	result, err = s.skirpsionlineBE.InsertProduct(ctx, header.InsertProductBody)
 	log.Println("header Service = ", header)
 	if err != nil {
@@ -39,8 +39,6 @@ func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProdu
 		result = "Sukses InsertProduct"
 	}
 	return result, err
-
-	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
 	
 }
 

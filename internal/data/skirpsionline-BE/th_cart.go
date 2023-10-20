@@ -61,3 +61,42 @@ func (d Data) GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.T
 	defer row.Close()
 	return headers, nil
 }
+
+
+
+
+
+func (d Data) InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertHeaderCart].ExecContext(ctx,
+		header.CustId,
+		header.CartTotal,
+	)
+
+	if err != nil {
+		result = "Gagal update Data"
+		return result, errors.Wrap(err, "[DATA][insertHeaderCart]")
+	}
+	result = " Sukses Data"
+	return result, err
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

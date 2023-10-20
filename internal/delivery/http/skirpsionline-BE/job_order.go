@@ -29,6 +29,10 @@ type IskripsionlineSvc interface {
 	CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (interface{}, SBeEntity.B_Role, error)
 
 	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
+	InsertHeaderCart(ctx context.Context, header SBeEntity.InsertHeaderCart) (string, error)
+
+
+	InsertDetailCart(ctx context.Context, header SBeEntity.InsertDetailCart) (string, error)
 
 
 

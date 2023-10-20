@@ -33,6 +33,10 @@ type Data interface {
 	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error) 
 	
 	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
+	InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (string, error)
+
+
+	InsertDetailCart(ctx context.Context, header SBeEntity.TD_Cart2) (string, error)
 
 
 	GetAllEmployee(ctx context.Context) ([]SBeEntity.T_Employee, error)

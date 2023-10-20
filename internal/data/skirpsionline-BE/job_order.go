@@ -260,6 +260,14 @@ const (
 		FROM th_cart
 	WHERE cust_id = ?`
 
+	insertHeaderCart = "InsertHeaderCart"
+	qInsertHeaderCart = `
+	INSERT INTO th_cart (
+		cust_id,
+		cart_total,
+		cart_lastupdate)
+		VALUES (?, ?, NOW())`
+
 ////__________________________________________ TD_Cart ____________________________________________
 
 	// getAllCartDetail = "GetAllCartDetail" 
@@ -268,7 +276,15 @@ const (
 	// 	cart_id,
 	// 	prod_id,
 	// 	cartdtl_qty,
-	// FROM td_cart`		
+	// FROM td_cart`	
+	
+	insertDetailCart = "InsertDetailCart"
+	qInsertDetailCart = `
+	INSERT INTO td_cart (
+		cart_id,
+		prod_id,
+		cardtl_qty)
+		VALUES (?, ?, ?)`
 	
 	
 ////__________________________________________ T_Transaction____________________________________________
@@ -330,6 +346,8 @@ var (
 		{insertCustomer, qInsertCustomer},
 		{insertAdmin, qInsertAdmin},
 		{insertEmployee, qInsertEmployee},
+		{insertHeaderCart,qInsertHeaderCart},
+		{insertDetailCart, qInsertDetailCart},
 	}
 	updateStmt = []statement{
 		{updateCustomerById, qUpdateCustomerById},

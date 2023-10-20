@@ -75,6 +75,21 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertEmployee(ctx, header)
 		log.Println("Delivery InsertEmployee : ", header)
 
+	case "insertheadercart":
+		var header SBeEntity.InsertHeaderCart
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertHeaderCart(ctx, header)
+		log.Println("Delivery InsertHeaderCart : ", header)
+
+	case "insertdetailcart":
+		var header SBeEntity.InsertDetailCart
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertDetailCart(ctx, header)
+		log.Println("Delivery InsertDetailCart : ", header)
+
+
 
 	case "checkuser":
 		var header SBeEntity.CheckUser
