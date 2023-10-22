@@ -54,9 +54,11 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "getallcart":
 		result, err = h.skripsionlineSvc.GetAllCart(ctx)
 
+	case "getallheadertran":
+		result, err = h.skripsionlineSvc.GetAllHeaderTran(ctx)
 
-	case "tokenuser" :
-		err = h.skripsionlineSvc.TokenUser(ctx) 
+	case "tokenuser":
+		err = h.skripsionlineSvc.TokenUser(ctx)
 
 	case "getcustbylogin":
 		result, err = h.skripsionlineSvc.GetCustByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
@@ -64,12 +66,11 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 
 	case "getcustbyid":
 		result, err = h.skripsionlineSvc.GetCustById(ctx, r.FormValue("cusid"))
-		log.Println("getcustbyid",r.FormValue("cusid"))
+		log.Println("getcustbyid", r.FormValue("cusid"))
 
 	case "getadmbylogin":
 		result, err = h.skripsionlineSvc.GetAdmByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getadmbylogin", r.FormValue("username"), r.FormValue("password"))
-
 
 	case "getadmlastdata":
 		result, err = h.skripsionlineSvc.GetAdmLastData(ctx)
@@ -87,26 +88,18 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetEmpByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getempbylogin", r.FormValue("username"), r.FormValue("password"))
 
-
-
 	case "getcartbycustid":
 		result, err = h.skripsionlineSvc.GetCartByCustId(ctx, r.FormValue("cusid"))
-		log.Println("getcartbycustid",r.FormValue("cusid"))
-
-
+		log.Println("getcartbycustid", r.FormValue("cusid"))
 
 	case "gettranbycartid":
 		result, err = h.skripsionlineSvc.GetTranByCartId(ctx, r.FormValue("cartid"))
-		log.Println("gettranbycartid",r.FormValue("cartid"))
-
+		log.Println("gettranbycartid", r.FormValue("cartid"))
 
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)
 
-	
-		
 	}
-
 
 	if err != nil {
 		resp = httpHelper.ParseErrorCode(err.Error())

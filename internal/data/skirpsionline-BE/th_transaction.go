@@ -37,13 +37,38 @@ import (
 // 	return headers, nil
 // }
 
+func (d Data) GetAllHeaderTran(ctx context.Context) ([]SBeEntity.TH_Transaction, error) {
+	var (
+		header  SBeEntity.TH_Transaction
+		headers []SBeEntity.TH_Transaction
+	)
+
+	row, err := (*d.stmt)[getAllHeaderTran].QueryxContext(ctx)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getAllHeaderTran][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getAllHeaderTran][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master Product : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
 func (d Data) GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error) {
 	var (
 		header  SBeEntity.TH_Transaction
 		headers []SBeEntity.TH_Transaction
 	)
 
-	row, err := (*d.stmt)[getTranByCartId].QueryxContext(ctx,cartId)
+	row, err := (*d.stmt)[getTranByCartId].QueryxContext(ctx, cartId)
 
 	if err != nil {
 		return headers, errors.Wrap(err, "[DATA][GetTranByCartId][Query]")

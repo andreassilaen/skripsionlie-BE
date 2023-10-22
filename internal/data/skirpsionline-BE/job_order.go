@@ -45,13 +45,13 @@ const (
 		adm_address 
 	FROM t_admin`
 
-	getAdmLastData = "GetAdmLastData"
+	getAdmLastData  = "GetAdmLastData"
 	qGetAdmLastData = `
 	SELECT * FROM t_admin
 	ORDER BY adm_id DESC
 	LIMIT 1`
 
-	insertAdmin = "InsertAdmin"
+	insertAdmin  = "InsertAdmin"
 	qInsertAdmin = `
 	INSERT INTO t_admin
 		(adm_name,
@@ -62,9 +62,7 @@ const (
 		adm_address)
 	VALUES(?, ?, ?, ?,  ?, ?)`
 
-
-
-	getAdmByLogin = "GetAdmByLogin"
+	getAdmByLogin  = "GetAdmByLogin"
 	qGetAdmByLogin = `
 	SELECT adm_id,
 		adm_name,
@@ -76,7 +74,6 @@ const (
 	FROM t_admin
 	WHERE  adm_username = ?
 	AND adm_password = ?`
-
 
 	////__________________________________________ T_Employee____________________________________________
 	//	+ selesai +
@@ -91,13 +88,13 @@ const (
 		emp_address 				
 	FROM t_employee`
 
-	getEmpLastData = "GetEmpLastData"
+	getEmpLastData  = "GetEmpLastData"
 	qGetEmpLastData = `
 	SELECT * FROM t_employee
 	ORDER BY emp_id DESC
 	LIMIT 1`
 
-	insertEmployee = "InsertEmployee"
+	insertEmployee  = "InsertEmployee"
 	qInsertEmployee = `
 	INSERT INTO t_employee
 		(emp_name,
@@ -108,9 +105,7 @@ const (
 		emp_address )
 	VALUES(?, ?, ?,?, ?, ?)`
 
-
-
-	getEmpByLogin = "GetEmpByLogin"
+	getEmpByLogin  = "GetEmpByLogin"
 	qGetEmpByLogin = `
 	SELECT emp_id,
 		emp_name,
@@ -122,8 +117,6 @@ const (
 	FROM t_employee	
 	WHERE  emp_username = ?
 	AND emp_password = ?`
-
-
 
 	////__________________________________________ T_Customer ____________________________________________
 	//  - belum -
@@ -138,7 +131,7 @@ const (
 		cust_address 
 	FROM t_customer`
 
-	getCustById= "GetCustById"
+	getCustById  = "GetCustById"
 	qGetCustById = `
 	SELECT cust_id,
 		cust_name,
@@ -151,18 +144,18 @@ const (
 	WHERE  
 	cust_id = ?`
 
-	getCountCust = "GetCountCust"
+	getCountCust  = "GetCountCust"
 	qGetCountCust = `
 	SELECT COUNT(cust_id) AS total
 	FROM t_customer`
 
-	getCustLastData = "GetCustLastData"
+	getCustLastData  = "GetCustLastData"
 	qGetCustLastData = `
 	SELECT * FROM t_customer
 	ORDER BY cust_id DESC
 	LIMIT 1`
 
-	insertCustomer = "InsertCustomer"
+	insertCustomer  = "InsertCustomer"
 	qInsertCustomer = `
 	INSERT INTO t_customer
 		(cust_name,
@@ -173,7 +166,7 @@ const (
 		cust_address)
 	VALUES( ?, ?, ?, ?,  ?, ?)`
 
-	getCustByLogin = "GetCustByLogin"
+	getCustByLogin  = "GetCustByLogin"
 	qGetCustByLogin = `
 	SELECT cust_id,
 		cust_name,
@@ -187,7 +180,7 @@ const (
 	cust_username = ?
 	AND cust_password = ?`
 
-	updateCustomerById = "UpdateCustomerById"
+	updateCustomerById  = "UpdateCustomerById"
 	qUpdateCustomerById = `
 	UPDATE t_customer
 	SET cust_name = ?,
@@ -227,30 +220,30 @@ const (
 		prod_img)
 	VALUES(?, ?, ?, ?, ?, ?,  NOW(), ?)`
 
-	getProdLastData = "GetProdLastData"
+	getProdLastData  = "GetProdLastData"
 	qGetProdLastData = `
 	SELECT * FROM t_product
 	ORDER BY prod_id DESC
 	LIMIT 1`
 
-////__________________________________________ T_Category____________________________________________
+	////__________________________________________ T_Category____________________________________________
 
-	getAllCategory = "GetAllCategory"
+	getAllCategory  = "GetAllCategory"
 	qGetAllCategory = `
 	SELECT ctg_id, ctg_type FROM t_category`
 
-////__________________________________________ TH_Cart ____________________________________________
+	////__________________________________________ TH_Cart ____________________________________________
 
-	getAllCart = "GetAllCart" 
+	getAllCart  = "GetAllCart"
 	qGetAllCart = `
 	SELECT 
 		cart_id,
 		cust_id,
 		cart_total, 
 		cart_lastupdate
-	FROM th_cart`		
+	FROM th_cart`
 
-	getCartByCustId = "GetCartByCustId"
+	getCartByCustId  = "GetCartByCustId"
 	qGetCartByCustId = `
 	SELECT 
 		cart_id,														
@@ -260,7 +253,7 @@ const (
 		FROM th_cart
 	WHERE cust_id = ?`
 
-	insertHeaderCart = "InsertHeaderCart"
+	insertHeaderCart  = "InsertHeaderCart"
 	qInsertHeaderCart = `
 	INSERT INTO th_cart (
 		cust_id,
@@ -268,28 +261,27 @@ const (
 		cart_lastupdate)
 		VALUES (?, ?, NOW())`
 
-////__________________________________________ TD_Cart ____________________________________________
+	////__________________________________________ TD_Cart ____________________________________________
 
-	// getAllCartDetail = "GetAllCartDetail" 
+	// getAllCartDetail = "GetAllCartDetail"
 	// qGetAllCartDetail = `
-	// SELECT 
+	// SELECT
 	// 	cart_id,
 	// 	prod_id,
 	// 	cartdtl_qty,
-	// FROM td_cart`	
-	
-	insertDetailCart = "InsertDetailCart"
+	// FROM td_cart`
+
+	insertDetailCart  = "InsertDetailCart"
 	qInsertDetailCart = `
 	INSERT INTO td_cart (
 		cart_id,
 		prod_id,
 		cardtl_qty)
 		VALUES (?, ?, ?)`
-	
-	
-////__________________________________________ T_Transaction____________________________________________
-	
-	getTranByCartId = "GetTranByCartId"
+
+	////__________________________________________ T_Transaction____________________________________________
+
+	getTranByCartId  = "GetTranByCartId"
 	qGetTranByCartId = `
 	SELECT 
 		tra_id,
@@ -300,19 +292,25 @@ const (
 	FROM th_transaction
 	WHERE cart_id = ?`
 
+	getAllHeaderTran  = "GetAllHeaderTran"
+	qGetAllHeaderTran = `
+	SELECT tra_id,
+		cart_id,
+		tra_total,
+		tra_img,
+		tra_date
+	FROM th_transaction`
 
-////__________________________________________ T_Delivery ____________________________________________
+	////__________________________________________ T_Delivery ____________________________________________
 
+	///___________________________________________ JOIN TABLES = T_Admin & T_Customer ____________________________________
 
-///___________________________________________ JOIN TABLES = T_Admin & T_Customer ____________________________________
-	
 	// belum tentu bener
-	getJoinAdmCust = "GetJoinAdmCust"
-	qGetJoinAdmCust =`
+	getJoinAdmCust  = "GetJoinAdmCust"
+	qGetJoinAdmCust = `
 	SELECT a.adm_id, a.adm_username, a.adm_password,
        c.cust_id, c.cust_username, c.cust_password
   	FROM t_admin a, t_customer c`
-
 )
 
 var (
@@ -321,32 +319,33 @@ var (
 		{getAllAdmin, qGetAllAdmin},
 		{getAllProduct, qGetAllProduct},
 		{getAllCategory, qGetAllCategory},
-		{getAllCart,qGetAllCart},
+		{getAllCart, qGetAllCart},
 		// {getAllCartDetail, qGetAllCartDetail},
 		{getCustById, qGetCustById},
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},
 		{getCountCust, qGetCountCust},
 		{getAdmLastData, qGetAdmLastData},
-		{getCustLastData,qGetCustLastData},
+		{getCustLastData, qGetCustLastData},
 		{getProdLastData, qGetProdLastData},
 
-		{getCartByCustId,qGetCartByCustId},
+		{getCartByCustId, qGetCartByCustId},
 
+		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},
 
-		{getAllEmployee, qGetAllEmployee},	
-		{getEmpByLogin, qGetEmpByLogin},	
+		{getAllEmployee, qGetAllEmployee},
+		{getEmpByLogin, qGetEmpByLogin},
 		{getEmpLastData, qGetEmpLastData},
 
 		// {getJoinAdmCust, qGetJoinAdmCust},
 	}
 	insertStmt = []statement{
-		{insertProduct,qInsertProduct},
+		{insertProduct, qInsertProduct},
 		{insertCustomer, qInsertCustomer},
 		{insertAdmin, qInsertAdmin},
 		{insertEmployee, qInsertEmployee},
-		{insertHeaderCart,qInsertHeaderCart},
+		{insertHeaderCart, qInsertHeaderCart},
 		{insertDetailCart, qInsertDetailCart},
 	}
 	updateStmt = []statement{

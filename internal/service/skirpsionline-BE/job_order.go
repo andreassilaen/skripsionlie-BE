@@ -27,30 +27,25 @@ type Data interface {
 	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (string, error)
 	GetCountCust(ctx context.Context) (int, error)
-	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error) 
-	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) 
+	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
+	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error)
 	GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error)
-	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error) 
-	
+	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error)
+
 	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
 	InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (string, error)
 
-
 	InsertDetailCart(ctx context.Context, header SBeEntity.TD_Cart2) (string, error)
-
 
 	GetAllEmployee(ctx context.Context) ([]SBeEntity.T_Employee, error)
 	GetEmpLastData(ctx context.Context) (SBeEntity.T_Employee, error)
 	GetEmpByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Employee, error)
 	InsertEmployee(ctx context.Context, header SBeEntity.T_Employee) (string, error)
 
-
+	GetAllHeaderTran(ctx context.Context) ([]SBeEntity.TH_Transaction, error)
 	GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error)
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
-	
-
-
 
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 }

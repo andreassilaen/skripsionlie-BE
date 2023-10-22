@@ -16,10 +16,15 @@ import (
 	// "log"
 )
 
+func (s Service) GetAllHeaderTran(ctx context.Context) ([]SBeEntity.TH_Transaction, error) {
+	headers, err := s.skirpsionlineBE.GetAllHeaderTran(ctx)
 
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetAllHeaderTran]")
+	}
 
-
-
+	return headers, err
+}
 
 func (s Service) GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error) {
 	headers, err := s.skirpsionlineBE.GetTranByCartId(ctx, cartId)
