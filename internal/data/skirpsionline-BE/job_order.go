@@ -301,6 +301,26 @@ const (
 		tra_date
 	FROM th_transaction`
 
+	////__________________________________________ T_Order ____________________________________________
+
+	getAllOrder = "GetAllOrder"
+	qGetAllOrder = `
+	SELECT
+		ord_id,
+		adm_id, 
+		tra_id, 
+		ord_cancelyn,
+		ord_lastupdate
+	FROM t_order`
+
+	insertOrder = "InsertOrder"
+	qInsertOrder = `
+	INSERT INTO t_order (
+		adm_id, 
+		tra_id, 
+		ord_lastupdate)
+	VALUES (?, ?, NOW())`
+
 	////__________________________________________ T_Delivery ____________________________________________
 
 	///___________________________________________ JOIN TABLES = T_Admin & T_Customer ____________________________________
@@ -338,6 +358,8 @@ var (
 		{getEmpByLogin, qGetEmpByLogin},
 		{getEmpLastData, qGetEmpLastData},
 
+		{getAllOrder, qGetAllOrder},
+
 		// {getJoinAdmCust, qGetJoinAdmCust},
 	}
 	insertStmt = []statement{
@@ -347,6 +369,7 @@ var (
 		{insertEmployee, qInsertEmployee},
 		{insertHeaderCart, qInsertHeaderCart},
 		{insertDetailCart, qInsertDetailCart},
+		{insertOrder, qInsertOrder},
 	}
 	updateStmt = []statement{
 		{updateCustomerById, qUpdateCustomerById},

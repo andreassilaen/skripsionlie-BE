@@ -57,6 +57,9 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "getallheadertran":
 		result, err = h.skripsionlineSvc.GetAllHeaderTran(ctx)
 
+	case "getallorder":
+		result, err = h.skripsionlineSvc.GetAllOrder(ctx)
+
 	case "tokenuser":
 		err = h.skripsionlineSvc.TokenUser(ctx)
 

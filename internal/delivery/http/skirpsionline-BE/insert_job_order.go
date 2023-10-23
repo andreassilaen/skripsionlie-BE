@@ -89,6 +89,13 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertDetailCart(ctx, header)
 		log.Println("Delivery InsertDetailCart : ", header)
 
+	case "insertorder":
+		var header SBeEntity.InsertOrder
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertOrder(ctx, header)
+		log.Println("Delivery InsertDetailCart : ", header)
+
 
 
 	case "checkuser":

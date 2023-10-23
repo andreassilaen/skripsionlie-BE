@@ -43,6 +43,14 @@ type IskripsionlineSvc interface {
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
 
+
+
+	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error) 
+	InsertOrder(ctx context.Context, header SBeEntity.InsertOrder) (string, error)
+
+
+
+
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 
 	TokenUser(ctx context.Context) error

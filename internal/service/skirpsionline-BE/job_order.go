@@ -47,6 +47,11 @@ type Data interface {
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
 
+
+	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
+	InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error)
+
+
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 }
 
