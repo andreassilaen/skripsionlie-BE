@@ -105,6 +105,14 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, metadata, err = h.skripsionlineSvc.CheckUser(ctx, header.CheckUserBody)
 		log.Println("Delivery CheckUser : ", header)
 
+
+	case "insertjoinheaderdetailcart":
+		var header SBeEntity.InsertJoinHeaderDetailCart
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertJoinHeaderDetailCart(ctx, header)
+		log.Println("Delivery InsertJoinHeaderDetailCart : ", header)
+
 	}
 
 	if err != nil {

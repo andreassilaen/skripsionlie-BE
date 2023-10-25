@@ -54,6 +54,8 @@ type IskripsionlineSvc interface {
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
 
 	TokenUser(ctx context.Context) error
+
+	InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error) 
 }
 
 type (

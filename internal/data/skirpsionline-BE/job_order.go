@@ -253,6 +253,12 @@ const (
 		FROM th_cart
 	WHERE cust_id = ?`
 
+	getHeaderCartLastData  = "GetHeaderCartLastData"
+	qGetHeaderCartLastData = `
+	SELECT * FROM th_cart
+	ORDER BY cart_id DESC
+	LIMIT 1`
+
 	insertHeaderCart  = "InsertHeaderCart"
 	qInsertHeaderCart = `
 	INSERT INTO th_cart (
@@ -348,8 +354,12 @@ var (
 		{getAdmLastData, qGetAdmLastData},
 		{getCustLastData, qGetCustLastData},
 		{getProdLastData, qGetProdLastData},
+		{getHeaderCartLastData, qGetHeaderCartLastData},
 
 		{getCartByCustId, qGetCartByCustId},
+
+
+		
 
 		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},

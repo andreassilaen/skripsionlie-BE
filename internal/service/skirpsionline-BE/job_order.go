@@ -30,6 +30,7 @@ type Data interface {
 	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
 	GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error)
 	GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error)
+	GetHeaderCartLastData(ctx context.Context) (SBeEntity.TH_Cart, error)
 	InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string, error)
 
 	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)

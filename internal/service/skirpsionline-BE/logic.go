@@ -4,12 +4,14 @@ import (
 	"context"
 	// "fmt"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
-	// "skripsi-online-BE/pkg/errors"
+	"skripsi-online-BE/pkg/errors"
 
 	// "skripsi-online-BE/pkg/errors"
 
 	// "google.golang.org/genproto/googleapis/gapic/metadata"
 	"log"
+
+	// "github.com/google/martian/body"
 	// "strconv"
 	// "strings"
 	// "job-order-be/pkg/errors"
@@ -142,3 +144,60 @@ func (s Service) CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (in
 // }
 return result2, result, err
 }
+
+
+
+func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error) {
+	var (
+		err		error
+		// cekUser interface{}
+		result		SBeEntity.B_Role
+		// result2		interface{}
+		result3		string
+		body	SBeEntity.TH_Cart
+	)
+
+	_, err = s.skirpsionlineBE.InsertHeaderCart(ctx, header.HeaderCartBody)
+	if err != nil {
+		result3 = "Gagal insert Data"
+		return result, errors.Wrap(err, "[DATA][InsertHeaderCart]")
+	}
+
+	body, err = s.skirpsionlineBE.GetHeaderCartLastData(ctx)
+	if err != nil {
+		result3 = "Gagal getlast Data"
+		return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
+	}
+	header.DetailCartBody.CartId = body.CartId
+
+	_, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
+	if err != nil {
+		result3 = "Gagal insert Data"
+		return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
+	}
+	result3 = "sukses Insert Header & Detail cart"
+
+	return result3, err
+}
+
+
+
+
+
+// func (s Service) InsertEmployee(ctx context.Context, header SBeEntity.InsertEmployee) (string, error) {
+// 	var (
+// 		result string
+// 		err    error
+// 	)
+
+// 	result, err = s.skirpsionlineBE.InsertEmployee(ctx, header.InsertEmployeeBody)
+// 	log.Println("header Service = ", header)
+// 	if err != nil {
+// 		result = "Gagal Insert"
+// 		return result, errors.Wrap(err, "[Service][InsertEmployee]")
+// 	} else {
+// 		result = "Sukses InsertEmployee"
+// 	}
+// 	return result, err
+	
+// }

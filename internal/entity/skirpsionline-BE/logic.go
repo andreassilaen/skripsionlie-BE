@@ -34,3 +34,17 @@ type CustomError struct {
 type B_Role struct {
 	Role 		string	 	`json:"role"`
 }
+
+
+type TH_TD_Cart struct {
+	CartId     			string 		`db:"cart_id" json:"cart_id"`
+	CustId  			string 		`db:"cust_id" json:"cust_id"`
+	CartTotal			int 		`db:"cart_total" json:"cart_total"`
+	ProdId    			string		`db:"prod_id" json:"prod_id"`
+	CartDtlQty 			int    		`db:"cardtl_qty" json:"cardtl_qty"`
+
+}
+
+
+
+

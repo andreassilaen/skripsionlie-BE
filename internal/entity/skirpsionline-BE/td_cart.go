@@ -11,7 +11,7 @@ type TD_Cart struct {
 
 type TD_Cart2 struct {
 	CartId     string `db:"cart_id" json:"cart_id"`
-	ProdId     int    `db:"prod_id" json:"prod_id"`
+	ProdId     string `db:"prod_id" json:"prod_id"`
 	CartDtlQty int    `db:"cardtl_qty" json:"cardtl_qty"`
 }
 

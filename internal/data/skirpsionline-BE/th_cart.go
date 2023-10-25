@@ -62,7 +62,29 @@ func (d Data) GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.T
 	return headers, nil
 }
 
+func (d Data) GetHeaderCartLastData(ctx context.Context) (SBeEntity.TH_Cart, error) {
+	var (
+		header  SBeEntity.TH_Cart
+		// headers []SBeEntity.T_Customer
+	)
 
+	row, err := (*d.stmt)[getHeaderCartLastData].QueryxContext(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][getHeaderCartLastData][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][getHeaderCartLastData][Query]")
+		}
+		// headers = append(headers, header)
+	}
+	log.Println("Data GetProdLastData : ", header)
+	defer row.Close()
+	return header, nil
+}
 
 
 
