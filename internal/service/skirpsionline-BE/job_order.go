@@ -37,6 +37,7 @@ type Data interface {
 	InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (string, error)
 
 	InsertDetailCart(ctx context.Context, header SBeEntity.TD_Cart2) (string, error)
+	NewInsertDetailCart(ctx context.Context, user []SBeEntity.TD_Cart2) error
 
 	GetAllEmployee(ctx context.Context) ([]SBeEntity.T_Employee, error)
 	GetEmpLastData(ctx context.Context) (SBeEntity.T_Employee, error)

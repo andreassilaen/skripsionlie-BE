@@ -15,5 +15,7 @@ type JoinAdmCust struct {
 type InsertJoinHeaderDetailCart struct {
 	HeaderCartBody		TH_Cart2	`json:"header"`
 
-	DetailCartBody		TD_Cart2	`json:"detail"`
+	DetailCartBody		[]TD_Cart2	`json:"detail"`
+
+
 }

@@ -2,6 +2,7 @@ package skirpsionlineBE
 
 import (
 	"context"
+	"math"
 	// "fmt"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
@@ -10,7 +11,6 @@ import (
 
 	// "google.golang.org/genproto/googleapis/gapic/metadata"
 	"log"
-
 	// "github.com/google/martian/body"
 	// "strconv"
 	// "strings"
@@ -155,6 +155,9 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 		// result2		interface{}
 		result3		string
 		body	SBeEntity.TH_Cart
+
+		detailCart SBeEntity.TD_Cart2
+		insertDetailCart []SBeEntity.TD_Cart2
 	)
 
 	_, err = s.skirpsionlineBE.InsertHeaderCart(ctx, header.HeaderCartBody)
@@ -168,17 +171,66 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 		result3 = "Gagal getlast Data"
 		return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
 	}
-	header.DetailCartBody.CartId = body.CartId
+	// header.DetailCartBody.CartId = body.CartId
 
-	_, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
-	if err != nil {
-		result3 = "Gagal insert Data"
-		return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
+	// var i = 0
+	// var a =10
+	// for x := range  {
+
+	// }
+
+	log.Println("cel len header.DetailCartBody => ", len(header.DetailCartBody))
+	if len(header.DetailCartBody) >= 1 {
+		for x := range header.DetailCartBody {
+			detailCart = SBeEntity.TD_Cart2{
+				CartId: body.CartId,
+				ProdId: header.DetailCartBody[x].ProdId,
+				CartDtlQty: header.DetailCartBody[x].CartDtlQty,
+			}
+
+			log.Println("cek x => ", x)
+			log.Println("cek detailCart => ", detailCart)
+
+			insertDetailCart = append(insertDetailCart, detailCart) 
+
+		}
+
+
 	}
-	result3 = "sukses Insert Header & Detail cart"
+
+	log.Println("insertDetailCart", insertDetailCart)
+        limitzI := 50
+        totalzI := len(insertDetailCart)
+        countzI := int(math.Ceil(float64(totalzI) / float64(limitzI)))
+        for i := 0; i < countzI; i++ {
+            startzI := limitzI * i
+            endzI := limitzI * (i + 1)
+            if endzI > totalzI {
+                endzI = totalzI
+            }
+            tempUpdatez := insertDetailCart[startzI:endzI]
+            err = s.skirpsionlineBE.NewInsertDetailCart(ctx, tempUpdatez)
+            if err != nil {
+                log.Println(err, "[Service][InsertDetailCart]")
+                // return result, errors.Wrap(err, "[Service][InsertDetailCart]")
+            }
+        }
+        log.Println("masokDetail-3")
+    
+
+
+	
+
+	// _, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
+	// if err != nil {
+	// 	result3 = "Gagal insert Data"
+	// 	return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
+	// }
+	// result3 = "sukses Insert Header & Detail cart"
 
 	return result3, err
 }
+
 
 
 

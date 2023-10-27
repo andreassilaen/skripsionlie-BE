@@ -10,6 +10,8 @@ import (
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	// jaegerLog "skripsi-online-BE/pkg/log"
 	"skripsi-online-BE/pkg/errors"
+
+	"github.com/jmoiron/sqlx"
 )
 
 // func (d Data) GetAllCart(ctx context.Context) ([]SBeEntity.TH_Cart, error) {
@@ -90,7 +92,21 @@ func (d Data) InsertDetailCart(ctx context.Context, header SBeEntity.TD_Cart2) (
 
 
 
+func (d Data) NewInsertDetailCart(ctx context.Context, user []SBeEntity.TD_Cart2) error {
 
+    for _, v := range user {
+        query, args, err := sqlx.In(qInsertDetailCart,
+            v.CartId, v.ProdId, v.CartDtlQty,)
+        if err != nil {
+            return errors.Wrap(err, "[DATA][OtherInsertDetailCart]")
+        }
+        _, err = d.db.ExecContext(ctx, query, args...)
+        if err != nil {
+            return errors.Wrap(err, "[DATA][OtherInsertDetailCart]")
+        }
+    }
+    return nil
+}
 
 
 
