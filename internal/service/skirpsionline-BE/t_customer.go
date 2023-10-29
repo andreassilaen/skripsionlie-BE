@@ -25,6 +25,7 @@ func (s Service) GetCustByLogin(ctx context.Context, username string, password s
 
 	return headers, err
 }
+
 func (s Service) GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error) {
 	headers, err := s.skirpsionlineBE.GetCustById(ctx, custId)
 
@@ -35,7 +36,6 @@ func (s Service) GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_
 	return headers, err
 }
 
-
 func (s Service) GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, error) {
 	header, err := s.skirpsionlineBE.GetCustLastData(ctx)
 
@@ -45,7 +45,6 @@ func (s Service) GetCustLastData(ctx context.Context) (SBeEntity.T_Customer, err
 
 	return header, err
 }
-
 
 func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) {
 	var (
@@ -65,11 +64,8 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 	return result, err
 
 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
-	
+
 }
-
-
-
 
 // func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error) {
 // 	var (
@@ -80,8 +76,6 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 // 	// total, err := s.skirpsionlineBE.GetCountCust(ctx)
 
 // 	last, err:= s.skirpsionlineBE.GetCustLastData(ctx)
-
-	
 
 // 	// word := "adm001"
 
@@ -111,7 +105,7 @@ func (s Service) InsertCustomer(ctx context.Context, header SBeEntity.InsertCust
 // 	return result, err
 
 // 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
-	
+
 // }
 
 func (s Service) UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error) {

@@ -309,7 +309,7 @@ const (
 
 	////__________________________________________ T_Order ____________________________________________
 
-	getAllOrder = "GetAllOrder"
+	getAllOrder  = "GetAllOrder"
 	qGetAllOrder = `
 	SELECT
 		ord_id,
@@ -319,7 +319,7 @@ const (
 		ord_lastupdate
 	FROM t_order`
 
-	insertOrder = "InsertOrder"
+	insertOrder  = "InsertOrder"
 	qInsertOrder = `
 	INSERT INTO t_order (
 		adm_id, 
@@ -328,6 +328,17 @@ const (
 	VALUES (?, ?, NOW())`
 
 	////__________________________________________ T_Delivery ____________________________________________
+
+	getAllDelivery  = "GetAllDelivery"
+	qGetAllDelivery = `
+	SELECT * 
+	FROM t_delivery`
+
+	getDeliveryByEmpId  = "GetDeliverByEmpId"
+	qGetDeliveryByEmpId = `
+	SELECT * 
+	FROM t_delivery
+	WHERE emp_id = ?`
 
 	///___________________________________________ JOIN TABLES = T_Admin & T_Customer ____________________________________
 
@@ -358,9 +369,6 @@ var (
 
 		{getCartByCustId, qGetCartByCustId},
 
-
-		
-
 		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},
 
@@ -369,6 +377,9 @@ var (
 		{getEmpLastData, qGetEmpLastData},
 
 		{getAllOrder, qGetAllOrder},
+		{getDeliveryByEmpId, qGetDeliveryByEmpId},
+
+		{getAllDelivery, qGetAllDelivery},
 
 		// {getJoinAdmCust, qGetJoinAdmCust},
 	}

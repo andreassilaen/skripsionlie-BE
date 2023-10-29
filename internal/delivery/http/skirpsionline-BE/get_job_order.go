@@ -60,6 +60,9 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "getallorder":
 		result, err = h.skripsionlineSvc.GetAllOrder(ctx)
 
+	case "getalldelivery":
+		result, err = h.skripsionlineSvc.GetAllDelivery(ctx)
+
 	case "tokenuser":
 		err = h.skripsionlineSvc.TokenUser(ctx)
 
@@ -98,6 +101,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "gettranbycartid":
 		result, err = h.skripsionlineSvc.GetTranByCartId(ctx, r.FormValue("cartid"))
 		log.Println("gettranbycartid", r.FormValue("cartid"))
+
+	case "getdeliverybyempid":
+		result, err = h.skripsionlineSvc.GetDeliverByEmpId(ctx, r.FormValue("empid"))
+		log.Println("getdeliverybyempid", r.FormValue("empid"))
 
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)

@@ -3,6 +3,7 @@ package skirpsionlineBE
 import (
 	"context"
 	"math"
+
 	// "fmt"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
@@ -85,19 +86,17 @@ import (
 
 // }
 
-
-
 func (s Service) CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (interface{}, SBeEntity.B_Role, error) {
 	var (
-		err		error
+		err error
 		// cekUser interface{}
-		result		SBeEntity.B_Role
-		result2		interface{}
+		result  SBeEntity.B_Role
+		result2 interface{}
 		// result2		string
 	)
 
-	leftFour:= header.UserName[:3]
-    log.Println("leftFour = ",leftFour)
+	leftFour := header.UserName[:3]
+	log.Println("leftFour = ", leftFour)
 
 	tAdmin, err := s.GetAdmByLogin(ctx, header.UserName, header.PassWord)
 
@@ -108,19 +107,19 @@ func (s Service) CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (in
 	if len(tAdmin) != 0 {
 		// if tAdmin.UserName == header.UserName && t
 		result.Role = "adm"
-			result2 = tAdmin
+		result2 = tAdmin
 		// return result, err
 	}
 
-	if len (tEmployee) != 0 {
+	if len(tEmployee) != 0 {
 		result.Role = "emp"
-	result2 = tEmployee
+		result2 = tEmployee
 		// return result, err
 	}
 
-	if len (tCustomer) != 0 {
+	if len(tCustomer) != 0 {
 		result.Role = "cus"
-	result2 = tCustomer
+		result2 = tCustomer
 		// return result, err
 	}
 
@@ -129,34 +128,32 @@ func (s Service) CheckUser(ctx context.Context, header SBeEntity.B_ChekUser) (in
 	if len(tAdmin) == 0 && len(tCustomer) == 0 && len(tEmployee) == 0 {
 		// error.Error.()
 		// return result, errs
-		result.Role = "gagal" 
+		result.Role = "gagal"
 	}
 
-// if len(tAdmin) != 0 {
-// 	result2 = tAdmin
-// 	// return tAdmin, result, err
-	
-// }
-// if len(tCustomer) != 0 {
-// 	result2 = tCustomer
-// 	// return tCustomer, result, err
-	
-// }
-return result2, result, err
+	// if len(tAdmin) != 0 {
+	// 	result2 = tAdmin
+	// 	// return tAdmin, result, err
+
+	// }
+	// if len(tCustomer) != 0 {
+	// 	result2 = tCustomer
+	// 	// return tCustomer, result, err
+
+	// }
+	return result2, result, err
 }
-
-
 
 func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error) {
 	var (
-		err		error
+		err error
 		// cekUser interface{}
-		result		SBeEntity.B_Role
+		result SBeEntity.B_Role
 		// result2		interface{}
-		result3		string
-		body	SBeEntity.TH_Cart
+		result3 string
+		body    SBeEntity.TH_Cart
 
-		detailCart SBeEntity.TD_Cart2
+		detailCart       SBeEntity.TD_Cart2
 		insertDetailCart []SBeEntity.TD_Cart2
 	)
 
@@ -183,43 +180,38 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 	if len(header.DetailCartBody) >= 1 {
 		for x := range header.DetailCartBody {
 			detailCart = SBeEntity.TD_Cart2{
-				CartId: body.CartId,
-				ProdId: header.DetailCartBody[x].ProdId,
+				CartId:     body.CartId,
+				ProdId:     header.DetailCartBody[x].ProdId,
 				CartDtlQty: header.DetailCartBody[x].CartDtlQty,
 			}
 
 			log.Println("cek x => ", x)
 			log.Println("cek detailCart => ", detailCart)
 
-			insertDetailCart = append(insertDetailCart, detailCart) 
+			insertDetailCart = append(insertDetailCart, detailCart)
 
 		}
-
 
 	}
 
 	log.Println("insertDetailCart", insertDetailCart)
-        limitzI := 50
-        totalzI := len(insertDetailCart)
-        countzI := int(math.Ceil(float64(totalzI) / float64(limitzI)))
-        for i := 0; i < countzI; i++ {
-            startzI := limitzI * i
-            endzI := limitzI * (i + 1)
-            if endzI > totalzI {
-                endzI = totalzI
-            }
-            tempUpdatez := insertDetailCart[startzI:endzI]
-            err = s.skirpsionlineBE.NewInsertDetailCart(ctx, tempUpdatez)
-            if err != nil {
-                log.Println(err, "[Service][InsertDetailCart]")
-                // return result, errors.Wrap(err, "[Service][InsertDetailCart]")
-            }
-        }
-        log.Println("masokDetail-3")
-    
-
-
-	
+	limitzI := 50
+	totalzI := len(insertDetailCart)
+	countzI := int(math.Ceil(float64(totalzI) / float64(limitzI)))
+	for i := 0; i < countzI; i++ {
+		startzI := limitzI * i
+		endzI := limitzI * (i + 1)
+		if endzI > totalzI {
+			endzI = totalzI
+		}
+		tempUpdatez := insertDetailCart[startzI:endzI]
+		err = s.skirpsionlineBE.NewInsertDetailCart(ctx, tempUpdatez)
+		if err != nil {
+			log.Println(err, "[Service][InsertDetailCart]")
+			// return result, errors.Wrap(err, "[Service][InsertDetailCart]")
+		}
+	}
+	log.Println("masokDetail-3")
 
 	// _, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
 	// if err != nil {
@@ -230,11 +222,6 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 
 	return result3, err
 }
-
-
-
-
-
 
 // func (s Service) InsertEmployee(ctx context.Context, header SBeEntity.InsertEmployee) (string, error) {
 // 	var (
@@ -251,5 +238,5 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 // 		result = "Sukses InsertEmployee"
 // 	}
 // 	return result, err
-	
+
 // }
