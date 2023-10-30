@@ -41,6 +41,8 @@ type IskripsionlineSvc interface {
 	GetAllHeaderTran(ctx context.Context) ([]SBeEntity.TH_Transaction, error)
 	GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error)
 
+	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
+
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
@@ -49,7 +51,13 @@ type IskripsionlineSvc interface {
 	GetAllDelivery(ctx context.Context) ([]SBeEntity.T_Delivery, error)
 	GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEntity.T_Delivery, error)
 
+
+
 	GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, error)
+
+	GetJoinOrdCustTHTra(ctx context.Context) ([]SBeEntity.JoinOrdCustTHTra, error)
+	GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]SBeEntity.JoinOrdCustTHTra, error)
+	GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error) 
 
 	TokenUser(ctx context.Context) error
 

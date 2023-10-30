@@ -285,7 +285,7 @@ const (
 		cardtl_qty)
 		VALUES (?, ?, ?)`
 
-	////__________________________________________ T_Transaction____________________________________________
+	////__________________________________________ TH_Transaction____________________________________________
 
 	getTranByCartId  = "GetTranByCartId"
 	qGetTranByCartId = `
@@ -307,6 +307,19 @@ const (
 		tra_date
 	FROM th_transaction`
 
+	////__________________________________________ TD_Transaction____________________________________________
+
+	getDetailTranByTraId  = "GetDetailTranByTraId"
+	qGetDetailTranByTraId = `
+	SELECT 
+		tra_id,
+		prod_id,
+		tradtl_qty,
+		tradtl_price,
+		tradtl_amount
+	FROM td_transaction
+	WHERE tra_id = ?`
+
 	////__________________________________________ T_Order ____________________________________________
 
 	getAllOrder  = "GetAllOrder"
@@ -315,7 +328,7 @@ const (
 		ord_id,
 		adm_id, 
 		tra_id, 
-		ord_cancelyn,
+		ord_confirmedyn,
 		ord_lastupdate
 	FROM t_order`
 
@@ -340,7 +353,7 @@ const (
 	FROM t_delivery
 	WHERE emp_id = ?`
 
-	///___________________________________________ JOIN TABLES = T_Admin & T_Customer ____________________________________
+	///___________________________________________ JOIN TABLES ____________________________________
 
 	// belum tentu bener
 	getJoinAdmCust  = "GetJoinAdmCust"
@@ -348,6 +361,52 @@ const (
 	SELECT a.adm_id, a.adm_username, a.adm_password,
        c.cust_id, c.cust_username, c.cust_password
   	FROM t_admin a, t_customer c`
+
+
+	getJoinOrdCustTHTra = "GetJoinOrdCustTHTra"
+	qGetJoinOrdCustTHTra = `
+	SELECT 
+		o.ord_id,
+		o.tra_id, 
+		o.adm_id, 
+		c.cust_name, 
+		c.cust_address, 
+		h.tra_total, 
+		o.ord_lastupdate
+	FROM t_order o, t_customer c, th_transaction h
+	WHERE 
+		o.tra_id = h.tra_id
+		AND h.cust_id = c.cust_id
+		AND o.ord_confirmedyn = "Y"`
+
+	getJoinOrdCustTHTraByOrdId = "GetJoinOrdCustTHTraByOrdId"
+	qGetJoinOrdCustTHTraByOrdId = `
+	SELECT 
+		o.ord_id,
+		o.tra_id,
+		o.adm_id, 
+		c.cust_name, 
+		c.cust_address, 
+		h.tra_total, 
+		o.ord_lastupdate
+	FROM t_order o, t_customer c, th_transaction h
+	WHERE 
+		o.tra_id = h.tra_id
+		AND h.cust_id = c.cust_id 
+		AND o.ord_id = ?`
+
+
+	getJoinTDTraProdByTraId = "GetJoinTDTraProdByTraId"
+	qGetJoinTDTraProdByTraId = `
+	SELECT 
+		d.tra_id,  
+		p.prod_name, 
+		d.tradtl_qty, 
+		d.tradtl_amount
+	FROM td_transaction d, t_product p
+	WHERE 
+		d.prod_id = p.prod_id
+		AND d.tra_id = ?`
 )
 
 var (
@@ -372,6 +431,8 @@ var (
 		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},
 
+		{getDetailTranByTraId, qGetDetailTranByTraId},
+
 		{getAllEmployee, qGetAllEmployee},
 		{getEmpByLogin, qGetEmpByLogin},
 		{getEmpLastData, qGetEmpLastData},
@@ -382,6 +443,9 @@ var (
 		{getAllDelivery, qGetAllDelivery},
 
 		// {getJoinAdmCust, qGetJoinAdmCust},
+		{getJoinOrdCustTHTra, qGetJoinOrdCustTHTra},
+		{getJoinOrdCustTHTraByOrdId, qGetJoinOrdCustTHTraByOrdId},
+		{getJoinTDTraProdByTraId, qGetJoinTDTraProdByTraId},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},

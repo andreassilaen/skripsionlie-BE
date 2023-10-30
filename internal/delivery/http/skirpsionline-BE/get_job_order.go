@@ -5,6 +5,7 @@ import (
 	"net/http"
 	httpHelper "skripsi-online-BE/internal/delivery/http"
 	"skripsi-online-BE/pkg/response"
+	"strconv"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -28,6 +29,8 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		err      error
 		resp     response.Response
 		types    string
+
+		ordid  int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -102,12 +105,28 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetTranByCartId(ctx, r.FormValue("cartid"))
 		log.Println("gettranbycartid", r.FormValue("cartid"))
 
+	case "getdetailtranbytraid":
+		result, err = h.skripsionlineSvc.GetDetailTranByTraId(ctx, r.FormValue("traid"))
+		log.Println("getdetailtranbytraid", r.FormValue("traid"))
+
 	case "getdeliverybyempid":
 		result, err = h.skripsionlineSvc.GetDeliverByEmpId(ctx, r.FormValue("empid"))
 		log.Println("getdeliverybyempid", r.FormValue("empid"))
 
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)
+
+	case "getjoinordcustthtra":
+		result, err = h.skripsionlineSvc.GetJoinOrdCustTHTra(ctx)
+
+	case "getjoinordcustthtrabyordid":
+		ordid,_ = strconv.Atoi(r.FormValue("ordId"))
+		result, err = h.skripsionlineSvc.GetJoinOrdCustTHTraByOrdId(ctx, ordid)
+		log.Println("getjoinordcustthtrabyordid", ordid)
+
+	case "getjointdtraprodbytraid":
+		result, err = h.skripsionlineSvc.GetJoinTDTraProdByTraId(ctx, r.FormValue("traid"))
+		log.Println("getjointdtraprodbytraid", r.FormValue("traid"))
 
 	}
 
