@@ -31,6 +31,7 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		types    string
 
 		ordid  int
+		rekid	int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -66,12 +67,19 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "getalldelivery":
 		result, err = h.skripsionlineSvc.GetAllDelivery(ctx)
 
+	case "getallrekening":
+		result, err = h.skripsionlineSvc.GetAllRekening(ctx)
+
 	case "tokenuser":
 		err = h.skripsionlineSvc.TokenUser(ctx)
 
 	case "getcustbylogin":
 		result, err = h.skripsionlineSvc.GetCustByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getcustbylogin", r.FormValue("username"), r.FormValue("password"))
+
+	case "getlistjointhtdcartprodbycustidandcartid":
+		result, err = h.skripsionlineSvc.GetListJoinTHTDCartProdByCustIdAndCartId(ctx, r.FormValue("custid"), r.FormValue("cartid"))
+		log.Println("getlistjointhtdcartprodbycustidandcartid", r.FormValue("custid"), r.FormValue("cartid"))
 
 	case "getcustbyid":
 		result, err = h.skripsionlineSvc.GetCustById(ctx, r.FormValue("cusid"))
@@ -113,6 +121,11 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetDeliverByEmpId(ctx, r.FormValue("empid"))
 		log.Println("getdeliverybyempid", r.FormValue("empid"))
 
+	case "getrekbyrekid":
+		rekid,_ = strconv.Atoi(r.FormValue("rekid"))
+		result, err = h.skripsionlineSvc.GetRekByRekId(ctx, rekid)
+		log.Println("getrekbyrekid", rekid)
+
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)
 
@@ -120,7 +133,7 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetJoinOrdCustTHTra(ctx)
 
 	case "getjoinordcustthtrabyordid":
-		ordid,_ = strconv.Atoi(r.FormValue("ordId"))
+		ordid,_ = strconv.Atoi(r.FormValue("ordid"))
 		result, err = h.skripsionlineSvc.GetJoinOrdCustTHTraByOrdId(ctx, ordid)
 		log.Println("getjoinordcustthtrabyordid", ordid)
 

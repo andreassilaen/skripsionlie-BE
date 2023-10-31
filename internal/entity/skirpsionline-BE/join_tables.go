@@ -46,3 +46,25 @@ type JoinTDTraProdByTraId struct {
 }
 
 
+
+type JoinTHTDCartProd struct {
+	CartId     			string 		`db:"cart_id" json:"cart_id"`
+	CustId  			string 		`db:"cust_id" json:"cust_id"`
+	CartTotal			int 		`db:"cart_total" json:"cart_total"`
+	CartPayedYN			string		`db:"cart_payedyn" json:"cart_payedyn"`
+
+	ProdId             string    `db:"prod_id" json:"prod_id"`
+	ProdName  			string 		`db:"prod_name" json:"prod_name"`
+	ProdDesc  			string 		`db:"prod_desc" json:"prod_desc"`
+	ProdPrice 			int 		`db:"prod_price" json:"prod_price"`
+	ProdStock 			int 		`db:"prod_stock" json:"prod_stock"`
+
+	CartDtlQty         int    `db:"cardtl_qty" json:"cardtl_qty"`
+	
+	ProdImage			string		`db:"prod_img" json:"prod_img"`
+
+
+
+}
+
+

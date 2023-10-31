@@ -55,3 +55,13 @@ func (s Service) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]S
 	return headers, err
 }
 
+
+func (s Service) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error) {
+	headers, err := s.skirpsionlineBE.GetListJoinTHTDCartProdByCustIdAndCartId(ctx, custId, cartId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetListJoinTHTDCartProdByCustIdAndCartId]")
+	}
+
+	return headers, err
+}

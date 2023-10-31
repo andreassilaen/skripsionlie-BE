@@ -240,6 +240,7 @@ const (
 		cart_id,
 		cust_id,
 		cart_total, 
+		cart_payedyn,
 		cart_lastupdate
 	FROM th_cart`
 
@@ -249,6 +250,7 @@ const (
 		cart_id,														
 		cust_id,
 		cart_total, 
+		cart_payedyn,
 		cart_lastupdate
 		FROM th_cart
 	WHERE cust_id = ?`
@@ -353,6 +355,19 @@ const (
 	FROM t_delivery
 	WHERE emp_id = ?`
 
+
+	////__________________________________________ T_Rekening ____________________________________________
+
+	getAllRekening = "GetAllRekening"
+	qGetAllRekening = `
+	SELECT * FROM t_rekening`
+
+	getRekByRekId = "GetRekByRekId" 
+	qGetRekByRekId = `
+	SELECT * 
+	FROM t_rekening
+	WHERE rek_id = ? `
+
 	///___________________________________________ JOIN TABLES ____________________________________
 
 	// belum tentu bener
@@ -407,6 +422,17 @@ const (
 	WHERE 
 		d.prod_id = p.prod_id
 		AND d.tra_id = ?`
+
+
+	getListJoinTHTDCartProdByCustIdAndCartId = "GetListJoinTHTDCartProdByCustIdAndCartId"
+	qGetListJoinTHTDCartProdByCustIdAndCartId = `
+	SELECT h.cart_id, h.cust_id, h.cart_total, h.cart_payedyn, p.prod_id, p.prod_name, p.prod_desc, p.prod_price, p.prod_stock, d.cardtl_qty, p.prod_img
+	FROM th_cart h, td_cart d, t_product p 
+	WHERE h.cart_id = d.cart_id
+	AND d.prod_id = p.prod_id
+	AND h.cart_payedyn = "N"
+	AND h.cust_id = ?
+	AND d.cart_id = ? `
 )
 
 var (
@@ -442,10 +468,14 @@ var (
 
 		{getAllDelivery, qGetAllDelivery},
 
+		{getAllRekening, qGetAllRekening},
+		{getRekByRekId, qGetRekByRekId},
+
 		// {getJoinAdmCust, qGetJoinAdmCust},
 		{getJoinOrdCustTHTra, qGetJoinOrdCustTHTra},
 		{getJoinOrdCustTHTraByOrdId, qGetJoinOrdCustTHTraByOrdId},
 		{getJoinTDTraProdByTraId, qGetJoinTDTraProdByTraId},
+		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},

@@ -115,3 +115,30 @@ func (d Data) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeE
 	defer row.Close()
 	return headers, nil
 }
+
+
+
+func (d Data) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error) {
+	var (
+		header  SBeEntity.JoinTHTDCartProd
+		headers []SBeEntity.JoinTHTDCartProd
+	)
+
+	row, err := (*d.stmt)[getListJoinTHTDCartProdByCustIdAndCartId].QueryxContext(ctx, custId, cartId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getListJoinTHTDCartProdByCustIdAndCartId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getListJoinTHTDCartProdByCustIdAndCartId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master JoinTHTDCartProdByCustIdAndCartId : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
