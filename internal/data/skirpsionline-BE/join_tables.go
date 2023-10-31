@@ -37,9 +37,7 @@ func (d Data) GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, erro
 	return headers, nil
 }
 
-
-
-func (d Data) GetJoinOrdCustTHTra(ctx context.Context,) ([]SBeEntity.JoinOrdCustTHTra, error) {
+func (d Data) GetJoinOrdCustTHTra(ctx context.Context) ([]SBeEntity.JoinOrdCustTHTra, error) {
 	var (
 		header  SBeEntity.JoinOrdCustTHTra
 		headers []SBeEntity.JoinOrdCustTHTra
@@ -63,7 +61,6 @@ func (d Data) GetJoinOrdCustTHTra(ctx context.Context,) ([]SBeEntity.JoinOrdCust
 	defer row.Close()
 	return headers, nil
 }
-
 
 func (d Data) GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]SBeEntity.JoinOrdCustTHTra, error) {
 	var (
@@ -90,7 +87,6 @@ func (d Data) GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]SBeE
 	return headers, nil
 }
 
-
 func (d Data) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error) {
 	var (
 		header  SBeEntity.JoinTDTraProdByTraId
@@ -116,8 +112,6 @@ func (d Data) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeE
 	return headers, nil
 }
 
-
-
 func (d Data) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error) {
 	var (
 		header  SBeEntity.JoinTHTDCartProd
@@ -141,4 +135,53 @@ func (d Data) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, cust
 
 	defer row.Close()
 	return headers, nil
+}
+
+func (d Data) GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error) {
+	var (
+		header  SBeEntity.JoinTHTDCartProd
+		headers []SBeEntity.JoinTHTDCartProd
+	)
+
+	row, err := (*d.stmt)[getProductInJoinTHTDCartProdByProdId].QueryxContext(ctx, custId, cartId, prodId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getProductInJoinTHTDCartProdByProdId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getProductInJoinTHTDCartProdByProdId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master GetProductInJOinTHTDCartProdByProdId : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
+func (d Data) UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[updateQtyDetailJoinTHTDCart].ExecContext(ctx,
+		header.CartDtlQty,
+		header.CustId,
+		header.CartId,
+		header.ProdId,
+	)
+
+	println("ceking data CardtlQty => ", header.CartDtlQty)
+
+	if err != nil {
+		result = "Gagal Update updateQtyDetailJoinTHTDCart"
+		return result, errors.Wrap(err, "[DATA][updateQtyDetailJoinTHTDCart]")
+	}
+	result = "Sukses Update updateQtyDetailJoinTHTDCart"
+
+	return result, err
 }

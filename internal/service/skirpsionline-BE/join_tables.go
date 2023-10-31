@@ -1,6 +1,5 @@
 package skirpsionlineBE
 
-
 import (
 	"context"
 	// "fmt"
@@ -23,7 +22,6 @@ func (s Service) GetJoinAdmCust(ctx context.Context) ([]SBeEntity.JoinAdmCust, e
 	return headers, err
 }
 
-
 func (s Service) GetJoinOrdCustTHTra(ctx context.Context) ([]SBeEntity.JoinOrdCustTHTra, error) {
 	headers, err := s.skirpsionlineBE.GetJoinOrdCustTHTra(ctx)
 
@@ -44,7 +42,6 @@ func (s Service) GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]S
 	return headers, err
 }
 
-
 func (s Service) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error) {
 	headers, err := s.skirpsionlineBE.GetJoinTDTraProdByTraId(ctx, traId)
 
@@ -55,7 +52,6 @@ func (s Service) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]S
 	return headers, err
 }
 
-
 func (s Service) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error) {
 	headers, err := s.skirpsionlineBE.GetListJoinTHTDCartProdByCustIdAndCartId(ctx, custId, cartId)
 
@@ -64,4 +60,30 @@ func (s Service) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, c
 	}
 
 	return headers, err
+}
+
+func (s Service) GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error) {
+	headers, err := s.skirpsionlineBE.GetProductInJOinTHTDCartProdByProdId(ctx, custId, cartId, prodId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetProductInJOinTHTDCartProdByProdId]")
+	}
+
+	return headers, err
+}
+
+func (s Service) UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.UpdateQtyDetailJoinTHTDCartProd) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	result, err = s.skirpsionlineBE.UpdateQtyDetailJoinTHTDCart(ctx, header.UpdateQtyDetailJoinTHTDCartProdBody)
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[Service][UpdateQtyDetailJoinTHTDCart]")
+	} else {
+		result = "Sukses UpdateQtyDetailJoinTHTDCart"
+	}
+	return result, err
 }

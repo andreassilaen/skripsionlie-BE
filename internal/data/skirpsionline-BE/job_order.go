@@ -355,14 +355,13 @@ const (
 	FROM t_delivery
 	WHERE emp_id = ?`
 
-
 	////__________________________________________ T_Rekening ____________________________________________
 
-	getAllRekening = "GetAllRekening"
+	getAllRekening  = "GetAllRekening"
 	qGetAllRekening = `
 	SELECT * FROM t_rekening`
 
-	getRekByRekId = "GetRekByRekId" 
+	getRekByRekId  = "GetRekByRekId"
 	qGetRekByRekId = `
 	SELECT * 
 	FROM t_rekening
@@ -377,8 +376,7 @@ const (
        c.cust_id, c.cust_username, c.cust_password
   	FROM t_admin a, t_customer c`
 
-
-	getJoinOrdCustTHTra = "GetJoinOrdCustTHTra"
+	getJoinOrdCustTHTra  = "GetJoinOrdCustTHTra"
 	qGetJoinOrdCustTHTra = `
 	SELECT 
 		o.ord_id,
@@ -394,7 +392,7 @@ const (
 		AND h.cust_id = c.cust_id
 		AND o.ord_confirmedyn = "Y"`
 
-	getJoinOrdCustTHTraByOrdId = "GetJoinOrdCustTHTraByOrdId"
+	getJoinOrdCustTHTraByOrdId  = "GetJoinOrdCustTHTraByOrdId"
 	qGetJoinOrdCustTHTraByOrdId = `
 	SELECT 
 		o.ord_id,
@@ -410,8 +408,7 @@ const (
 		AND h.cust_id = c.cust_id 
 		AND o.ord_id = ?`
 
-
-	getJoinTDTraProdByTraId = "GetJoinTDTraProdByTraId"
+	getJoinTDTraProdByTraId  = "GetJoinTDTraProdByTraId"
 	qGetJoinTDTraProdByTraId = `
 	SELECT 
 		d.tra_id,  
@@ -423,8 +420,7 @@ const (
 		d.prod_id = p.prod_id
 		AND d.tra_id = ?`
 
-
-	getListJoinTHTDCartProdByCustIdAndCartId = "GetListJoinTHTDCartProdByCustIdAndCartId"
+	getListJoinTHTDCartProdByCustIdAndCartId  = "GetListJoinTHTDCartProdByCustIdAndCartId"
 	qGetListJoinTHTDCartProdByCustIdAndCartId = `
 	SELECT h.cart_id, h.cust_id, h.cart_total, h.cart_payedyn, p.prod_id, p.prod_name, p.prod_desc, p.prod_price, p.prod_stock, d.cardtl_qty, p.prod_img
 	FROM th_cart h, td_cart d, t_product p 
@@ -433,6 +429,28 @@ const (
 	AND h.cart_payedyn = "N"
 	AND h.cust_id = ?
 	AND d.cart_id = ? `
+
+	getProductInJoinTHTDCartProdByProdId  = "GetProductInJOinTHTDCartProdByProdId"
+	qGetProductInJOinTHTDCartProdByProdId = `
+	SELECT h.cart_id, h.cust_id, h.cart_total, h.cart_payedyn, p.prod_id, p.prod_name, p.prod_desc, p.prod_price, p.prod_stock, d.cardtl_qty, p.prod_img
+	FROM th_cart h, td_cart d, t_product p 
+	WHERE h.cart_id = d.cart_id
+	AND d.prod_id = p.prod_id
+	AND h.cart_payedyn = "N"
+	AND h.cust_id = ?
+	AND d.cart_id = ?
+	AND d.prod_id = ? `
+
+	updateQtyDetailJoinTHTDCart  = "UpdateQtyDetailJoinTHTDCart"
+	qUpdateQtyDetailJoinTHTDCart = `
+	UPDATE th_cart h, td_cart d
+	SET 
+		h.cart_lastupdate = NOW(),
+		d.cardtl_qty = ?
+	WHERE h.cart_id = d.cart_id
+	AND h.cust_id = ?
+	AND d.cart_id = ?
+	AND prod_id = ?`
 )
 
 var (
@@ -475,6 +493,7 @@ var (
 		{getJoinOrdCustTHTra, qGetJoinOrdCustTHTra},
 		{getJoinOrdCustTHTraByOrdId, qGetJoinOrdCustTHTraByOrdId},
 		{getJoinTDTraProdByTraId, qGetJoinTDTraProdByTraId},
+		{getProductInJoinTHTDCartProdByProdId, qGetProductInJOinTHTDCartProdByProdId},
 		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
 	}
 	insertStmt = []statement{
@@ -488,6 +507,7 @@ var (
 	}
 	updateStmt = []statement{
 		{updateCustomerById, qUpdateCustomerById},
+		{updateQtyDetailJoinTHTDCart, qUpdateQtyDetailJoinTHTDCart},
 	}
 	deleteStmt = []statement{}
 )

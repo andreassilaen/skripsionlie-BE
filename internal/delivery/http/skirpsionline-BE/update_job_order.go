@@ -52,12 +52,18 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.UpdateCustomerById(ctx, header, r.FormValue("cusid"))
 		log.Println("UpdateCustomerById", header, r.FormValue("cusid"))
 
-	// case "insertcustomer":
-	// 	var header SBeEntity.InsertCustomer
-	// 	body, _ := ioutil.ReadAll(r.Body)
-	// 	json.Unmarshal(body, &header)
-	// 	result, err = h.skripsionlineSvc.InsertCustomer(ctx, header)
-	// 	log.Println("Delivery InsertCustomer : ", header)
+	case "updateqtydetailjointhtdcart":
+		var header SBeEntity.UpdateQtyDetailJoinTHTDCartProd
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.UpdateQtyDetailJoinTHTDCart(ctx, header)
+		log.Println("UpdateQtyDetailJoinTHTDCartProd", header)
+		// case "insertcustomer":
+		// 	var header SBeEntity.InsertCustomer
+		// 	body, _ := ioutil.ReadAll(r.Body)
+		// 	json.Unmarshal(body, &header)
+		// 	result, err = h.skripsionlineSvc.InsertCustomer(ctx, header)
+		// 	log.Println("Delivery InsertCustomer : ", header)
 	}
 
 	if err != nil {

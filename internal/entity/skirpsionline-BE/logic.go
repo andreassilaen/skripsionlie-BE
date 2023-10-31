@@ -1,6 +1,5 @@
 package skirpsionlineBE
 
-
 // type T_Admin struct {
 // 	AdmId			string 		`db:"adm_id" json:"adm_id"`
 // 	AdmName			string		`db:"adm_name" json:"adm_name"`
@@ -12,9 +11,8 @@ package skirpsionlineBE
 // }
 
 type B_ChekUser struct {
-	UserName 	string	 	`json:"check_username"`
-	PassWord 	string		`json:"check_password"`
-
+	UserName string `json:"check_username"`
+	PassWord string `json:"check_password"`
 }
 
 // type InsertAdmin struct {
@@ -22,29 +20,26 @@ type B_ChekUser struct {
 // }
 
 type CheckUser struct {
-	CheckUserBody		B_ChekUser	`json:"data"`
+	CheckUserBody B_ChekUser `json:"data"`
 }
 
 type CustomError struct {
-    Code    int
-    Message string
+	Code    int
+	Message string
 }
-
 
 type B_Role struct {
-	Role 		string	 	`json:"role"`
+	Role string `json:"role"`
 }
-
 
 type TH_TD_Cart struct {
-	CartId     			string 		`db:"cart_id" json:"cart_id"`
-	CustId  			string 		`db:"cust_id" json:"cust_id"`
-	CartTotal			int 		`db:"cart_total" json:"cart_total"`
-	ProdId    			string		`db:"prod_id" json:"prod_id"`
-	CartDtlQty 			int    		`db:"cardtl_qty" json:"cardtl_qty"`
-
+	CartId     string `db:"cart_id" json:"cart_id"`
+	CustId     string `db:"cust_id" json:"cust_id"`
+	CartTotal  int    `db:"cart_total" json:"cart_total"`
+	ProdId     string `db:"prod_id" json:"prod_id"`
+	CartDtlQty int    `db:"cardtl_qty" json:"cardtl_qty"`
 }
 
-
-
-
+type MainCart struct {
+	MainCartBody JoinTHTDCartProd `json:"data"`
+}

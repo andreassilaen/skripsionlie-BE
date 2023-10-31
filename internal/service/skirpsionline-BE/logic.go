@@ -240,3 +240,10 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 // 	return result, err
 
 // }
+
+// func (s Service) InsertMainCart(ctx context.Context, headers SBeEntity.MainCart) ([]SBeEntity.JoinTHTDCartProd,error) {
+// 	var (
+// 		header		SBeEntity.JoinTDTraProdByTraId
+// 		headers		[]S
+// 	)
+// }

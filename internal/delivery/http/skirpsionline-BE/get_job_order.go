@@ -30,8 +30,8 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		resp     response.Response
 		types    string
 
-		ordid  int
-		rekid	int
+		ordid int
+		rekid int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -75,11 +75,15 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 
 	case "getcustbylogin":
 		result, err = h.skripsionlineSvc.GetCustByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
-		log.Println("getcustbylogin", r.FormValue("username"), r.FormValue("password"))
+		log.Println("getcustbylogin => ", r.FormValue("username"), r.FormValue("password"))
 
 	case "getlistjointhtdcartprodbycustidandcartid":
 		result, err = h.skripsionlineSvc.GetListJoinTHTDCartProdByCustIdAndCartId(ctx, r.FormValue("custid"), r.FormValue("cartid"))
-		log.Println("getlistjointhtdcartprodbycustidandcartid", r.FormValue("custid"), r.FormValue("cartid"))
+		log.Println("getlistjointhtdcartprodbycustidandcartid => ", r.FormValue("custid"), r.FormValue("cartid"))
+
+	case "getproductinjointhtdcartprodbyprodid":
+		result, err = h.skripsionlineSvc.GetProductInJOinTHTDCartProdByProdId(ctx, r.FormValue("custid"), r.FormValue("cartid"), r.FormValue("prodid"))
+		log.Println("getproductinjointhtdcartprodbyprodid => ", r.FormValue("custid"), r.FormValue("cartid"))
 
 	case "getcustbyid":
 		result, err = h.skripsionlineSvc.GetCustById(ctx, r.FormValue("cusid"))
@@ -122,7 +126,7 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		log.Println("getdeliverybyempid", r.FormValue("empid"))
 
 	case "getrekbyrekid":
-		rekid,_ = strconv.Atoi(r.FormValue("rekid"))
+		rekid, _ = strconv.Atoi(r.FormValue("rekid"))
 		result, err = h.skripsionlineSvc.GetRekByRekId(ctx, rekid)
 		log.Println("getrekbyrekid", rekid)
 
@@ -133,7 +137,7 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetJoinOrdCustTHTra(ctx)
 
 	case "getjoinordcustthtrabyordid":
-		ordid,_ = strconv.Atoi(r.FormValue("ordid"))
+		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
 		result, err = h.skripsionlineSvc.GetJoinOrdCustTHTraByOrdId(ctx, ordid)
 		log.Println("getjoinordcustthtrabyordid", ordid)
 
