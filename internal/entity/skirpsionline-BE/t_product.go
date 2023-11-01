@@ -30,3 +30,7 @@ type T_Product2 struct {
 type InsertProduct struct {
 	InsertProductBody		T_Product2	`json:"data"`
 }
+
+type UpdateProdById struct {
+	UpdateProdByIdBody		T_Product2	`json:"data"`
+}

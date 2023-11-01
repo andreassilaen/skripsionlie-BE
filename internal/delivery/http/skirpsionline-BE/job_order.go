@@ -20,6 +20,7 @@ type IskripsionlineSvc interface {
 	GetAllCart(ctx context.Context) ([]SBeEntity.TH_Cart, error)
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
 	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error)
+	GetProdById(ctx context.Context, prodId string) ([]SBeEntity.T_Product, error)
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.InsertCustomer) (string, error)
 	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
@@ -44,6 +45,7 @@ type IskripsionlineSvc interface {
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
+	UpdateProdById(ctx context.Context, header SBeEntity.UpdateProdById, prodId string) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.InsertOrder) (string, error)

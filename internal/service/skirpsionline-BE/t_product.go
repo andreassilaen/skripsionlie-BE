@@ -23,6 +23,16 @@ func (s Service) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, erro
 	return headers, err
 }
 
+func (s Service) GetProdById(ctx context.Context, prodId string) ([]SBeEntity.T_Product, error) {
+	headers, err := s.skirpsionlineBE.GetProdById(ctx, prodId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetProdById]")
+	}
+
+	return headers, err
+}
+
 
 func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error) {
 	var (
@@ -42,47 +52,22 @@ func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProdu
 	
 }
 
-// func (s Service) InsertProduct(ctx context.Context, header SBeEntity.InsertProduct) (string, error) {
-// 	var (
-// 		result string
-// 		err    error
-// 	)
+func (s Service) UpdateProdById(ctx context.Context, header SBeEntity.UpdateProdById, prodId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
 
-// 	last, err:= s.skirpsionlineBE.GetProdLastData(ctx)
-
-	
-
-// 	// word := "adm001"
-
-//     // Take left three characters
-//     leftThree := last.ProdId[3:]
-
-//     // Print the result
-//     log.Println("leftThree",leftThree)
-
-//     test, _ := strconv.Atoi(leftThree)
-// 	log.Println("test = ", test)
-
-// 	test +=1
-// 	log.Println("test =>", test)
-// 	testing := strconv.Itoa(test)
-// 	header.InsertProductBody.ProdId = "pro" + testing
-// 	log.Println("hasil akhir : ",header.InsertProductBody.ProdId)
-	
-
-// 	result, err = s.skirpsionlineBE.InsertProduct(ctx, header.InsertProductBody)
-// 	log.Println("header Service = ", header)
-// 	if err != nil {
-// 		result = "Gagal Insert"
-// 		return result, errors.Wrap(err, "[Service][InsertProduct]")
-// 	} else {
-// 		result = "Sukses InsertProduct"
-// 	}
-// 	return result, err
-
-// 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
-	
-// }
+	result, err = s.skirpsionlineBE.UpdateProdById(ctx, header.UpdateProdByIdBody, prodId)
+	log.Println("prodId =>", prodId)
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[Service][UpdateProdById]")
+	} else {
+		result = "Sukses UpdateProdById"
+	}
+	return result, err
+}
 
 
 func (s Service) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error) {

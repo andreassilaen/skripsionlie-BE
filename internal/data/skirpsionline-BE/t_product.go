@@ -37,6 +37,31 @@ func (d Data) GetAllProduct(ctx context.Context) ([]SBeEntity.T_Product, error) 
 	return headers, nil
 }
 
+func (d Data) GetProdById(ctx context.Context, prodId string) ([]SBeEntity.T_Product, error) {
+	var (
+		header  SBeEntity.T_Product
+		headers []SBeEntity.T_Product
+	)
+
+	row, err := (*d.stmt)[getProdById].QueryxContext(ctx, prodId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getProdById][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getProdById][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master Product by Id : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
 
 func (d Data) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error) {
 	var (
@@ -87,6 +112,33 @@ func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (s
 		return result, errors.Wrap(err, "[DATA][insertProduct]")
 	}
 	result = " Sukses Data"
+	return result, err
+}
+
+
+func (d Data) UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[updateProdById].ExecContext(ctx,
+		header.AdmId,
+		header.CtgId,
+		header.ProdName,
+		header.ProdDesc,
+		header.ProdPrice,
+		header.ProdStock,
+		header.ProdImage,
+		prodId,
+	)
+
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][updateProdById]")
+	}
+	result = "Sukses Update " + prodId
+
 	return result, err
 }
 

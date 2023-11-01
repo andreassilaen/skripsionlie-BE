@@ -25,6 +25,7 @@ type Data interface {
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
 	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error)
+	GetProdById(ctx context.Context, prodId string) ([]SBeEntity.T_Product, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (string, error)
 	GetCountCust(ctx context.Context) (int, error)
 	GetAdmLastData(ctx context.Context) (SBeEntity.T_Admin, error)
@@ -50,6 +51,7 @@ type Data interface {
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
+	UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error) 
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error)

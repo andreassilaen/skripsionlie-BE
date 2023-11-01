@@ -207,6 +207,20 @@ const (
 	FROM t_product`
 	// VALUES (?, ?, ?, ?, ?, ?)`
 
+	getProdById = "GetProdById"
+	qGetProdById = `
+	SELECT prod_id,
+		adm_id,
+		ctg_id,
+		prod_name,
+		prod_desc,
+		prod_price,
+		prod_stock,
+		prod_lastupdate,
+		prod_img
+	FROM t_product
+	WHERE prod_id = ?`
+
 	insertProduct  = "InsertProduct"
 	qInsertProduct = `
 	INSERT INTO t_product
@@ -225,6 +239,20 @@ const (
 	SELECT * FROM t_product
 	ORDER BY prod_id DESC
 	LIMIT 1`
+
+
+	updateProdById  = "UpdateProdById"
+	qUpdateProdById = `
+	UPDATE t_product
+	SET  adm_id = ?,
+		ctg_id = ?,
+		prod_name = ?,
+		prod_desc = ?,
+		prod_price = ?,
+		prod_stock = ?,
+		prod_lastupdate = NOW(),
+		prod_img = ?
+	WHERE prod_id= ?`
 
 	////__________________________________________ T_Category____________________________________________
 
@@ -462,6 +490,7 @@ var (
 		{getAllCart, qGetAllCart},
 		// {getAllCartDetail, qGetAllCartDetail},
 		{getCustById, qGetCustById},
+		{getProdById, qGetProdById},
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},
 		{getCountCust, qGetCountCust},
@@ -507,6 +536,7 @@ var (
 	}
 	updateStmt = []statement{
 		{updateCustomerById, qUpdateCustomerById},
+		{updateProdById, qUpdateProdById},
 		{updateQtyDetailJoinTHTDCart, qUpdateQtyDetailJoinTHTDCart},
 	}
 	deleteStmt = []statement{}

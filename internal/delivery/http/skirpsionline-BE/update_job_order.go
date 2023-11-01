@@ -52,6 +52,13 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.UpdateCustomerById(ctx, header, r.FormValue("cusid"))
 		log.Println("UpdateCustomerById", header, r.FormValue("cusid"))
 
+	case "updateprodbyid":
+		var header SBeEntity.UpdateProdById
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.UpdateProdById(ctx, header, r.FormValue("prodid"))
+		log.Println("UpdateProdById", header, r.FormValue("prodid"))
+
 	case "updateqtydetailjointhtdcart":
 		var header SBeEntity.UpdateQtyDetailJoinTHTDCartProd
 		body, _ := ioutil.ReadAll(r.Body)
