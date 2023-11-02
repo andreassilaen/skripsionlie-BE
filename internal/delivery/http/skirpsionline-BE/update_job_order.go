@@ -45,6 +45,20 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 	// Your code here
 	types = r.FormValue("type")
 	switch types {
+	case "updateadminbyid":
+		var header SBeEntity.UpdateAdminById
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.UpdateAdminById(ctx, header, r.FormValue("admid"))
+		log.Println("UpdateAdminById", header, r.FormValue("admid"))
+
+	case "updateemployeebyid":
+		var header SBeEntity.UpdateEmployeeById
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.UpdateEmployeeById(ctx, header, r.FormValue("empid"))
+		log.Println("UpdateEmployeeById", header, r.FormValue("empid"))
+
 	case "updatecustomerbyid":
 		var header SBeEntity.UpdateCustomerById
 		body, _ := ioutil.ReadAll(r.Body)

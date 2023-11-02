@@ -185,3 +185,29 @@ func (d Data) UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.
 
 	return result, err
 }
+
+
+func (d Data) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error) {
+	var (
+		header  SBeEntity.JoinTHTraRek
+		headers []SBeEntity.JoinTHTraRek
+	)
+
+	row, err := (*d.stmt)[getJoinTHTraRekByCusId].QueryxContext(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getJoinTHTraRekByCusId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getJoinTHTraRekByCusId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master getJoinTHTraRekByCusId : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}

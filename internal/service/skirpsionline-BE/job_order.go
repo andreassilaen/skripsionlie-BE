@@ -47,9 +47,15 @@ type Data interface {
 
 	GetAllHeaderTran(ctx context.Context) ([]SBeEntity.TH_Transaction, error)
 	GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error)
+	GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
+	InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error)
 
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
+	InsertDetailTran(ctx context.Context, header SBeEntity.TD_Transaction2) (string, error)
+	NewInsertDetailTran(ctx context.Context, user []SBeEntity.TD_Transaction2) error /// buat sendiri
 
+	UpdateAdminById(ctx context.Context, header SBeEntity.T_Admin2, admId string) (string, error)
+	UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error) 
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
 	UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error) 
 
@@ -66,6 +72,7 @@ type Data interface {
 
 	GetJoinOrdCustTHTra(ctx context.Context) ([]SBeEntity.JoinOrdCustTHTra, error)
 	GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]SBeEntity.JoinOrdCustTHTra, error)
+	GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error)
 	GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error)
 	GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)

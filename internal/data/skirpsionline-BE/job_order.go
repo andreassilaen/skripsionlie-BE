@@ -75,6 +75,17 @@ const (
 	WHERE  adm_username = ?
 	AND adm_password = ?`
 
+	updateAdminById  = "UpdateAdminById"
+	qUpdateAdminById = `
+	UPDATE t_admin
+	SET adm_name = ?,
+		adm_username = ?,
+		adm_password = ?,
+		adm_phone = ?,
+		adm_email = ?,
+		adm_address = ?
+	WHERE adm_id= ?`
+
 	////__________________________________________ T_Employee____________________________________________
 	//	+ selesai +
 	getAllEmployee  = "GetAllEmployee"
@@ -104,6 +115,17 @@ const (
 		emp_email,
 		emp_address )
 	VALUES(?, ?, ?,?, ?, ?)`
+
+	updateEmployeeById  = "UpdateEmployeeById"
+	qUpdateEmployeeById = `
+	UPDATE t_employee
+	SET emp_name = ?,
+		emp_username = ?,
+		emp_password = ?,
+		emp_phone = ?,
+		emp_email = ?,
+		emp_address = ?
+	WHERE emp_id= ?`
 
 	getEmpByLogin  = "GetEmpByLogin"
 	qGetEmpByLogin = `
@@ -297,6 +319,16 @@ const (
 		cart_lastupdate)
 		VALUES (?, ?, NOW())`
 
+
+	getHeaderCartNotPayedByCustId = "GetHeaderCartNotPayedCustId"
+	qGetHeaderCartNotPayedCustId = `
+	SELECT * 
+	FROM th_cart 
+	WHERE cart_payedyn = "N"
+	AND cust_id = ?
+	ORDER BY cart_id DESC
+	LIMIT 1`
+
 	////__________________________________________ TD_Cart ____________________________________________
 
 	// getAllCartDetail = "GetAllCartDetail"
@@ -322,6 +354,8 @@ const (
 	SELECT 
 		tra_id,
 		cart_id,
+		cust_id,
+		rek_id,
 		tra_total,
 		tra_img,
 		tra_date
@@ -332,10 +366,23 @@ const (
 	qGetAllHeaderTran = `
 	SELECT tra_id,
 		cart_id,
+		cust_id,
+		rek_id,
 		tra_total,
 		tra_img,
 		tra_date
 	FROM th_transaction`
+
+	insertHeaderTran= "InsertHeaderTran"
+	qInsertHeaderTran = `
+	INSERT INTO th_transaction(
+		cart_id,
+		cust_id,
+		rek_id,
+		tra_total,
+		tra_img,
+		tra_date)
+	VALUES (?, ?, ?, ?, ?, NOW())`
 
 	////__________________________________________ TD_Transaction____________________________________________
 
@@ -349,6 +396,17 @@ const (
 		tradtl_amount
 	FROM td_transaction
 	WHERE tra_id = ?`
+
+
+	insertDetailTran = "InsertDetailTran"
+	qInsertDetailTran = `
+	INSERT INTO td_transaction (
+		tra_id,
+		prod_id,
+		tradtl_qty,
+		tradtl_price,
+		tradtl_amount)
+	VALUES (?, ?, ?, ?, ?)`
 
 	////__________________________________________ T_Order ____________________________________________
 
@@ -479,6 +537,15 @@ const (
 	AND h.cust_id = ?
 	AND d.cart_id = ?
 	AND prod_id = ?`
+
+
+	getJoinTHTraRekByCusId = "GetJoinTHTraRekByCusId"
+	qGetJoinTHTraRekByCusId = `
+	SELECT h.tra_id, h.cust_id, r.rek_bank, h.tra_total, h.tra_img, tra_date
+	FROM th_transaction h, t_rekening r
+	WHERE h.rek_id = r.rek_id
+	AND h.cust_id = ? `
+
 )
 
 var (
@@ -500,6 +567,7 @@ var (
 		{getHeaderCartLastData, qGetHeaderCartLastData},
 
 		{getCartByCustId, qGetCartByCustId},
+		{getHeaderCartNotPayedByCustId, qGetHeaderCartNotPayedCustId},
 
 		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},
@@ -524,6 +592,7 @@ var (
 		{getJoinTDTraProdByTraId, qGetJoinTDTraProdByTraId},
 		{getProductInJoinTHTDCartProdByProdId, qGetProductInJOinTHTDCartProdByProdId},
 		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
+		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},
@@ -532,9 +601,13 @@ var (
 		{insertEmployee, qInsertEmployee},
 		{insertHeaderCart, qInsertHeaderCart},
 		{insertDetailCart, qInsertDetailCart},
+		{insertHeaderTran, qInsertHeaderTran},
+		{insertDetailTran, qInsertDetailTran},
 		{insertOrder, qInsertOrder},
 	}
 	updateStmt = []statement{
+		{updateAdminById, qUpdateAdminById},
+		{updateEmployeeById, qUpdateEmployeeById},
 		{updateCustomerById, qUpdateCustomerById},
 		{updateProdById, qUpdateProdById},
 		{updateQtyDetailJoinTHTDCart, qUpdateQtyDetailJoinTHTDCart},

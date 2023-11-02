@@ -93,6 +93,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetProdById(ctx, r.FormValue("prodid"))
 		log.Println("getprodbyid", r.FormValue("prodid"))
 
+	case "getheadercartnotpayedbycustid":
+		result, err = h.skripsionlineSvc.GetHeaderCartNotPayedCustId(ctx, r.FormValue("cusid"))
+		log.Println("getheadercartnotpayedbycustid", r.FormValue("cusid"))
+
 	case "getadmbylogin":
 		result, err = h.skripsionlineSvc.GetAdmByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getadmbylogin", r.FormValue("username"), r.FormValue("password"))
@@ -148,6 +152,11 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 	case "getjointdtraprodbytraid":
 		result, err = h.skripsionlineSvc.GetJoinTDTraProdByTraId(ctx, r.FormValue("traid"))
 		log.Println("getjointdtraprodbytraid", r.FormValue("traid"))
+
+	case "getjointhtrarekbycusid":
+		result, err = h.skripsionlineSvc.GetJoinTHTraRekByCusId(ctx, r.FormValue("cusid"))
+		log.Println("getjointhtrarekbycusid", r.FormValue("cusid"))
+
 
 	}
 

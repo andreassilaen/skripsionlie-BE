@@ -78,3 +78,18 @@ type T_Employee struct {
 type InsertEmployee struct {
 	InsertEmployeeBody		T_Employee	`json:"data"`
 }
+
+
+
+type T_Employee2 struct {
+	EmpName			string		`db:"emp_name" json:"emp_name"`
+	EmpUserName 	string		`db:"emp_username" json:"emp_username"`
+	EmpPassWord 	string		`db:"emp_password" json:"emp_password"`
+	EmpPhone 		string		`db:"emp_phone" json:"emp_phone"`
+	EmpEmail 		string		`db:"emp_email" json:"emp_email"`
+	EmpAddress		string		`db:"emp_address" json:"emp_address"`
+}
+
+type UpdateEmployeeById struct {
+	UpdateEmployeeByIdBody		T_Employee2	`json:"data"`
+}

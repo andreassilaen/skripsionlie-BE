@@ -8,7 +8,7 @@ import (
 	// "strconv"
 	// "strings"
 	// "job-order-be/pkg/errors"
-	// "log"
+	"log"
 )
 
 
@@ -22,4 +22,25 @@ func (s Service) GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeE
 	}
 
 	return details, err
+}
+
+
+
+
+func (s Service) InsertDetailTransaction(ctx context.Context, header SBeEntity.InsertDetailTransaction) (string, error) {
+	var (
+		result string
+		err    error
+	)
+	
+	result, err = s.skirpsionlineBE.InsertDetailTran(ctx, header.InsertDetailTransactionBody)
+	log.Println("header Service = ", header)
+	if err != nil {
+		result = "Gagal Insert"
+		return result, errors.Wrap(err, "[Service][InsertDetailTransaction]")
+	} else {
+		result = "Sukses InsertDetailTransaction"
+	}
+	return result, err
+	
 }

@@ -110,3 +110,28 @@ func (d Data) InsertAdmin(ctx context.Context, header SBeEntity.T_Admin) (string
 	result = " Data Sukses"
 	return result, err
 }
+
+
+func (d Data) UpdateAdminById(ctx context.Context, header SBeEntity.T_Admin2, admId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[updateAdminById].ExecContext(ctx,
+		header.AdmName,
+		header.AdmUserName,
+		header.AdmPassWord,
+		header.AdmPhone,
+		header.AdmEmail,
+		header.AdmAddress,
+		admId)
+
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][updateAdminById]")
+	}
+	result = "Sukses Update adm " + admId
+
+	return result, err
+}

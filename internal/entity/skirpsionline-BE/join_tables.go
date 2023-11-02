@@ -12,6 +12,12 @@ type InsertJoinHeaderDetailCart struct {
 	DetailCartBody []TD_Cart2 `json:"detail"`
 }
 
+type InsertJoinHeaderDetailTran struct {
+	HeaderTranBody TH_Transaction2 `json:"header"`
+
+	DetailTranBody []TD_Transaction2 `json:"detail"`
+}
+
 type JoinOrdCustTHTra struct {
 	OrdId  int    `db:"ord_id" json:"ord_id"`
 	AdmId  string `db:"adm_id" json:"adm_id"`
@@ -32,6 +38,16 @@ type JoinTDTraProdByTraId struct {
 
 	TraDtlQty    int `db:"tradtl_qty" json:"tradtl_qty"`
 	TraDtlAmount int `db:"tradtl_amount" json:"tradtl_amount"`
+}
+
+type JoinTHTraRek struct {
+	TraId    	int		`db:"tra_id" json:"tra_id"`
+	// CartId    	string		`db:"cart_id" json:"cart_id"`
+	CustId 		string		`db:"cust_id" json:"cust_id"`
+	RekBank     	string `db:"rek_bank" json:"rek_bank"`
+	TraTotal   int		`db:"tra_total" json:"tra_total"`
+	TraImg    	string		`db:"tra_img" json:"tra_img"`
+	TraDate		string	`db:"tra_date" json:"tra_date"`
 }
 
 // type JoinTHTDCart struct {

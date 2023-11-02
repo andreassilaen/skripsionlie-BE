@@ -87,3 +87,14 @@ func (s Service) UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEnti
 	}
 	return result, err
 }
+
+
+func (s Service) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error) {
+	headers, err := s.skirpsionlineBE.GetJoinTHTraRekByCusId(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetCustById]")
+	}
+
+	return headers, err
+}

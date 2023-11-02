@@ -110,3 +110,29 @@ func (d Data) InsertEmployee(ctx context.Context, header SBeEntity.T_Employee) (
 	result = " Data Sukses"
 	return result, err
 }
+
+
+
+func (d Data) UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[updateEmployeeById].ExecContext(ctx,
+		header.EmpName,
+		header.EmpUserName,
+		header.EmpPassWord,
+		header.EmpPhone,
+		header.EmpEmail,
+		header.EmpAddress,
+		empId)
+
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][UpdateCustomerById]")
+	}
+	result = "Sukses Update " + empId
+
+	return result, err
+}

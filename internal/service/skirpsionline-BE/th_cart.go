@@ -53,6 +53,12 @@ func (s Service) InsertHeaderCart(ctx context.Context, header SBeEntity.InsertHe
 
 
 
+func (s Service) GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error) {
+	headers, err := s.skirpsionlineBE.GetHeaderCartNotPayedCustId(ctx, custId)
 
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetHeaderCartNotPayedCustId]")
+	}
 
-
+	return headers, err
+}

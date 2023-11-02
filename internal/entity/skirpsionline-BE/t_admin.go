@@ -78,3 +78,17 @@ type T_Admin struct {
 type InsertAdmin struct {
 	InsertAdminBody		T_Admin	`json:"data"`
 }
+
+
+type T_Admin2 struct {
+	AdmName			string		`db:"adm_name" json:"adm_name"`
+	AdmUserName 	string		`db:"adm_username" json:"adm_username"`
+	AdmPassWord 	string		`db:"adm_password" json:"adm_password"`
+	AdmPhone 		string		`db:"adm_phone" json:"adm_phone"`
+	AdmEmail 		string		`db:"adm_email" json:"adm_email"`
+	AdmAddress		string		`db:"adm_address" json:"adm_address"`
+}
+
+type UpdateAdminById struct {
+	UpdateAdminByIdBody		T_Admin2	`json:"data"`
+}

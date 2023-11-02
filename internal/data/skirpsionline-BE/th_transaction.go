@@ -86,3 +86,27 @@ func (d Data) GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.T
 	defer row.Close()
 	return headers, nil
 }
+
+
+func (d Data) InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertHeaderTran].ExecContext(ctx,
+		header.CartId,
+		header.CustId,
+		header.RekId,
+		header.TranTotal,
+		header.TranImg,
+	)
+
+	if err != nil {
+		result = "Gagal update Data"
+		return result, errors.Wrap(err, "[DATA][insertHeaderTran]")
+	}
+	result = " Sukses Data"
+	return result, err
+}
+

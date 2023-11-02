@@ -7,7 +7,7 @@ import (
 
 	// "strconv"
 	// "fmt"
-	// "log"
+	"log"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
 	// "strconv"
@@ -34,4 +34,24 @@ func (s Service) GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntit
 	}
 
 	return headers, err
+}
+
+
+
+func (s Service) InsertHeaderTran(ctx context.Context, header SBeEntity.InsertHeaderTransaction) (string, error) {
+	var (
+		result string
+		err    error
+	)
+	
+	result, err = s.skirpsionlineBE.InsertHeaderTran(ctx, header.InsertHeaderTransactionBody)
+	log.Println("header Service = ", header)
+	if err != nil {
+		result = "Gagal Insert"
+		return result, errors.Wrap(err, "[Service][InsertHeaderTran]")
+	} else {
+		result = "Sukses InsertHeaderTran"
+	}
+	return result, err
+	
 }

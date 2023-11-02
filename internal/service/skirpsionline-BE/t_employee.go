@@ -64,3 +64,22 @@ func (s Service) InsertEmployee(ctx context.Context, header SBeEntity.InsertEmpl
 	return result, err
 	
 }
+
+
+
+func (s Service) UpdateEmployeeById(ctx context.Context, header SBeEntity.UpdateEmployeeById, empId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	result, err = s.skirpsionlineBE.UpdateEmployeeById(ctx, header.UpdateEmployeeByIdBody, empId)
+	log.Println("empId =>", empId)
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[Service][UpdateEmployeeById]")
+	} else {
+		result = "Sukses UpdateEmployeeById"
+	}
+	return result, err
+}

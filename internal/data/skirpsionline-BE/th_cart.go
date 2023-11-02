@@ -110,6 +110,31 @@ func (d Data) InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (
 
 
 
+func (d Data) GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error) {
+	var (
+		header  SBeEntity.TH_Cart
+		headers []SBeEntity.TH_Cart
+	)
+
+	row, err := (*d.stmt)[getHeaderCartNotPayedByCustId].QueryxContext(ctx,custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getHeaderCartNotPayedByCustId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getHeaderCartNotPayedByCustId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master Header Cart : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
 
 
 

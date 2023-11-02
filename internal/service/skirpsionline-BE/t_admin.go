@@ -64,3 +64,22 @@ func (s Service) InsertAdmin(ctx context.Context, header SBeEntity.InsertAdmin) 
 	return result, err
 	
 }
+
+
+
+func (s Service) UpdateAdminById(ctx context.Context, header SBeEntity.UpdateAdminById, admId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	result, err = s.skirpsionlineBE.UpdateAdminById(ctx, header.UpdateAdminByIdBody, admId)
+	log.Println("admId =>", admId)
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[Service][UpdateAdminById]")
+	} else {
+		result = "Sukses UpdateAdminById"
+	}
+	return result, err
+}
