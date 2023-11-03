@@ -129,6 +129,13 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertJoinHeaderDetailCart(ctx, header)
 		log.Println("Delivery InsertJoinHeaderDetailCart : ", header)
 
+	case "insertjoinheaderdetailtran":
+		var header SBeEntity.InsertJoinHeaderDetailTran
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertJoinHeaderDetailTran(ctx, header)
+		log.Println("Delivery InsertJoinHeaderDetailTran : ", header)
+
 	}
 
 	if err != nil {

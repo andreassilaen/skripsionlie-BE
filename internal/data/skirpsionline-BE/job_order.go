@@ -373,6 +373,13 @@ const (
 		tra_date
 	FROM th_transaction`
 
+	getHeaderTranLastDataByCusId  = "GetHeaderTranLastDataByCusId"
+	qGetHeaderTranLastDataByCusId = `
+	SELECT * FROM th_transaction
+	WHERE cust_id = ?
+	ORDER BY tra_id DESC
+	LIMIT 1`
+
 	insertHeaderTran= "InsertHeaderTran"
 	qInsertHeaderTran = `
 	INSERT INTO th_transaction(
@@ -571,6 +578,7 @@ var (
 
 		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},
+		{getHeaderTranLastDataByCusId, qGetHeaderTranLastDataByCusId},
 
 		{getDetailTranByTraId, qGetDetailTranByTraId},
 

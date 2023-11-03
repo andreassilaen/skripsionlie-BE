@@ -71,7 +71,7 @@ func (d Data) NewInsertDetailTran(ctx context.Context, user []SBeEntity.TD_Trans
 
     for _, v := range user {
         query, args, err := sqlx.In(qInsertDetailTran,
-            v.TraId, v.ProdId, v.TraDtlQty,)
+            v.TraId, v.ProdId, v.TraDtlQty, v.TraDtlPrice, v.TraDtlAmount)
         if err != nil {
             return errors.Wrap(err, "[DATA][OtherInsertDetailTran]")
         }

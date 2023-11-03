@@ -88,6 +88,31 @@ func (d Data) GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.T
 }
 
 
+func (d Data) GetHeaderTranLastDataByCusId(ctx context.Context, custId string) (SBeEntity.TH_Transaction, error) {
+	var (
+		header  SBeEntity.TH_Transaction
+		// headers []SBeEntity.T_Customer
+	)
+
+	row, err := (*d.stmt)[getHeaderTranLastDataByCusId].QueryxContext(ctx, custId)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][getHeaderTranLastDataByCusId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][getHeaderTranLastDataByCusId][Query]")
+		}
+		// headers = append(headers, header)
+	}
+	log.Println("Data getHeaderTranLastDataByCusId : ", header)
+	defer row.Close()
+	return header, nil
+}
+
+
 func (d Data) InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error) {
 	var (
 		result string

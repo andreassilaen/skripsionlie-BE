@@ -48,6 +48,7 @@ type Data interface {
 	GetAllHeaderTran(ctx context.Context) ([]SBeEntity.TH_Transaction, error)
 	GetTranByCartId(ctx context.Context, cartId string) ([]SBeEntity.TH_Transaction, error)
 	GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
+	GetHeaderTranLastDataByCusId(ctx context.Context, custId string) (SBeEntity.TH_Transaction, error)
 	InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error)
 
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)

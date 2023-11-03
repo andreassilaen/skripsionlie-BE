@@ -138,6 +138,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetRekByRekId(ctx, rekid)
 		log.Println("getrekbyrekid", rekid)
 
+	case "getallproductcartnotpayedbyscusid":
+		result, err = h.skripsionlineSvc.GetAllProductCartNotPayedByCusId(ctx, r.FormValue("cusid"))
+		log.Println("GetAllProductCartNotPayedByCusId => ", r.FormValue("cusid"))
+
 	case "getjoinadmcust":
 		result, err = h.skripsionlineSvc.GetJoinAdmCust(ctx)
 

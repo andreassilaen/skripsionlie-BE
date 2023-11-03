@@ -68,12 +68,15 @@ type IskripsionlineSvc interface {
 	GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error)
 	GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error) 
 	GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error)
+	GetAllProductCartNotPayedByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTDCartProd,error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.UpdateQtyDetailJoinTHTDCartProd) (string, error)
 
 	TokenUser(ctx context.Context) error
 
 	InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error)
+	InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailTran) (interface{}, error)
+
 }
 
 type (
