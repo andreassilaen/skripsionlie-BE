@@ -39,16 +39,19 @@ type JoinTDTraProdByTraId struct {
 
 	TraDtlQty    int `db:"tradtl_qty" json:"tradtl_qty"`
 	TraDtlAmount int `db:"tradtl_amount" json:"tradtl_amount"`
+
+	CustName    string `db:"cust_name" json:"cust_name"`
+	CustAddress string `db:"cust_address" json:"cust_address"`
 }
 
 type JoinTHTraRek struct {
-	TraId    	int		`db:"tra_id" json:"tra_id"`
+	TraId int `db:"tra_id" json:"tra_id"`
 	// CartId    	string		`db:"cart_id" json:"cart_id"`
-	CustId 		string		`db:"cust_id" json:"cust_id"`
-	RekBank     	string `db:"rek_bank" json:"rek_bank"`
-	TraTotal   int		`db:"tra_total" json:"tra_total"`
-	TraImg    	string		`db:"tra_img" json:"tra_img"`
-	TraDate		string	`db:"tra_date" json:"tra_date"`
+	CustId   string `db:"cust_id" json:"cust_id"`
+	RekBank  string `db:"rek_bank" json:"rek_bank"`
+	TraTotal int    `db:"tra_total" json:"tra_total"`
+	TraImg   string `db:"tra_img" json:"tra_img"`
+	TraDate  string `db:"tra_date" json:"tra_date"`
 }
 
 // type JoinTHTDCart struct {

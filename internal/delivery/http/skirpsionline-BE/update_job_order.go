@@ -7,6 +7,7 @@ import (
 	"net/http"
 	httpHelper "skripsi-online-BE/internal/delivery/http"
 	"skripsi-online-BE/pkg/response"
+	"strconv"
 
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 
@@ -31,6 +32,8 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		err      error
 		resp     response.Response
 		types    string
+
+		ordid int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -85,6 +88,11 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		// 	json.Unmarshal(body, &header)
 		// 	result, err = h.skripsionlineSvc.InsertCustomer(ctx, header)
 		// 	log.Println("Delivery InsertCustomer : ", header)
+
+	case "updateorderondeliveryyes":
+		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
+		result, err = h.skripsionlineSvc.UpdateOrderOnDeliveryYes(ctx, ordid)
+		log.Println("UpdateOrderOnDeliveryYes", r.FormValue("ordid"))
 	}
 
 	if err != nil {

@@ -1,13 +1,14 @@
 package skirpsionlineBE
 
 import (
-	"skripsi-online-BE/pkg/response"
-	"log"
-	"net/http"
 	"encoding/json"
 	"io/ioutil"
+	"log"
+	"net/http"
+	"skripsi-online-BE/pkg/response"
 
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
+
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"go.uber.org/zap"
@@ -45,7 +46,6 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 	types = r.FormValue("type")
 	switch types {
 	case "":
-
 
 	case "insertproduct":
 		var header SBeEntity.InsertProduct
@@ -89,14 +89,12 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertDetailCart(ctx, header)
 		log.Println("Delivery InsertDetailCart : ", header)
 
-
 	case "insertheadertran":
 		var header SBeEntity.InsertHeaderTransaction
 		body, _ := ioutil.ReadAll(r.Body)
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.InsertHeaderTran(ctx, header)
 		log.Println("Delivery InsertHeaderTran : ", header)
-
 
 	case "insertdetailtran":
 		var header SBeEntity.InsertDetailTransaction
@@ -112,7 +110,19 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.InsertOrder(ctx, header)
 		log.Println("Delivery InsertDetailCart : ", header)
 
+	case "insertdeliveryprocess":
+		var header SBeEntity.InsertDelivery
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertDeliveryProcess(ctx, header)
+		log.Println("Delivery InsertDeliveryProcess : ", header)
 
+	case "insertorderacc":
+		var header SBeEntity.InsertOrder
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertOrderAcc(ctx, header)
+		log.Println("Delivery InsertOrderAcc : ", header)
 
 	case "checkuser":
 		var header SBeEntity.CheckUser
@@ -120,7 +130,6 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		json.Unmarshal(body, &header)
 		result, metadata, err = h.skripsionlineSvc.CheckUser(ctx, header.CheckUserBody)
 		log.Println("Delivery CheckUser : ", header)
-
 
 	case "insertjoinheaderdetailcart":
 		var header SBeEntity.InsertJoinHeaderDetailCart

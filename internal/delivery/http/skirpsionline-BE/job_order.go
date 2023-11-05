@@ -47,16 +47,19 @@ type IskripsionlineSvc interface {
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
 	InsertDetailTransaction(ctx context.Context, header SBeEntity.InsertDetailTransaction) (string, error)
 
-	UpdateAdminById(ctx context.Context, header SBeEntity.UpdateAdminById, admId string) (string, error) 
+	UpdateAdminById(ctx context.Context, header SBeEntity.UpdateAdminById, admId string) (string, error)
 	UpdateEmployeeById(ctx context.Context, header SBeEntity.UpdateEmployeeById, empId string) (string, error)
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
 	UpdateProdById(ctx context.Context, header SBeEntity.UpdateProdById, prodId string) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.InsertOrder) (string, error)
+	InsertOrderAcc(ctx context.Context, header SBeEntity.InsertOrder) (string, error)
+	UpdateOrderOnDeliveryYes(ctx context.Context, ordId int) (string, error)
 
 	GetAllDelivery(ctx context.Context) ([]SBeEntity.T_Delivery, error)
 	GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEntity.T_Delivery, error)
+	InsertDeliveryProcess(ctx context.Context, header SBeEntity.InsertDelivery) (string, error)
 
 	GetAllRekening(ctx context.Context) ([]SBeEntity.T_Rekening, error)
 	GetRekByRekId(ctx context.Context, rekId int) ([]SBeEntity.T_Rekening, error)
@@ -66,9 +69,9 @@ type IskripsionlineSvc interface {
 	GetJoinOrdCustTHTra(ctx context.Context) ([]SBeEntity.JoinOrdCustTHTra, error)
 	GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]SBeEntity.JoinOrdCustTHTra, error)
 	GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error)
-	GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error) 
+	GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error)
 	GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error)
-	GetAllProductCartNotPayedByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTDCartProd,error)
+	GetAllProductCartNotPayedByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.UpdateQtyDetailJoinTHTDCartProd) (string, error)
 
@@ -76,7 +79,6 @@ type IskripsionlineSvc interface {
 
 	InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error)
 	InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailTran) (interface{}, error)
-
 }
 
 type (

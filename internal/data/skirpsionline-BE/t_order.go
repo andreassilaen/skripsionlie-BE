@@ -12,10 +12,6 @@ import (
 	"skripsi-online-BE/pkg/errors"
 )
 
-
-
-
-
 func (d Data) GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error) {
 	var (
 		header  SBeEntity.T_Order
@@ -41,10 +37,6 @@ func (d Data) GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error) {
 	return headers, nil
 }
 
-
-
-
-
 func (d Data) InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error) {
 	var (
 		result string
@@ -65,10 +57,39 @@ func (d Data) InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (strin
 	return result, err
 }
 
+func (d Data) InsertOrderAcc(ctx context.Context, header SBeEntity.T_Order2) (string, error) {
+	var (
+		result string
+		err    error
+	)
 
+	_, err = (*d.stmt)[insertOrderAcc].ExecContext(ctx,
+		header.AdmId,
+		header.TraId,
+		// header.ProdLastupdate,
+	)
 
+	if err != nil {
+		result = "Gagal insertOrderAcc"
+		return result, errors.Wrap(err, "[DATA][insertOrderAcc]")
+	}
+	result = " Sukses insertOrderAcc"
+	return result, err
+}
 
+func (d Data) UpdateOrderOnDeliveryYes(ctx context.Context, ordId int) (string, error) {
+	var (
+		result string
+		err    error
+	)
 
+	_, err = (*d.stmt)[updateOrderOnDeliveryYes].ExecContext(ctx, ordId)
 
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][updateOrderOnDeliveryYes]")
+	}
+	result = "Sukses Update updateOrderOnDeliveryYes"
 
-
+	return result, err
+}

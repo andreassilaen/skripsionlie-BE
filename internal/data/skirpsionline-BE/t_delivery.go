@@ -61,3 +61,22 @@ func (d Data) GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEntity.
 	defer row.Close()
 	return headers, nil
 }
+
+func (d Data) InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Delivery2) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertDeliveryProcess].ExecContext(ctx,
+		header.EmpId,
+		header.OrdId,
+	)
+
+	if err != nil {
+		result = "Gagal update Data"
+		return result, errors.Wrap(err, "[DATA][insertDeliveryProcess]")
+	}
+	result = " Sukses Data"
+	return result, err
+}

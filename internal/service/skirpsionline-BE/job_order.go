@@ -56,15 +56,18 @@ type Data interface {
 	NewInsertDetailTran(ctx context.Context, user []SBeEntity.TD_Transaction2) error /// buat sendiri
 
 	UpdateAdminById(ctx context.Context, header SBeEntity.T_Admin2, admId string) (string, error)
-	UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error) 
+	UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error)
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
-	UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error) 
+	UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error)
+	InsertOrderAcc(ctx context.Context, header SBeEntity.T_Order2) (string, error)
+	UpdateOrderOnDeliveryYes(ctx context.Context, ordId int) (string, error)
 
 	GetAllDelivery(ctx context.Context) ([]SBeEntity.T_Delivery, error)
 	GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEntity.T_Delivery, error)
+	InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Delivery2) (string, error)
 
 	GetAllRekening(ctx context.Context) ([]SBeEntity.T_Rekening, error)
 	GetRekByRekId(ctx context.Context, rekId int) ([]SBeEntity.T_Rekening, error)

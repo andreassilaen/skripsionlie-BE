@@ -229,7 +229,7 @@ const (
 	FROM t_product`
 	// VALUES (?, ?, ?, ?, ?, ?)`
 
-	getProdById = "GetProdById"
+	getProdById  = "GetProdById"
 	qGetProdById = `
 	SELECT prod_id,
 		adm_id,
@@ -261,7 +261,6 @@ const (
 	SELECT * FROM t_product
 	ORDER BY prod_id DESC
 	LIMIT 1`
-
 
 	updateProdById  = "UpdateProdById"
 	qUpdateProdById = `
@@ -319,9 +318,8 @@ const (
 		cart_lastupdate)
 		VALUES (?, ?, NOW())`
 
-
 	getHeaderCartNotPayedByCustId = "GetHeaderCartNotPayedCustId"
-	qGetHeaderCartNotPayedCustId = `
+	qGetHeaderCartNotPayedCustId  = `
 	SELECT * 
 	FROM th_cart 
 	WHERE cart_payedyn = "N"
@@ -371,7 +369,8 @@ const (
 		tra_total,
 		tra_img,
 		tra_date
-	FROM th_transaction`
+	FROM th_transaction
+	WHERE tra_checkedyn = "N"`
 
 	getHeaderTranLastDataByCusId  = "GetHeaderTranLastDataByCusId"
 	qGetHeaderTranLastDataByCusId = `
@@ -380,7 +379,7 @@ const (
 	ORDER BY tra_id DESC
 	LIMIT 1`
 
-	insertHeaderTran= "InsertHeaderTran"
+	insertHeaderTran  = "InsertHeaderTran"
 	qInsertHeaderTran = `
 	INSERT INTO th_transaction(
 		cart_id,
@@ -404,8 +403,7 @@ const (
 	FROM td_transaction
 	WHERE tra_id = ?`
 
-
-	insertDetailTran = "InsertDetailTran"
+	insertDetailTran  = "InsertDetailTran"
 	qInsertDetailTran = `
 	INSERT INTO td_transaction (
 		tra_id,
@@ -435,6 +433,22 @@ const (
 		ord_lastupdate)
 	VALUES (?, ?, NOW())`
 
+	insertOrderAcc  = "InsertOrderAcc"
+	qInsertOrderAcc = `
+	INSERT INTO t_order (
+		adm_id, 
+		tra_id, 
+		ord_confirmedyn,
+		ord_lastupdate)
+	VALUES (?, ?, "Y",NOW())`
+
+	updateOrderOnDeliveryYes  = "UpdateOrderOnDeliveryYes"
+	qUpdateOrderOnDeliveryYes = `
+	UPDATE t_order 
+	SET ord_ondeliveryyn = "Y",
+		ord_lastupdate = now()
+	WHERE ord_id = ?`
+
 	////__________________________________________ T_Delivery ____________________________________________
 
 	getAllDelivery  = "GetAllDelivery"
@@ -447,6 +461,15 @@ const (
 	SELECT * 
 	FROM t_delivery
 	WHERE emp_id = ?`
+
+	insertDeliveryProcess  = "InsertDeliveryProcess"
+	qInsertDeliveryProcess = `
+	INSERT INTO t_delivery (
+		emp_id, 
+		ord_id, 
+		delivery_doneyn,
+		delivery_date)
+	VALUES (?, ?, "N", NOW())`
 
 	////__________________________________________ T_Rekening ____________________________________________
 
@@ -507,11 +530,25 @@ const (
 		d.tra_id,  
 		p.prod_name, 
 		d.tradtl_qty, 
-		d.tradtl_amount
-	FROM td_transaction d, t_product p
-	WHERE 
-		d.prod_id = p.prod_id
+		d.tradtl_amount,
+		c.cust_name,
+		c.cust_address
+	FROM th_transaction h, td_transaction d, t_product p, t_customer c
+	WHERE h.tra_id = d.tra_id
+		AND d.prod_id = p.prod_id
+		AND h.cust_id = c.cust_id
 		AND d.tra_id = ?`
+
+	// old query dari get fun diatatas
+	// 	SELECT
+	// 	d.tra_id,
+	// 	p.prod_name,
+	// 	d.tradtl_qty,
+	// 	d.tradtl_amount
+	// FROM td_transaction d, t_product p
+	// WHERE
+	// 	d.prod_id = p.prod_id
+	// 	AND d.tra_id = ?
 
 	getListJoinTHTDCartProdByCustIdAndCartId  = "GetListJoinTHTDCartProdByCustIdAndCartId"
 	qGetListJoinTHTDCartProdByCustIdAndCartId = `
@@ -545,14 +582,12 @@ const (
 	AND d.cart_id = ?
 	AND prod_id = ?`
 
-
-	getJoinTHTraRekByCusId = "GetJoinTHTraRekByCusId"
+	getJoinTHTraRekByCusId  = "GetJoinTHTraRekByCusId"
 	qGetJoinTHTraRekByCusId = `
 	SELECT h.tra_id, h.cust_id, r.rek_bank, h.tra_total, h.tra_img, tra_date
 	FROM th_transaction h, t_rekening r
 	WHERE h.rek_id = r.rek_id
 	AND h.cust_id = ? `
-
 )
 
 var (
@@ -612,6 +647,8 @@ var (
 		{insertHeaderTran, qInsertHeaderTran},
 		{insertDetailTran, qInsertDetailTran},
 		{insertOrder, qInsertOrder},
+		{insertOrderAcc, qInsertOrderAcc},
+		{insertDeliveryProcess, qInsertDeliveryProcess},
 	}
 	updateStmt = []statement{
 		{updateAdminById, qUpdateAdminById},
@@ -619,6 +656,7 @@ var (
 		{updateCustomerById, qUpdateCustomerById},
 		{updateProdById, qUpdateProdById},
 		{updateQtyDetailJoinTHTDCart, qUpdateQtyDetailJoinTHTDCart},
+		{updateOrderOnDeliveryYes, qUpdateOrderOnDeliveryYes},
 	}
 	deleteStmt = []statement{}
 )

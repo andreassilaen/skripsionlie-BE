@@ -3,9 +3,9 @@ package skirpsionlineBE
 import (
 	"context"
 	// "fmt"
+	"log"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 	"skripsi-online-BE/pkg/errors"
-	// "log"
 	// "strconv"
 	// "strings"
 	// "job-order-be/pkg/errors"
@@ -30,4 +30,25 @@ func (s Service) GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEnti
 	}
 
 	return headers, err
+}
+
+func (s Service) InsertDeliveryProcess(ctx context.Context, header SBeEntity.InsertDelivery) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	result, err = s.skirpsionlineBE.InsertDeliveryProcess(ctx, header.InsertDeliveryBody)
+	log.Println("header Service = ", header)
+	if err != nil {
+		result = "Gagal Insert"
+		return result, errors.Wrap(err, "[Service][InsertDeliveryProcess]")
+	} else {
+		// result = "Sukses InsertCustomer = " + header.InsertCustomerBody.CustId
+		result = "Sukses InsertCustomer"
+	}
+	return result, err
+
+	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
+
 }
