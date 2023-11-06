@@ -161,6 +161,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetJoinTHTraRekByCusId(ctx, r.FormValue("cusid"))
 		log.Println("getjointhtrarekbycusid", r.FormValue("cusid"))
 
+	case "getjoinordthtdtraprodbyordid":
+		result, err = h.skripsionlineSvc.GetJoinOrdTHTDTraProdByOrdId(ctx, r.FormValue("ordid"))
+		log.Println("getjoinordthtdtraprodbyordid", r.FormValue("ordid"))
+
 
 	}
 

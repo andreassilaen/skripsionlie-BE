@@ -112,6 +112,31 @@ func (d Data) GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeE
 	return headers, nil
 }
 
+func (d Data) GetJoinOrdTHTDTraProdByOrdId(ctx context.Context, ordId string) ([]SBeEntity.JoinOrdTHTDTraProdByOrdId, error) {
+	var (
+		header  SBeEntity.JoinOrdTHTDTraProdByOrdId
+		headers []SBeEntity.JoinOrdTHTDTraProdByOrdId
+	)
+
+	row, err := (*d.stmt)[getJoinOrdTHTDTraProdByOrdId].QueryxContext(ctx, ordId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTDTraProdByOrdId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTDTraProdByOrdId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master getJoinOrdTHTDTraProdByOrdId  : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
 func (d Data) GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error) {
 	var (
 		header  SBeEntity.JoinTHTDCartProd

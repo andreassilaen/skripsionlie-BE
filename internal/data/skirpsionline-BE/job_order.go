@@ -217,31 +217,35 @@ const (
 	//  - belum -
 	getAllProduct  = "GetAllProduct"
 	qGetAllProduct = `
-	SELECT prod_id,
-		adm_id,
-		ctg_id,
-		prod_name,
-		prod_desc,
-		prod_price,
-		prod_stock,
-		prod_lastupdate,
-		prod_img
-	FROM t_product`
+	SELECT p.prod_id,
+		p.adm_id,
+		p.ctg_id,
+		c.ctg_type,
+		p.prod_name,
+		p.prod_desc,
+		p.prod_price,
+		p.prod_stock,
+		p.prod_lastupdate,
+		p.prod_img
+	FROM t_product p, t_category c
+	WHERE p.ctg_id = c.ctg_id`
 	// VALUES (?, ?, ?, ?, ?, ?)`
 
 	getProdById  = "GetProdById"
 	qGetProdById = `
-	SELECT prod_id,
-		adm_id,
-		ctg_id,
-		prod_name,
-		prod_desc,
-		prod_price,
-		prod_stock,
-		prod_lastupdate,
-		prod_img
-	FROM t_product
-	WHERE prod_id = ?`
+	SELECT p.prod_id,
+		p.adm_id,
+		p.ctg_id,
+		c.ctg_type,
+		p.prod_name,
+		p.prod_desc,
+		p.prod_price,
+		p.prod_stock,
+		p.prod_lastupdate,
+		p.prod_img
+	FROM t_product p, t_category c
+	WHERE p.ctg_id = c.ctg_id
+	AND prod_id = ?`
 
 	insertProduct  = "InsertProduct"
 	qInsertProduct = `
@@ -266,7 +270,6 @@ const (
 	qUpdateProdById = `
 	UPDATE t_product
 	SET  adm_id = ?,
-		ctg_id = ?,
 		prod_name = ?,
 		prod_desc = ?,
 		prod_price = ?,
@@ -460,7 +463,9 @@ const (
 	qGetDeliveryByEmpId = `
 	SELECT * 
 	FROM t_delivery
-	WHERE emp_id = ?`
+	WHERE emp_id = ?
+	ORDER BY delivery_doneyn ASC,
+	  delivery_date ASC`
 
 	insertDeliveryProcess  = "InsertDeliveryProcess"
 	qInsertDeliveryProcess = `
@@ -470,6 +475,13 @@ const (
 		delivery_doneyn,
 		delivery_date)
 	VALUES (?, ?, "N", NOW())`
+
+	updateDeliveryDone = "UpdateDeliveryDone"
+	qUpdateDeliveryDone = `
+	UPDATE t_delivery
+	SET delivery_doneyn = "Y",
+		delivery_date= NOW()
+	WHERE ord_id = ?`
 
 	////__________________________________________ T_Rekening ____________________________________________
 
@@ -506,7 +518,8 @@ const (
 	WHERE 
 		o.tra_id = h.tra_id
 		AND h.cust_id = c.cust_id
-		AND o.ord_confirmedyn = "Y"`
+		AND o.ord_confirmedyn = "Y"
+		and o.ord_ondeliveryyn = "N"`
 
 	getJoinOrdCustTHTraByOrdId  = "GetJoinOrdCustTHTraByOrdId"
 	qGetJoinOrdCustTHTraByOrdId = `
@@ -549,6 +562,25 @@ const (
 	// WHERE
 	// 	d.prod_id = p.prod_id
 	// 	AND d.tra_id = ?
+
+	getJoinOrdTHTDTraProdByOrdId = "GetJoinOrdTHTDTraProdByOrdId"
+	qGetJoinOrdTHTDTraProdByOrdId = `
+	SELECT 
+		o.ord_id,
+		d.tra_id,
+		p.prod_name, 
+		d.tradtl_qty, 
+		d.tradtl_amount,
+		c.cust_name,
+		c.cust_address
+	FROM t_delivery del, t_order o, th_transaction h, td_transaction d, t_product p, t_customer c
+	WHERE o.ord_id = del.ord_id
+		AND o.tra_id = h.tra_id
+		AND h.tra_id = d.tra_id
+		AND d.prod_id = p.prod_id
+		AND h.cust_id = c.cust_id
+		AND delivery_doneyn = "N"
+		AND del.ord_id= ?`
 
 	getListJoinTHTDCartProdByCustIdAndCartId  = "GetListJoinTHTDCartProdByCustIdAndCartId"
 	qGetListJoinTHTDCartProdByCustIdAndCartId = `
@@ -633,6 +665,7 @@ var (
 		{getJoinOrdCustTHTra, qGetJoinOrdCustTHTra},
 		{getJoinOrdCustTHTraByOrdId, qGetJoinOrdCustTHTraByOrdId},
 		{getJoinTDTraProdByTraId, qGetJoinTDTraProdByTraId},
+		{getJoinOrdTHTDTraProdByOrdId, qGetJoinOrdTHTDTraProdByOrdId},
 		{getProductInJoinTHTDCartProdByProdId, qGetProductInJOinTHTDCartProdByProdId},
 		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
 		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
@@ -657,6 +690,7 @@ var (
 		{updateProdById, qUpdateProdById},
 		{updateQtyDetailJoinTHTDCart, qUpdateQtyDetailJoinTHTDCart},
 		{updateOrderOnDeliveryYes, qUpdateOrderOnDeliveryYes},
+		{updateDeliveryDone, qUpdateDeliveryDone},
 	}
 	deleteStmt = []statement{}
 )

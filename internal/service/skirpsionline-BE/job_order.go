@@ -58,7 +58,7 @@ type Data interface {
 	UpdateAdminById(ctx context.Context, header SBeEntity.T_Admin2, admId string) (string, error)
 	UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error)
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
-	UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error)
+	UpdateProdById(ctx context.Context, header SBeEntity.T_Product3, prodId string) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error)
@@ -68,6 +68,7 @@ type Data interface {
 	GetAllDelivery(ctx context.Context) ([]SBeEntity.T_Delivery, error)
 	GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEntity.T_Delivery, error)
 	InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Delivery2) (string, error)
+	UpdateDeliveryDone(ctx context.Context, ordId string) (string, error)
 
 	GetAllRekening(ctx context.Context) ([]SBeEntity.T_Rekening, error)
 	GetRekByRekId(ctx context.Context, rekId int) ([]SBeEntity.T_Rekening, error)
@@ -78,6 +79,7 @@ type Data interface {
 	GetJoinOrdCustTHTraByOrdId(ctx context.Context, ordId int) ([]SBeEntity.JoinOrdCustTHTra, error)
 	GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error)
 	GetJoinTDTraProdByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTraProdByTraId, error)
+	GetJoinOrdTHTDTraProdByOrdId(ctx context.Context, ordId string) ([]SBeEntity.JoinOrdTHTDTraProdByOrdId, error)
 	GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error)

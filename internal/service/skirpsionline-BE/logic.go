@@ -335,6 +335,8 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 				TraId:     body.TranId,
 				ProdId:     header.DetailTranBody[x].ProdId,
 				TraDtlQty: header.DetailTranBody[x].TraDtlQty,
+				TraDtlPrice : header.DetailTranBody[x].TraDtlPrice,
+				TraDtlAmount : header.DetailTranBody[x].TraDtlAmount,
 			}
 
 			log.Println("cek x => ", x)

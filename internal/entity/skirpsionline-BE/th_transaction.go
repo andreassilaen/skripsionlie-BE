@@ -10,6 +10,7 @@ type TH_Transaction struct {
 	TranTotal   int		`db:"tra_total" json:"tra_total"`
 	TranImg    	string		`db:"tra_img" json:"tra_img"`
 	TraDate		string	`db:"tra_date" json:"tra_date"`
+	TraCheckedYN	string	`db:"tra_checkedyn" json:"tra_checkedyn"`
 }
 
 

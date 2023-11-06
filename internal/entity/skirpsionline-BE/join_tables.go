@@ -44,6 +44,21 @@ type JoinTDTraProdByTraId struct {
 	CustAddress string `db:"cust_address" json:"cust_address"`
 }
 
+type JoinOrdTHTDTraProdByOrdId struct {
+	OrdId 		string `db:"ord_id" json:"ord_id"`
+
+	TraId string `db:"tra_id" json:"tra_id"`
+
+	// ProdId    			int		`db:"prod_id" json:"prod_id"`
+	ProdName string `db:"prod_name" json:"prod_name"`
+
+	TraDtlQty    int `db:"tradtl_qty" json:"tradtl_qty"`
+	TraDtlAmount int `db:"tradtl_amount" json:"tradtl_amount"`
+
+	CustName    string `db:"cust_name" json:"cust_name"`
+	CustAddress string `db:"cust_address" json:"cust_address"`
+}
+
 type JoinTHTraRek struct {
 	TraId int `db:"tra_id" json:"tra_id"`
 	// CartId    	string		`db:"cart_id" json:"cart_id"`

@@ -2,6 +2,7 @@ package skirpsionlineBE
 
 import (
 	"context"
+	"strconv"
 	// "fmt"
 	"log"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
@@ -38,6 +39,10 @@ func (s Service) InsertDeliveryProcess(ctx context.Context, header SBeEntity.Ins
 		err    error
 	)
 
+	orderId, _ := strconv.Atoi(header.InsertDeliveryBody.OrdId)
+
+	_, err = s.skirpsionlineBE.UpdateOrderOnDeliveryYes(ctx, orderId)
+
 	result, err = s.skirpsionlineBE.InsertDeliveryProcess(ctx, header.InsertDeliveryBody)
 	log.Println("header Service = ", header)
 	if err != nil {
@@ -51,4 +56,22 @@ func (s Service) InsertDeliveryProcess(ctx context.Context, header SBeEntity.Ins
 
 	// _, err = s.skirpsionlineBE.GetAllCategory(ctx)
 
+}
+
+
+func (s Service) UpdateDeliveryDone(ctx context.Context, ordId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	result, err = s.skirpsionlineBE.UpdateDeliveryDone(ctx, ordId)
+	log.Println("ordId =>", ordId)
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[Service][UpdateDeliveryDone]")
+	} else {
+		result = "Sukses UpdateDeliveryDone"
+	}
+	return result, err
 }

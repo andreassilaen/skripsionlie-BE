@@ -98,3 +98,14 @@ func (s Service) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]S
 
 	return headers, err
 }
+
+
+func (s Service) GetJoinOrdTHTDTraProdByOrdId(ctx context.Context, ordId string) ([]SBeEntity.JoinOrdTHTDTraProdByOrdId, error) {
+	headers, err := s.skirpsionlineBE.GetJoinOrdTHTDTraProdByOrdId(ctx, ordId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetJoinOrdTHTDTraProdByOrdId]")
+	}
+
+	return headers, err
+}

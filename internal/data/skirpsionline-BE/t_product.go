@@ -116,7 +116,7 @@ func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (s
 }
 
 
-func (d Data) UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, prodId string) (string, error) {
+func (d Data) UpdateProdById(ctx context.Context, header SBeEntity.T_Product3, prodId string) (string, error) {
 	var (
 		result string
 		err    error
@@ -124,7 +124,6 @@ func (d Data) UpdateProdById(ctx context.Context, header SBeEntity.T_Product2, p
 
 	_, err = (*d.stmt)[updateProdById].ExecContext(ctx,
 		header.AdmId,
-		header.CtgId,
 		header.ProdName,
 		header.ProdDesc,
 		header.ProdPrice,

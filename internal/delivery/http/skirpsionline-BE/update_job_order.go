@@ -93,6 +93,11 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
 		result, err = h.skripsionlineSvc.UpdateOrderOnDeliveryYes(ctx, ordid)
 		log.Println("UpdateOrderOnDeliveryYes", r.FormValue("ordid"))
+
+	case "updatedeliverydone":
+		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
+		result, err = h.skripsionlineSvc.UpdateDeliveryDone(ctx, r.FormValue("ordid"))
+		log.Println("UpdateDeliveryDone",r.FormValue("ordid"))
 	}
 
 	if err != nil {

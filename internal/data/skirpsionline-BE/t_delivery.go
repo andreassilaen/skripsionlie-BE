@@ -68,6 +68,8 @@ func (d Data) InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Deli
 		err    error
 	)
 
+
+
 	_, err = (*d.stmt)[insertDeliveryProcess].ExecContext(ctx,
 		header.EmpId,
 		header.OrdId,
@@ -78,5 +80,23 @@ func (d Data) InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Deli
 		return result, errors.Wrap(err, "[DATA][insertDeliveryProcess]")
 	}
 	result = " Sukses Data"
+	return result, err
+}
+
+
+func (d Data) UpdateDeliveryDone(ctx context.Context, ordId string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[updateDeliveryDone].ExecContext(ctx, ordId)
+
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][updateDeliveryDone]")
+	}
+	result = "Sukses Update updateDeliveryDone"
+
 	return result, err
 }
