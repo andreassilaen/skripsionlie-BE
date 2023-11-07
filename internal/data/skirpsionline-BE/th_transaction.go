@@ -135,3 +135,28 @@ func (d Data) InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transact
 	return result, err
 }
 
+
+func (d Data) GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error) {
+	var (
+		header  SBeEntity.TH_Transaction
+		headers []SBeEntity.TH_Transaction
+	)
+
+	row, err := (*d.stmt)[getAllHeaderTranByCustId].QueryxContext(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getAllHeaderTranByCustId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getAllHeaderTranByCustId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Header Transaction : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}

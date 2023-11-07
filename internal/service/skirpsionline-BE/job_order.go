@@ -36,6 +36,7 @@ type Data interface {
 
 	GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
 	InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (string, error)
+	UpdateHeaderCartPeyed(ctx context.Context, cartId int) (string, error)
 
 	InsertDetailCart(ctx context.Context, header SBeEntity.TD_Cart2) (string, error)
 	NewInsertDetailCart(ctx context.Context, user []SBeEntity.TD_Cart2) error
@@ -50,6 +51,7 @@ type Data interface {
 	GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
 	GetHeaderTranLastDataByCusId(ctx context.Context, custId string) (SBeEntity.TH_Transaction, error)
 	InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error)
+	GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error) 
 
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
 	InsertDetailTran(ctx context.Context, header SBeEntity.TD_Transaction2) (string, error)
@@ -82,6 +84,7 @@ type Data interface {
 	GetJoinOrdTHTDTraProdByOrdId(ctx context.Context, ordId string) ([]SBeEntity.JoinOrdTHTDTraProdByOrdId, error)
 	GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)
+	GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error)
 }
 

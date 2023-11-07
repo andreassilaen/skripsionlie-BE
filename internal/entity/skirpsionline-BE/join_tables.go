@@ -67,6 +67,21 @@ type JoinTHTraRek struct {
 	TraTotal int    `db:"tra_total" json:"tra_total"`
 	TraImg   string `db:"tra_img" json:"tra_img"`
 	TraDate  string `db:"tra_date" json:"tra_date"`
+	TraCheckedYN string `db:"tra_checkedyn" json:"tra_checkedyn"`
+}
+
+type JoinOrdTHTraByCustId struct {
+	OrdId 		string `db:"ord_id" json:"ord_id"`
+
+	TraId string `db:"tra_id" json:"tra_id"`
+	TraTotal int    `db:"tra_total" json:"tra_total"`
+	
+	OrdConfirmedYN 	string		`db:"ord_confirmedyn" json:"ord_confirmedyn"`
+	OrdOnDeliveryYN 	string		`db:"ord_ondeliveryyn" json:"ord_ondeliveryyn"`
+	OrdLastupdate	string	`db:"ord_lastupdate" json:"ord_lastupdate"`
+
+	
+
 }
 
 // type JoinTHTDCart struct {

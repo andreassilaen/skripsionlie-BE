@@ -330,6 +330,14 @@ const (
 	ORDER BY cart_id DESC
 	LIMIT 1`
 
+	updateHeaderCartPayed  =  "UpdateHeaderCartPayed"
+	qUpdateHeaderCartPayed = `
+	UPDATE th_cart
+	SET cart_payedyn = "Y",
+		cart_lastupdate = NOW()
+	WHERE cart_payedyn = "N"
+		AND cart_id = ?`
+
 	////__________________________________________ TD_Cart ____________________________________________
 
 	// getAllCartDetail = "GetAllCartDetail"
@@ -392,6 +400,14 @@ const (
 		tra_img,
 		tra_date)
 	VALUES (?, ?, ?, ?, ?, NOW())`
+
+
+	getAllHeaderTranByCustId = "GetAllHeaderTranByCustId"
+	qGetAllHeaderTranByCustId = `
+	SELECT * 
+	FROM th_transaction 
+	WHERE cust_id = ?`
+	
 
 	////__________________________________________ TD_Transaction____________________________________________
 
@@ -616,10 +632,25 @@ const (
 
 	getJoinTHTraRekByCusId  = "GetJoinTHTraRekByCusId"
 	qGetJoinTHTraRekByCusId = `
-	SELECT h.tra_id, h.cust_id, r.rek_bank, h.tra_total, h.tra_img, tra_date
+	SELECT h.tra_id, h.cust_id, r.rek_bank, h.tra_total, h.tra_img, h.tra_date, h.tra_checkedyn
 	FROM th_transaction h, t_rekening r
 	WHERE h.rek_id = r.rek_id
 	AND h.cust_id = ? `
+
+	getJoinOrdTHTraByCustId = "GetJoinOrdTHTraByCustId"
+	qGetJoinOrdTHTraByCustId = `
+	SELECT 
+		o.ord_id,  
+		h.tra_id, 
+		h.tra_total,  
+		o.ord_confirmedyn,  
+		o.ord_ondeliveryyn, 
+		o.ord_lastupdate
+	FROM t_order o, th_transaction h
+	WHERE o.tra_id = h.tra_id 
+		AND h.cust_id = ?`
+
+
 )
 
 var (
@@ -646,6 +677,7 @@ var (
 		{getAllHeaderTran, qGetAllHeaderTran},
 		{getTranByCartId, qGetTranByCartId},
 		{getHeaderTranLastDataByCusId, qGetHeaderTranLastDataByCusId},
+		{getAllHeaderTranByCustId, qGetAllHeaderTranByCustId},
 
 		{getDetailTranByTraId, qGetDetailTranByTraId},
 
@@ -669,6 +701,7 @@ var (
 		{getProductInJoinTHTDCartProdByProdId, qGetProductInJOinTHTDCartProdByProdId},
 		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
 		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
+		{getJoinOrdTHTraByCustId, qGetJoinOrdTHTraByCustId},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},
@@ -691,6 +724,7 @@ var (
 		{updateQtyDetailJoinTHTDCart, qUpdateQtyDetailJoinTHTDCart},
 		{updateOrderOnDeliveryYes, qUpdateOrderOnDeliveryYes},
 		{updateDeliveryDone, qUpdateDeliveryDone},
+		{updateHeaderCartPayed, qUpdateHeaderCartPayed},
 	}
 	deleteStmt = []statement{}
 )

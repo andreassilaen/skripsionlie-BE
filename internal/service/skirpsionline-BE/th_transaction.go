@@ -55,3 +55,13 @@ func (s Service) InsertHeaderTran(ctx context.Context, header SBeEntity.InsertHe
 	return result, err
 	
 }
+
+func (s Service) GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error) {
+	headers, err := s.skirpsionlineBE.GetAllHeaderTranByCustId(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetAllHeaderTranByCustId]")
+	}
+
+	return headers, err
+}

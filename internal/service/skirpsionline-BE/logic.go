@@ -3,6 +3,7 @@ package skirpsionlineBE
 import (
 	"context"
 	"math"
+	"strconv"
 
 	// "fmt"
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
@@ -309,6 +310,8 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 		insertDetailTran []SBeEntity.TD_Transaction2
 	)
 
+
+
 	_, err = s.skirpsionlineBE.InsertHeaderTran(ctx, header.HeaderTranBody)
 	if err != nil {
 		result3 = "Gagal insert Data"
@@ -322,6 +325,14 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 		return result, errors.Wrap(err, "[DATA][GetHeaderTranLastDataByCusId]")
 	}
 
+
+	cartNo, _ := strconv.Atoi(header.HeaderTranBody.CartId)
+	_, err = s.skirpsionlineBE.UpdateHeaderCartPeyed(ctx, cartNo)
+	log.Printf("cartNo => %+v", cartNo)
+	if err != nil {
+		result3 = "Gagal updateCartPayed"
+		return result, errors.Wrap(err, "[DATA][UpdateHeaderCartPeyed]")
+	}
 	// body, err = s.skirpsionlineBE.GetHeaderCartLastData(ctx)
 	// if err != nil {
 	// 	result3 = "Gagal getlast Data"

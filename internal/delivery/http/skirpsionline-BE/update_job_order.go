@@ -34,6 +34,7 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		types    string
 
 		ordid int
+		cartid int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -98,6 +99,12 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
 		result, err = h.skripsionlineSvc.UpdateDeliveryDone(ctx, r.FormValue("ordid"))
 		log.Println("UpdateDeliveryDone",r.FormValue("ordid"))
+
+	case "updateheadercartpayed":
+		cartid, _ = strconv.Atoi(r.FormValue("cartid"))
+		result, err = h.skripsionlineSvc.UpdateHeaderCartPayed(ctx, cartid)
+		log.Println("Delivery UpdateHeaderCartPayed : ", ordid)
+
 	}
 
 	if err != nil {

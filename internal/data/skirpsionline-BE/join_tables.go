@@ -236,3 +236,31 @@ func (d Data) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeE
 	defer row.Close()
 	return headers, nil
 }
+
+
+
+
+func (d Data) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error) {
+	var (
+		header  SBeEntity.JoinOrdTHTraByCustId
+		headers []SBeEntity.JoinOrdTHTraByCustId
+	)
+
+	row, err := (*d.stmt)[getJoinOrdTHTraByCustId].QueryxContext(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Header Transaction : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}

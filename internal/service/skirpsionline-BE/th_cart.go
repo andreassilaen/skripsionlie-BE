@@ -62,3 +62,20 @@ func (s Service) GetHeaderCartNotPayedCustId(ctx context.Context, custId string)
 
 	return headers, err
 }
+
+
+func (s Service) UpdateHeaderCartPayed(ctx context.Context, cartId int) (string, error) {
+	var (
+		result	string
+		err		error
+	)
+
+	_, err = s.skirpsionlineBE.UpdateHeaderCartPeyed(ctx, cartId)
+	if err != nil {
+		result = "Gagal UpdateHeaderCartPeyed "
+		return result, errors.Wrap(err,"[SERVICE][UpdateHeaderCartPeyed]")
+	}
+
+	result = "Berhasil UpdateHeaderCartPeyed"
+	return result, err
+}

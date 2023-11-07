@@ -3,6 +3,8 @@ package skirpsionlineBE
 import (
 	"context"
 	"log"
+	"strconv"
+	// "strings"
 
 	// "github.com/jmoiron/sqlx"
 	// "github.com/opentracing/opentracing-go"
@@ -137,7 +139,22 @@ func (d Data) GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([
 
 
 
+func (d Data) UpdateHeaderCartPeyed(ctx context.Context, cartId int) (string, error) {
+	var (
+		result string
+		err    error
+	)
 
+	_, err = (*d.stmt)[updateHeaderCartPayed].ExecContext(ctx, cartId)
+
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][updateHeaderCartPayed]")
+	}
+	result = "Sukses Update " + strconv.Itoa(cartId) 
+
+	return result, err
+}
 
 
 
