@@ -120,3 +120,14 @@ func (s Service) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]
 
 	return headers, err
 }
+
+
+func (s Service) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error) {
+	header, err := s.skirpsionlineBE.GetCountDashboardAdmin(ctx)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetCountDashboardAdmin]")
+	}
+
+	return header, err
+}

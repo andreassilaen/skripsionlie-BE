@@ -173,6 +173,11 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetJoinOrdTHTraByCustId(ctx, r.FormValue("cusid"))
 		log.Println("getjoinordthtrabycustid", r.FormValue("cusid"))
 
+	case "getcountdashboardadmin":
+		result, err = h.skripsionlineSvc.GetCountDashboardAdmin(ctx)
+		log.Println("getcountdashboardadmin")
+
+
 
 	}
 

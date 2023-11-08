@@ -264,3 +264,25 @@ func (d Data) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBe
 	defer row.Close()
 	return headers, nil
 }
+
+
+func (d Data) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error) {
+	var (
+		header  SBeEntity.CountTHTraOrdDel
+		// err		error
+	)
+
+	row, err := (*d.stmt)[getCountDashboardAdmin].QueryxContext(ctx)
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][getCountDashboardAdmin][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][getCountDashboardAdmin][Query]")
+		}
+	}
+
+	return header, err
+}

@@ -487,10 +487,11 @@ const (
 	qInsertDeliveryProcess = `
 	INSERT INTO t_delivery (
 		emp_id, 
-		ord_id, 
+		ord_id,
+		tra_id, 
 		delivery_doneyn,
 		delivery_date)
-	VALUES (?, ?, "N", NOW())`
+	VALUES (?, ?, ?, "N", NOW())`
 
 	updateDeliveryDone = "UpdateDeliveryDone"
 	qUpdateDeliveryDone = `
@@ -651,6 +652,15 @@ const (
 		AND h.cust_id = ?`
 
 
+	getCountDashboardAdmin = "GetCountDashboardAdmin"
+	qGetCountDashboardAdmin = `
+	SELECT 
+	(SELECT COUNT(*) FROM th_transaction h WHERE h.tra_checkedyn = "N") AS tra_uncheck,
+	(SELECT COUNT(*) FROM t_order WHERE ord_confirmedyn = 'N' AND ord_ondeliveryyn = 'N') AS ord_canceled,
+	(SELECT COUNT(*) FROM t_order WHERE ord_confirmedyn = 'Y' AND ord_ondeliveryyn = 'N') AS ord_process,
+	(SELECT COUNT(*) FROM t_order WHERE ord_confirmedyn = 'Y' AND ord_ondeliveryyn = 'Y') AS ord_delivery,
+	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'Y') AS del_doned `
+
 )
 
 var (
@@ -702,6 +712,7 @@ var (
 		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
 		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
 		{getJoinOrdTHTraByCustId, qGetJoinOrdTHTraByCustId},
+		{getCountDashboardAdmin, qGetCountDashboardAdmin},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},
