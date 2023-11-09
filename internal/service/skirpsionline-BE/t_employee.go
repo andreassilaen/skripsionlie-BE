@@ -83,3 +83,16 @@ func (s Service) UpdateEmployeeById(ctx context.Context, header SBeEntity.Update
 	}
 	return result, err
 }
+
+
+
+
+func (s Service) GetEmpById(ctx context.Context, userId string) ([]SBeEntity.T_Employee, error) {
+	headers, err := s.skirpsionlineBE.GetEmpById(ctx, userId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetEmpById]")
+	}
+
+	return headers, err
+}

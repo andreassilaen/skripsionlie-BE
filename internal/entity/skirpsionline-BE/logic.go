@@ -43,3 +43,18 @@ type TH_TD_Cart struct {
 type MainCart struct {
 	MainCartBody JoinTHTDCartProd `json:"data"`
 }
+
+
+type T_UserMain2 struct {
+	// UserId			string 		`json:"user_id"`
+	UserName		string		`json:"user_name"`
+	UserUserName 	string		`json:"user_username"`
+	UserPassWord 	string		`json:"user_password"`
+	UserPhone 		string		`json:"user_phone"`
+	UserEmail 		string		`json:"user_email"`
+	UserAddress		string		`json:"user_address"`
+}
+
+type UpdateUserMain struct {
+	UpdateUserMainBody T_UserMain2 `json:"data"`
+}

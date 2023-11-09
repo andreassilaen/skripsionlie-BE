@@ -136,3 +136,30 @@ func (d Data) UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employe
 
 	return result, err
 }
+
+
+
+func (d Data) GetEmpById(ctx context.Context, userId string) ([]SBeEntity.T_Employee, error) {
+	var (
+		header  SBeEntity.T_Employee
+		headers []SBeEntity.T_Employee
+	)
+
+	row, err := (*d.stmt)[getEmpById].QueryxContext(ctx, userId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getEmpById][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getEmpById][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master Employee : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}

@@ -83,3 +83,15 @@ func (s Service) UpdateAdminById(ctx context.Context, header SBeEntity.UpdateAdm
 	}
 	return result, err
 }
+
+
+
+func (s Service) GetAdmById(ctx context.Context, userId string) ([]SBeEntity.T_Admin, error) {
+	headers, err := s.skirpsionlineBE.GetAdmById(ctx, userId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][GetAdmById]")
+	}
+
+	return headers, err
+}

@@ -83,6 +83,9 @@ type IskripsionlineSvc interface {
 
 	TokenUser(ctx context.Context) error
 
+	GetUserMainByIdAndRole(ctx context.Context, userId string, role string) (interface{}, error)
+	UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMain, userId string, role string) (interface{}, error) 
+
 	InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error)
 	InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailTran) (interface{}, error)
 }

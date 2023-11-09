@@ -45,6 +45,19 @@ const (
 		adm_address 
 	FROM t_admin`
 
+	getAdmById  = "GetAdmById"
+	qGetAdmById = `
+	SELECT adm_id,
+		adm_name,
+		adm_username,
+		adm_password,
+		adm_phone,
+		adm_email,
+		adm_address 
+	FROM t_admin
+	WHERE  
+	adm_id = ?`
+
 	getAdmLastData  = "GetAdmLastData"
 	qGetAdmLastData = `
 	SELECT * FROM t_admin
@@ -98,6 +111,19 @@ const (
 		emp_email,
 		emp_address 				
 	FROM t_employee`
+
+	getEmpById  = "GetEmpById"
+	qGetEmpById = `
+	SELECT emp_id,
+		emp_name,
+		emp_username,
+		emp_password,
+		emp_phone,
+		emp_email,
+		emp_address 
+	FROM t_employee
+	WHERE  
+	emp_id = ?`
 
 	getEmpLastData  = "GetEmpLastData"
 	qGetEmpLastData = `
@@ -488,10 +514,9 @@ const (
 	INSERT INTO t_delivery (
 		emp_id, 
 		ord_id,
-		tra_id, 
 		delivery_doneyn,
 		delivery_date)
-	VALUES (?, ?, ?, "N", NOW())`
+	VALUES (?, ?, "N", NOW())`
 
 	updateDeliveryDone = "UpdateDeliveryDone"
 	qUpdateDeliveryDone = `
@@ -672,6 +697,8 @@ var (
 		{getAllCart, qGetAllCart},
 		// {getAllCartDetail, qGetAllCartDetail},
 		{getCustById, qGetCustById},
+		{getAdmById, qGetAdmById},
+		{getEmpById, qGetEmpById},
 		{getProdById, qGetProdById},
 		{getCustByLogin, qGetCustByLogin},
 		{getAdmByLogin, qGetAdmByLogin},

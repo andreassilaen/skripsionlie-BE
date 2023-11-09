@@ -135,3 +135,29 @@ func (d Data) UpdateAdminById(ctx context.Context, header SBeEntity.T_Admin2, ad
 
 	return result, err
 }
+
+
+func (d Data) GetAdmById(ctx context.Context, userId string) ([]SBeEntity.T_Admin, error) {
+	var (
+		header  SBeEntity.T_Admin
+		headers []SBeEntity.T_Admin
+	)
+
+	row, err := (*d.stmt)[getAdmById].QueryxContext(ctx, userId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][GetAdmById][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][GetAdmById][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master Admin : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}

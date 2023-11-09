@@ -101,6 +101,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetAdmByLogin(ctx, r.FormValue("username"), r.FormValue("password"))
 		log.Println("getadmbylogin", r.FormValue("username"), r.FormValue("password"))
 
+	case "getusermainbyidandrole":
+		result, err = h.skripsionlineSvc.GetUserMainByIdAndRole(ctx, r.FormValue("userid"), r.FormValue("role"))
+		log.Println("getusermainbyidandrole", r.FormValue("userid"), r.FormValue("role"))
+
 	case "getadmlastdata":
 		result, err = h.skripsionlineSvc.GetAdmLastData(ctx)
 

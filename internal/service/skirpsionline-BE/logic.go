@@ -461,3 +461,91 @@ func (s Service) GetAllProductCartNotPayedByCusId(ctx context.Context, custId st
 }
 
 
+func (s Service) GetUserMainByIdAndRole(ctx context.Context, userId string, role string) (interface{}, error) {
+	var (
+		// cek  SBeEntity.T_UserMain
+		// header  SBeEntity.T_UserMain
+		header interface{}
+
+
+		err		error
+	)
+
+	if role == "cus" {
+		header, err = s.skirpsionlineBE.GetCustById(ctx, userId)
+		if err != nil {
+			return header, errors.Wrap(err, "[SERVICE][GetUserMainByIdAndRole][GetCustById]")
+		}
+	} else if role == "adm" {
+		header, err = s.skirpsionlineBE.GetAdmById(ctx, userId)
+		if err != nil {
+			return header, errors.Wrap(err, "[SERVICE][GetUserMainByIdAndRole][GetAdmById]")
+		}
+	} else if role == "emp" {
+		header, err = s.skirpsionlineBE.GetEmpById(ctx, userId)
+		if err != nil {
+			return header, errors.Wrap(err, "[SERVICE][GetUserMainByIdAndRole][GetEmpById]")
+		}
+	} 
+
+	log.Printf(" header usermain => %+v", header)
+
+	return header, err
+}
+
+
+
+func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMain, userId string, role string) (interface{}, error) {
+	var (
+		// cek  SBeEntity.T_UserMain
+		// header  SBeEntity.T_UserMain
+		header interface{}
+		err		error
+		bodyCus SBeEntity.T_Customer2
+		bodyAdm SBeEntity.T_Admin2
+		bodyEmp SBeEntity.T_Employee2
+		
+	)
+
+	if role == "cus" {
+		log.Printf(" Masuk role CUS !!!!!!!!")
+		bodyCus.CustName = body.UpdateUserMainBody.UserName
+		bodyCus.CustUserName = body.UpdateUserMainBody.UserName
+		bodyCus.CustPassWord = body.UpdateUserMainBody.UserPassWord
+		bodyCus.CustEmail = body.UpdateUserMainBody.UserEmail
+		bodyCus.CustPhone = body.UpdateUserMainBody.UserPhone
+		bodyCus.CustAddress = body.UpdateUserMainBody.UserAddress
+		header, err = s.skirpsionlineBE.UpdateCustomerById(ctx, bodyCus, userId)
+		if err != nil {
+			return header, errors.Wrap(err, "[SERVICE][UpdateUserMain][UpdateCustomerById]")
+		}
+	} else if role == "adm" {
+		log.Printf(" Masuk role ADM !!!!!!!!")
+		bodyAdm.AdmName = body.UpdateUserMainBody.UserName
+		bodyAdm.AdmUserName = body.UpdateUserMainBody.UserName
+		bodyAdm.AdmPassWord = body.UpdateUserMainBody.UserPassWord
+		bodyAdm.AdmEmail = body.UpdateUserMainBody.UserEmail
+		bodyAdm.AdmPhone = body.UpdateUserMainBody.UserPhone
+		bodyAdm.AdmAddress = body.UpdateUserMainBody.UserAddress
+		header, err = s.skirpsionlineBE.UpdateAdminById(ctx, bodyAdm, userId)
+		if err != nil {
+			return header, errors.Wrap(err, "[SERVICE][UpdateUserMain][UpdateAdminById]")
+		}
+	} else if role == "emp" {
+		log.Printf(" Masuk role EMP !!!!!!!!")
+		bodyEmp.EmpName = body.UpdateUserMainBody.UserName
+		bodyEmp.EmpUserName = body.UpdateUserMainBody.UserName
+		bodyEmp.EmpPassWord = body.UpdateUserMainBody.UserPassWord
+		bodyEmp.EmpEmail = body.UpdateUserMainBody.UserEmail
+		bodyEmp.EmpPhone = body.UpdateUserMainBody.UserPhone
+		bodyEmp.EmpAddress = body.UpdateUserMainBody.UserAddress
+		header, err = s.skirpsionlineBE.UpdateEmployeeById(ctx, bodyEmp, userId)
+		if err != nil {
+			return header, errors.Wrap(err, "[SERVICE][UpdateUserMain][UpdateAdminById]")
+		}
+	} 
+
+	log.Printf(" header usermain => %+v", header)
+
+	return header, err
+}

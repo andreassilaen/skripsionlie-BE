@@ -25,6 +25,8 @@ type Data interface {
 	GetCustByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Customer, error)
 	GetAdmByLogin(ctx context.Context, username string, password string) ([]SBeEntity.T_Admin, error)
 	GetCustById(ctx context.Context, custId string) ([]SBeEntity.T_Customer, error)
+	GetAdmById(ctx context.Context, userId string) ([]SBeEntity.T_Admin, error)
+	GetEmpById(ctx context.Context, userId string) ([]SBeEntity.T_Employee, error)
 	GetProdById(ctx context.Context, prodId string) ([]SBeEntity.T_Product, error)
 	InsertCustomer(ctx context.Context, header SBeEntity.T_Customer) (string, error)
 	GetCountCust(ctx context.Context) (int, error)
