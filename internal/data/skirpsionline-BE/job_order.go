@@ -304,6 +304,12 @@ const (
 		prod_img = ?
 	WHERE prod_id= ?`
 
+	deleteProductByProdId = "DeleteProductByProdId"
+	qDeleteProductByProdid = `
+	DELETE FROM t_product
+	WHERE prod_id= ?`
+
+
 	////__________________________________________ T_Category____________________________________________
 
 	getAllCategory  = "GetAllCategory"
@@ -433,6 +439,13 @@ const (
 	SELECT * 
 	FROM th_transaction 
 	WHERE cust_id = ?`
+
+	updateTHTranChecked  = "UpdateTHTranChecked"
+	qUpdateTHTranChecked = `
+	UPDATE th_transaction 
+	SET tra_checkedyn = "Y",
+		tra_date = now()
+	WHERE tra_id = ?`
 	
 
 	////__________________________________________ TD_Transaction____________________________________________
@@ -621,8 +634,9 @@ const (
 		AND h.tra_id = d.tra_id
 		AND d.prod_id = p.prod_id
 		AND h.cust_id = c.cust_id
-		AND delivery_doneyn = "N"
+
 		AND del.ord_id= ?`
+	// AND delivery_doneyn = "N"
 
 	getListJoinTHTDCartProdByCustIdAndCartId  = "GetListJoinTHTDCartProdByCustIdAndCartId"
 	qGetListJoinTHTDCartProdByCustIdAndCartId = `
@@ -671,9 +685,11 @@ const (
 		h.tra_total,  
 		o.ord_confirmedyn,  
 		o.ord_ondeliveryyn, 
-		o.ord_lastupdate
-	FROM t_order o, th_transaction h
+		o.ord_lastupdate,
+		d.delivery_doneyn
+	FROM t_order o, th_transaction h, t_delivery d
 	WHERE o.tra_id = h.tra_id 
+		AND o.ord_id = d.ord_id
 		AND h.cust_id = ?`
 
 
@@ -684,7 +700,8 @@ const (
 	(SELECT COUNT(*) FROM t_order WHERE ord_confirmedyn = 'N' AND ord_ondeliveryyn = 'N') AS ord_canceled,
 	(SELECT COUNT(*) FROM t_order WHERE ord_confirmedyn = 'Y' AND ord_ondeliveryyn = 'N') AS ord_process,
 	(SELECT COUNT(*) FROM t_order WHERE ord_confirmedyn = 'Y' AND ord_ondeliveryyn = 'Y') AS ord_delivery,
-	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'Y') AS del_doned `
+	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'N') AS del_ongoing ,
+	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'Y') AS del_doned  `
 
 )
 
@@ -763,8 +780,11 @@ var (
 		{updateOrderOnDeliveryYes, qUpdateOrderOnDeliveryYes},
 		{updateDeliveryDone, qUpdateDeliveryDone},
 		{updateHeaderCartPayed, qUpdateHeaderCartPayed},
+		{updateTHTranChecked, qUpdateTHTranChecked},
 	}
-	deleteStmt = []statement{}
+	deleteStmt = []statement{
+		{deleteProductByProdId, qDeleteProductByProdid},
+	}
 )
 
 // New ...

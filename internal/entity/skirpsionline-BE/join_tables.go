@@ -80,6 +80,8 @@ type JoinOrdTHTraByCustId struct {
 	OrdOnDeliveryYN 	string		`db:"ord_ondeliveryyn" json:"ord_ondeliveryyn"`
 	OrdLastupdate	string	`db:"ord_lastupdate" json:"ord_lastupdate"`
 
+	DeliveryDoneYN 	string `db:"delivery_doneyn" json:"delivery_doneyn"`
+
 }
 
 type CountTHTraOrdDel struct {
@@ -87,6 +89,7 @@ type CountTHTraOrdDel struct {
 	OrdCanceled	string `db:"ord_canceled" json:"ord_canceled"`
 	OrdProcess	string `db:"ord_process" json:"ord_process"`
 	OrdDelivery	string `db:"ord_delivery" json:"ord_delivery"`
+	DelOnGoing	string `db:"del_ongoing" json:"del_ongoing"`
 	DelDoned	string `db:"del_doned" json:"del_doned"`
 }
 

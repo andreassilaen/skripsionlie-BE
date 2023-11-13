@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"skripsi-online-BE/pkg/response"
+	// "strconv"
 
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 
@@ -31,6 +32,9 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 
 		resp  response.Response
 		types string
+
+		// traid int
+
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -123,6 +127,22 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.InsertOrderAcc(ctx, header)
 		log.Println("Delivery InsertOrderAcc : ", header)
+
+	case "insertorderbyadmincancelmain":
+		// traid, _ = strconv.Atoi(r.FormValue("traid"))
+		var header SBeEntity.InsertOrder
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertOrderByAdminCancelMain(ctx, header)
+		log.Println("Delivery InsertOrderByAdminMain : ", header)
+
+	case "insertorderbyadminaccmain":
+		// traid, _ = strconv.Atoi(r.FormValue("traid"))
+		var header SBeEntity.InsertOrder
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		result, err = h.skripsionlineSvc.InsertOrderByAdminAccMain(ctx, header)
+		log.Println("Delivery InsertOrderByAdminAccMain : ", header)
 
 	case "checkuser":
 		var header SBeEntity.CheckUser

@@ -3,6 +3,7 @@ package skirpsionlineBE
 import (
 	"context"
 	"log"
+	"strconv"
 
 	// "github.com/jmoiron/sqlx"
 	// "github.com/opentracing/opentracing-go"
@@ -141,3 +142,19 @@ func (d Data) UpdateProdById(ctx context.Context, header SBeEntity.T_Product3, p
 	return result, err
 }
 
+func (d Data) DeleteProductByProdId(ctx context.Context, prodId int) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	prod_id:= strconv.Itoa(prodId)
+
+	_, err = (*d.stmt)[deleteProductByProdId].ExecContext(ctx, prodId)
+	if err != nil {
+		result = "Gagal delete Data => " + prod_id
+		return result, errors.Wrap(err, "[DATA][DeleteProductByProdId]")
+	}
+	result = " Sukses delete Data => " + prod_id
+	return result, err
+}

@@ -3,6 +3,7 @@ package skirpsionlineBE
 import (
 	"context"
 	"log"
+	"strconv"
 
 	// "github.com/jmoiron/sqlx"
 	// "github.com/opentracing/opentracing-go"
@@ -159,4 +160,22 @@ func (d Data) GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SB
 
 	defer row.Close()
 	return headers, nil
+}
+
+
+func (d Data) UpdateTHTranChecked(ctx context.Context, traId int) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[updateTHTranChecked].ExecContext(ctx, traId)
+
+	if err != nil {
+		result = "Gagal Update"
+		return result, errors.Wrap(err, "[DATA][updateHeaderCartPayed]")
+	}
+	result = "Sukses Update " + strconv.Itoa(traId) 
+
+	return result, err
 }

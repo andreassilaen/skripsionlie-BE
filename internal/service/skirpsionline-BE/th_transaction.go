@@ -65,3 +65,20 @@ func (s Service) GetAllHeaderTranByCustId(ctx context.Context, custId string) ([
 
 	return headers, err
 }
+
+
+func (s Service) UpdateTHTranChecked(ctx context.Context, traId int) (string, error) {
+	var (
+		result	string
+		err		error
+	)
+
+	_, err = s.skirpsionlineBE.UpdateTHTranChecked(ctx, traId)
+	if err != nil {
+		result = "Gagal UpdateTHTranChecked "
+		return result, errors.Wrap(err,"[SERVICE][UpdateTHTranChecked]")
+	}
+
+	result = "Berhasil UpdateTHTranChecked"
+	return result, err
+}

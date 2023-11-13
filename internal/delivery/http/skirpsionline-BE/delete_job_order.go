@@ -1,10 +1,11 @@
 package skirpsionlineBE
 
 import (
-	httpHelper "skripsi-online-BE/internal/delivery/http"
-	"skripsi-online-BE/pkg/response"
 	"log"
 	"net/http"
+	httpHelper "skripsi-online-BE/internal/delivery/http"
+	"skripsi-online-BE/pkg/response"
+	"strconv"
 
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
@@ -27,6 +28,8 @@ func (h *Handler) DeleteSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		err      error
 		resp     response.Response
 		types    string
+
+		prodId   int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -40,6 +43,10 @@ func (h *Handler) DeleteSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 
 	types = r.FormValue("type")
 	switch types {
+	case "deleteproductbyprodid":
+		prodId, _ = strconv.Atoi(r.FormValue("prodid"))
+		result, err = h.skripsionlineSvc.DeleteProductByProdId(ctx, prodId)
+		log.Println("DeleteProductByProdId", prodId)
 	}
 
 	if err != nil {

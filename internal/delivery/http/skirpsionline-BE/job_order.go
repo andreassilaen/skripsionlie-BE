@@ -45,6 +45,7 @@ type IskripsionlineSvc interface {
 	GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
 	InsertHeaderTran(ctx context.Context, header SBeEntity.InsertHeaderTransaction) (string, error)
 	GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error)
+	
 
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
 	InsertDetailTransaction(ctx context.Context, header SBeEntity.InsertDetailTransaction) (string, error)
@@ -85,9 +86,16 @@ type IskripsionlineSvc interface {
 
 	GetUserMainByIdAndRole(ctx context.Context, userId string, role string) (interface{}, error)
 	UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMain, userId string, role string) (interface{}, error) 
+	InsertOrderByAdminCancelMain(ctx context.Context, header SBeEntity.InsertOrder) (interface{}, error) 
+	InsertOrderByAdminAccMain(ctx context.Context, header SBeEntity.InsertOrder) (interface{}, error) 
 
 	InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error)
 	InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailTran) (interface{}, error)
+
+	
+	DeleteProductByProdId(ctx context.Context, prodId int) (string, error)
+
+
 }
 
 type (

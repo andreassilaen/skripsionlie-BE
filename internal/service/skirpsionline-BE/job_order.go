@@ -54,6 +54,7 @@ type Data interface {
 	GetHeaderTranLastDataByCusId(ctx context.Context, custId string) (SBeEntity.TH_Transaction, error)
 	InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error)
 	GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error) 
+	UpdateTHTranChecked(ctx context.Context, traId int) (string, error)
 
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
 	InsertDetailTran(ctx context.Context, header SBeEntity.TD_Transaction2) (string, error)
@@ -89,6 +90,9 @@ type Data interface {
 	GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error)
 	GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error)
+
+
+	DeleteProductByProdId(ctx context.Context, prodId int) (string, error) 
 }
 
 // AuthData ...

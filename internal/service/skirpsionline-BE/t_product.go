@@ -79,3 +79,15 @@ func (s Service) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, erro
 
 	return header, err
 }
+
+
+
+func (s Service) DeleteProductByProdId(ctx context.Context, prodId int) (string, error) {
+	headers, err := s.skirpsionlineBE.DeleteProductByProdId(ctx, prodId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][DeleteProductByProdId]")
+	}
+
+	return headers, err
+}

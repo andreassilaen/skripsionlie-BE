@@ -549,3 +549,58 @@ func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMa
 
 	return header, err
 }
+
+
+
+func (s Service) InsertOrderByAdminCancelMain(ctx context.Context, header SBeEntity.InsertOrder) (interface{}, error) {
+	var (
+		// header SBeEntity.
+		// header 		SBeEntity.InsertOrder
+		result		string
+		err			error
+	)
+
+	tra_id, _ := strconv.Atoi(header.InsertOrderBody.TraId)
+
+	_, err = s.skirpsionlineBE.UpdateTHTranChecked(ctx, tra_id)
+	if err != nil {
+		return result, errors.Wrap(err, "[SERVICE][InsertOrderByAdminCancelMain][UpdateTHTranChecked]")
+	}
+
+	result, err = s.skirpsionlineBE.InsertOrder(ctx, header.InsertOrderBody)
+	if err != nil {
+		result = "Gagal Insert"
+		return result, errors.Wrap(err, "[Service][InsertOrderByAdminCancelMain][InsertOrder]")
+	} else {
+		result = "Sukses InsertOrderByAdminCancelMain"
+	}
+	return result, err
+
+}
+
+
+func (s Service) InsertOrderByAdminAccMain(ctx context.Context, header SBeEntity.InsertOrder) (interface{}, error) {
+	var (
+		// header SBeEntity.
+		// header 		SBeEntity.InsertOrder
+		result		string
+		err			error
+	)
+
+	tra_id, _ := strconv.Atoi(header.InsertOrderBody.TraId)
+
+	_, err = s.skirpsionlineBE.UpdateTHTranChecked(ctx, tra_id)
+	if err != nil {
+		return result, errors.Wrap(err, "[SERVICE][InsertOrderByAdminAccMain][UpdateTHTranChecked]")
+	}
+
+	result, err = s.skirpsionlineBE.InsertOrderAcc(ctx, header.InsertOrderBody)
+	if err != nil {
+		result = "Gagal Insert"
+		return result, errors.Wrap(err, "[Service][InsertOrderByAdminAccMain][InsertOrder]")
+	} else {
+		result = "Sukses InsertOrderByAdminAccMain"
+	}
+	return result, err
+
+}
