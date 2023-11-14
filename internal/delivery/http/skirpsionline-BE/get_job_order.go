@@ -181,6 +181,14 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetCountDashboardAdmin(ctx)
 		log.Println("getcountdashboardadmin")
 
+	case "getreportordthtrabyorddate":
+		result, err = h.skripsionlineSvc.GetReportOrdTHTraByOrdDate(ctx, r.FormValue("startdate"), r.FormValue("enddate"))
+		log.Println("GetReportOrdTHTraByOrdDate => ", r.FormValue("startdate"), r.FormValue("enddate"))
+
+	case "getdetailreportbyordid":
+		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
+		result, err = h.skripsionlineSvc.GetDetailReportByOrdId(ctx,ordid)
+		log.Println("getdetailreportbyordid", ordid)
 
 
 	}

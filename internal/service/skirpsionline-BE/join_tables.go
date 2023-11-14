@@ -131,3 +131,25 @@ func (s Service) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHT
 
 	return header, err
 }
+
+
+
+func (s Service) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error) {
+	header, err := s.skirpsionlineBE.GetReportOrdTHTraByOrdDate(ctx, startDate, endDate)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetReportOrdTHTraByOrdDate]")
+	}
+
+	return header, err
+}
+
+func (s Service) GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error) {
+	header, err := s.skirpsionlineBE.GetDetailReportByOrdId(ctx, ordId)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetDetailReportByOrdId]")
+	}
+
+	return header, err
+}

@@ -443,10 +443,9 @@ const (
 	updateTHTranChecked  = "UpdateTHTranChecked"
 	qUpdateTHTranChecked = `
 	UPDATE th_transaction 
-	SET tra_checkedyn = "Y",
-		tra_date = now()
+	SET tra_checkedyn = "Y"
 	WHERE tra_id = ?`
-	
+	// tra_date = now()
 
 	////__________________________________________ TD_Transaction____________________________________________
 
@@ -703,6 +702,29 @@ const (
 	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'N') AS del_ongoing ,
 	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'Y') AS del_doned  `
 
+	getReportOrdTHTraByOrdDate = "GetReportOrdTHTraByOrdDate"
+	qGetReportOrdTHTraByOrdDate = `
+	SELECT c.ord_id, a.tra_id, c.ord_lastupdate, a.tra_total
+	FROM th_transaction a
+		INNER JOIN td_transaction b ON a.tra_id = b.tra_id 
+		INNER JOIN t_order c ON a.tra_id = c.tra_id
+		INNER JOIN t_delivery d ON c.ord_id = d.ord_id
+		AND DATE_FORMAT(a.tra_date, '%y%m%d') 
+		BETWEEN ? AND ?
+	GROUP BY a.tra_id, a.cart_id, a.cust_id, a.rek_id
+	ORDER BY c.ord_id`
+
+	getDetailReportByOrdId = "GetDetailReportByOrdId"
+	qGetDetailReportByOrdId = `
+	SELECT o.ord_id, o.ord_lastupdate, a.adm_name, h.tra_id, h.tra_total, c.cust_name, c.cust_phone, c.cust_address,e.emp_name, del.delivery_date
+	FROM t_order o, th_transaction h, t_customer c, t_employee e , t_delivery del, t_admin a
+	WHERE o.tra_id = h.tra_id
+		AND h.cust_id = c.cust_id
+		AND o.adm_id = a.adm_id
+		AND del.emp_id = e.emp_id
+		AND del.ord_id = o.ord_id
+		AND o.ord_id = ?  `
+
 )
 
 var (
@@ -757,6 +779,8 @@ var (
 		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
 		{getJoinOrdTHTraByCustId, qGetJoinOrdTHTraByCustId},
 		{getCountDashboardAdmin, qGetCountDashboardAdmin},
+		{getReportOrdTHTraByOrdDate,qGetReportOrdTHTraByOrdDate},
+		{getDetailReportByOrdId, qGetDetailReportByOrdId},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},

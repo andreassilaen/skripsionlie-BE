@@ -286,3 +286,49 @@ func (d Data) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraO
 
 	return header, err
 }
+
+
+func (d Data) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error) {
+	var (
+		header  SBeEntity.JoinReportOrdTHTra
+		headers []SBeEntity.JoinReportOrdTHTra
+	)
+
+	row, err := (*d.stmt)[getReportOrdTHTraByOrdDate].QueryxContext(ctx, startDate, endDate)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Header JoinReportOrdTHTra : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
+
+func (d Data) GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error) {
+	var (
+		header		SBeEntity.JoinDetailReport
+		err			error
+	)
+	row, err := (*d.stmt)[getDetailReportByOrdId].QueryxContext(ctx, ordId)
+	if err != nil {
+		return header, errors.Wrap(err, "[DATA][getDetailReportByOrdId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return header, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+		}
+	}
+	return header, nil
+}

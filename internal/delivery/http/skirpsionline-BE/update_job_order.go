@@ -34,6 +34,7 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		types    string
 
 		ordid int
+		tradid int
 		cartid int
 	)
 	defer resp.RenderJSON(w, r)
@@ -62,6 +63,11 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.UpdateEmployeeById(ctx, header, r.FormValue("empid"))
 		log.Println("UpdateEmployeeById", header, r.FormValue("empid"))
+
+	case "updatethtranchecked":
+		tradid, _ = strconv.Atoi(r.FormValue("tradid"))
+		result, err = h.skripsionlineSvc.UpdateTHTranChecked(ctx, tradid)
+		log.Println("UpdateTHTranChecked", tradid)
 
 
 	case "updateusermain":

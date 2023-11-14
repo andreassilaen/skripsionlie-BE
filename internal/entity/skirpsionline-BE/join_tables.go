@@ -127,3 +127,47 @@ type JoinTHTDCartProd2 struct {
 type UpdateQtyDetailJoinTHTDCartProd struct {
 	UpdateQtyDetailJoinTHTDCartProdBody JoinTHTDCartProd2 `json:"data"`
 }
+
+type JoinReportOrdTHTra struct {
+	OrdId 		string `db:"ord_id" json:"ord_id"`
+
+	TraId string `db:"tra_id" json:"tra_id"`
+	TraTotal int    `db:"tra_total" json:"tra_total"`
+
+	OrdLastupdate	string	`db:"ord_lastupdate" json:"ord_lastupdate"`
+
+	
+	// OrdConfirmedYN 	string		`db:"ord_confirmedyn" json:"ord_confirmedyn"`
+	// OrdOnDeliveryYN 	string		`db:"ord_ondeliveryyn" json:"ord_ondeliveryyn"`
+
+	// DeliveryDoneYN 	string `db:"delivery_doneyn" json:"delivery_doneyn"`
+
+}
+
+
+type JoinDetailReport struct {
+	OrdId 		string `db:"ord_id" json:"ord_id"`
+	OrdLastupdate	string	`db:"ord_lastupdate" json:"ord_lastupdate"`
+
+	AdmName			string		`db:"adm_name" json:"adm_name"`
+
+	TraId string `db:"tra_id" json:"tra_id"`
+	TraTotal int    `db:"tra_total" json:"tra_total"`
+
+
+	CustName    string `db:"cust_name" json:"cust_name"`
+	CustPhone    string `db:"cust_phone" json:"cust_phone"`
+	CustAddress string `db:"cust_address" json:"cust_address"`
+
+	EmpName			string		`db:"emp_name" json:"emp_name"`
+	DeliveryDate string `db:"delivery_date" json:"delivery_date"`
+
+
+	
+	// OrdConfirmedYN 	string		`db:"ord_confirmedyn" json:"ord_confirmedyn"`
+	// OrdOnDeliveryYN 	string		`db:"ord_ondeliveryyn" json:"ord_ondeliveryyn"`
+
+	// DeliveryDoneYN 	string `db:"delivery_doneyn" json:"delivery_doneyn"`
+
+}
+
