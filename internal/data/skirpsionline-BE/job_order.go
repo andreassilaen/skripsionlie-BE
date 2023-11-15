@@ -502,8 +502,7 @@ const (
 	updateOrderOnDeliveryYes  = "UpdateOrderOnDeliveryYes"
 	qUpdateOrderOnDeliveryYes = `
 	UPDATE t_order 
-	SET ord_ondeliveryyn = "Y",
-		ord_lastupdate = now()
+	SET ord_ondeliveryyn = "Y"
 	WHERE ord_id = ?`
 
 	////__________________________________________ T_Delivery ____________________________________________
@@ -674,6 +673,7 @@ const (
 	SELECT h.tra_id, h.cust_id, r.rek_bank, h.tra_total, h.tra_img, h.tra_date, h.tra_checkedyn
 	FROM th_transaction h, t_rekening r
 	WHERE h.rek_id = r.rek_id
+	AND h.tra_checkedyn = "N"
 	AND h.cust_id = ? `
 
 	getJoinOrdTHTraByCustId = "GetJoinOrdTHTraByCustId"
@@ -709,7 +709,7 @@ const (
 		INNER JOIN td_transaction b ON a.tra_id = b.tra_id 
 		INNER JOIN t_order c ON a.tra_id = c.tra_id
 		INNER JOIN t_delivery d ON c.ord_id = d.ord_id
-		AND DATE_FORMAT(a.tra_date, '%y%m%d') 
+		AND DATE_FORMAT(c.ord_lastupdate, '%y%m%d') 
 		BETWEEN ? AND ?
 	GROUP BY a.tra_id, a.cart_id, a.cust_id, a.rek_id
 	ORDER BY c.ord_id`
