@@ -510,7 +510,7 @@ func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMa
 	if role == "cus" {
 		log.Printf(" Masuk role CUS !!!!!!!!")
 		bodyCus.CustName = body.UpdateUserMainBody.UserName
-		bodyCus.CustUserName = body.UpdateUserMainBody.UserName
+		bodyCus.CustUserName = body.UpdateUserMainBody.UserUserName
 		bodyCus.CustPassWord = body.UpdateUserMainBody.UserPassWord
 		bodyCus.CustEmail = body.UpdateUserMainBody.UserEmail
 		bodyCus.CustPhone = body.UpdateUserMainBody.UserPhone
@@ -522,7 +522,7 @@ func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMa
 	} else if role == "adm" {
 		log.Printf(" Masuk role ADM !!!!!!!!")
 		bodyAdm.AdmName = body.UpdateUserMainBody.UserName
-		bodyAdm.AdmUserName = body.UpdateUserMainBody.UserName
+		bodyAdm.AdmUserName = body.UpdateUserMainBody.UserUserName
 		bodyAdm.AdmPassWord = body.UpdateUserMainBody.UserPassWord
 		bodyAdm.AdmEmail = body.UpdateUserMainBody.UserEmail
 		bodyAdm.AdmPhone = body.UpdateUserMainBody.UserPhone
@@ -534,7 +534,7 @@ func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMa
 	} else if role == "emp" {
 		log.Printf(" Masuk role EMP !!!!!!!!")
 		bodyEmp.EmpName = body.UpdateUserMainBody.UserName
-		bodyEmp.EmpUserName = body.UpdateUserMainBody.UserName
+		bodyEmp.EmpUserName = body.UpdateUserMainBody.UserUserName
 		bodyEmp.EmpPassWord = body.UpdateUserMainBody.UserPassWord
 		bodyEmp.EmpEmail = body.UpdateUserMainBody.UserEmail
 		bodyEmp.EmpPhone = body.UpdateUserMainBody.UserPhone

@@ -75,7 +75,7 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		body, _ := ioutil.ReadAll(r.Body)
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.UpdateUserMain(ctx, header, r.FormValue("userid"), r.FormValue("role"))
-		log.Println("updateusermain", header, r.FormValue("userid"), r.FormValue("role"))
+		log.Println("updateusermain => ", r.FormValue("role"), r.FormValue("userid"),  header)
 
 	case "updatecustomerbyid":
 		var header SBeEntity.UpdateCustomerById
