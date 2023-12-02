@@ -63,10 +63,9 @@ func (d Data) GetProdById(ctx context.Context, prodId string) ([]SBeEntity.T_Pro
 	return headers, nil
 }
 
-
 func (d Data) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error) {
 	var (
-		header  SBeEntity.T_Product
+		header SBeEntity.T_Product
 		// headers []SBeEntity.T_Customer
 	)
 
@@ -87,9 +86,6 @@ func (d Data) GetProdLastData(ctx context.Context) (SBeEntity.T_Product, error) 
 	defer row.Close()
 	return header, nil
 }
-
-
-
 
 func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (string, error) {
 	var (
@@ -115,7 +111,6 @@ func (d Data) InsertProduct(ctx context.Context, header SBeEntity.T_Product2) (s
 	result = " Sukses Data"
 	return result, err
 }
-
 
 func (d Data) UpdateProdById(ctx context.Context, header SBeEntity.T_Product3, prodId string) (string, error) {
 	var (
@@ -148,7 +143,7 @@ func (d Data) DeleteProductByProdId(ctx context.Context, prodId int) (string, er
 		err    error
 	)
 
-	prod_id:= strconv.Itoa(prodId)
+	prod_id := strconv.Itoa(prodId)
 
 	_, err = (*d.stmt)[deleteProductByProdId].ExecContext(ctx, prodId)
 	if err != nil {
@@ -156,5 +151,26 @@ func (d Data) DeleteProductByProdId(ctx context.Context, prodId int) (string, er
 		return result, errors.Wrap(err, "[DATA][DeleteProductByProdId]")
 	}
 	result = " Sukses delete Data => " + prod_id
+	return result, err
+}
+
+func (d Data) UpdateProdStockById(ctx context.Context, header SBeEntity.ProdStock, prodId int) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	Id := strconv.Itoa(prodId)
+
+	_, err = (*d.stmt)[updateProdStockById].ExecContext(ctx,
+		header.ProdStock,
+		prodId)
+
+	if err != nil {
+		result = "Gagal Update Stock"
+		return result, errors.Wrap(err, "[DATA][UpdateProdStockById]")
+	}
+	result = "Sukses Update stock prod_id => " + Id
+
 	return result, err
 }

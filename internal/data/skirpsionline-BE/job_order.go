@@ -304,11 +304,17 @@ const (
 		prod_img = ?
 	WHERE prod_id= ?`
 
-	deleteProductByProdId = "DeleteProductByProdId"
+	deleteProductByProdId  = "DeleteProductByProdId"
 	qDeleteProductByProdid = `
 	DELETE FROM t_product
 	WHERE prod_id= ?`
 
+	updateProdStockById  = "UpdateProdStockById"
+	qUpdateProdStockById = `
+	UPDATE t_product
+	SET prod_stock = ?,
+		prod_lastupdate = NOW()
+	WHERE prod_id = ?`
 
 	////__________________________________________ T_Category____________________________________________
 
@@ -362,7 +368,7 @@ const (
 	ORDER BY cart_id DESC
 	LIMIT 1`
 
-	updateHeaderCartPayed  =  "UpdateHeaderCartPayed"
+	updateHeaderCartPayed  = "UpdateHeaderCartPayed"
 	qUpdateHeaderCartPayed = `
 	UPDATE th_cart
 	SET cart_payedyn = "Y",
@@ -433,8 +439,7 @@ const (
 		tra_date)
 	VALUES (?, ?, ?, ?, ?, NOW())`
 
-
-	getAllHeaderTranByCustId = "GetAllHeaderTranByCustId"
+	getAllHeaderTranByCustId  = "GetAllHeaderTranByCustId"
 	qGetAllHeaderTranByCustId = `
 	SELECT * 
 	FROM th_transaction 
@@ -529,7 +534,7 @@ const (
 		delivery_date)
 	VALUES (?, ?, "N", NOW())`
 
-	updateDeliveryDone = "UpdateDeliveryDone"
+	updateDeliveryDone  = "UpdateDeliveryDone"
 	qUpdateDeliveryDone = `
 	UPDATE t_delivery
 	SET delivery_doneyn = "Y",
@@ -616,7 +621,7 @@ const (
 	// 	d.prod_id = p.prod_id
 	// 	AND d.tra_id = ?
 
-	getJoinOrdTHTDTraProdByOrdId = "GetJoinOrdTHTDTraProdByOrdId"
+	getJoinOrdTHTDTraProdByOrdId  = "GetJoinOrdTHTDTraProdByOrdId"
 	qGetJoinOrdTHTDTraProdByOrdId = `
 	SELECT 
 		o.ord_id,
@@ -676,7 +681,7 @@ const (
 	AND h.tra_checkedyn = "N"
 	AND h.cust_id = ? `
 
-	getJoinOrdTHTraByCustId = "GetJoinOrdTHTraByCustId"
+	getJoinOrdTHTraByCustId  = "GetJoinOrdTHTraByCustId"
 	qGetJoinOrdTHTraByCustId = `
 	SELECT 
 		o.ord_id,  
@@ -691,8 +696,7 @@ const (
 		AND o.ord_id = d.ord_id
 		AND h.cust_id = ?`
 
-
-	getCountDashboardAdmin = "GetCountDashboardAdmin"
+	getCountDashboardAdmin  = "GetCountDashboardAdmin"
 	qGetCountDashboardAdmin = `
 	SELECT 
 	(SELECT COUNT(*) FROM th_transaction h WHERE h.tra_checkedyn = "N") AS tra_uncheck,
@@ -702,7 +706,7 @@ const (
 	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'N') AS del_ongoing ,
 	(SELECT COUNT(*) FROM t_delivery d WHERE d.delivery_doneyn = 'Y') AS del_doned  `
 
-	getReportOrdTHTraByOrdDate = "GetReportOrdTHTraByOrdDate"
+	getReportOrdTHTraByOrdDate  = "GetReportOrdTHTraByOrdDate"
 	qGetReportOrdTHTraByOrdDate = `
 	SELECT c.ord_id, a.tra_id, c.ord_lastupdate, a.tra_total
 	FROM th_transaction a
@@ -714,7 +718,7 @@ const (
 	GROUP BY a.tra_id, a.cart_id, a.cust_id, a.rek_id
 	ORDER BY c.ord_id`
 
-	getDetailReportByOrdId = "GetDetailReportByOrdId"
+	getDetailReportByOrdId  = "GetDetailReportByOrdId"
 	qGetDetailReportByOrdId = `
 	SELECT o.ord_id, o.ord_lastupdate, a.adm_name, h.tra_id, h.tra_total, c.cust_name, c.cust_phone, c.cust_address,e.emp_name, del.delivery_date
 	FROM t_order o, th_transaction h, t_customer c, t_employee e , t_delivery del, t_admin a
@@ -724,7 +728,6 @@ const (
 		AND del.emp_id = e.emp_id
 		AND del.ord_id = o.ord_id
 		AND o.ord_id = ?  `
-
 )
 
 var (
@@ -779,7 +782,7 @@ var (
 		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
 		{getJoinOrdTHTraByCustId, qGetJoinOrdTHTraByCustId},
 		{getCountDashboardAdmin, qGetCountDashboardAdmin},
-		{getReportOrdTHTraByOrdDate,qGetReportOrdTHTraByOrdDate},
+		{getReportOrdTHTraByOrdDate, qGetReportOrdTHTraByOrdDate},
 		{getDetailReportByOrdId, qGetDetailReportByOrdId},
 	}
 	insertStmt = []statement{
@@ -805,6 +808,7 @@ var (
 		{updateDeliveryDone, qUpdateDeliveryDone},
 		{updateHeaderCartPayed, qUpdateHeaderCartPayed},
 		{updateTHTranChecked, qUpdateTHTranChecked},
+		{updateProdStockById, qUpdateProdStockById},
 	}
 	deleteStmt = []statement{
 		{deleteProductByProdId, qDeleteProductByProdid},

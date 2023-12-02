@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"strconv"
+
+	// "strconv"
 	// "strings"
 
 	// "github.com/jmoiron/sqlx"
@@ -45,7 +47,7 @@ func (d Data) GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.T
 		headers []SBeEntity.TH_Cart
 	)
 
-	row, err := (*d.stmt)[getCartByCustId].QueryxContext(ctx,custId)
+	row, err := (*d.stmt)[getCartByCustId].QueryxContext(ctx, custId)
 
 	if err != nil {
 		return headers, errors.Wrap(err, "[DATA][GetCartByCustId][Query]")
@@ -66,7 +68,7 @@ func (d Data) GetCartByCustId(ctx context.Context, custId string) ([]SBeEntity.T
 
 func (d Data) GetHeaderCartLastData(ctx context.Context) (SBeEntity.TH_Cart, error) {
 	var (
-		header  SBeEntity.TH_Cart
+		header SBeEntity.TH_Cart
 		// headers []SBeEntity.T_Customer
 	)
 
@@ -88,8 +90,6 @@ func (d Data) GetHeaderCartLastData(ctx context.Context) (SBeEntity.TH_Cart, err
 	return header, nil
 }
 
-
-
 func (d Data) InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (string, error) {
 	var (
 		result string
@@ -109,16 +109,13 @@ func (d Data) InsertHeaderCart(ctx context.Context, header SBeEntity.TH_Cart2) (
 	return result, err
 }
 
-
-
-
 func (d Data) GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error) {
 	var (
 		header  SBeEntity.TH_Cart
 		headers []SBeEntity.TH_Cart
 	)
 
-	row, err := (*d.stmt)[getHeaderCartNotPayedByCustId].QueryxContext(ctx,custId)
+	row, err := (*d.stmt)[getHeaderCartNotPayedByCustId].QueryxContext(ctx, custId)
 
 	if err != nil {
 		return headers, errors.Wrap(err, "[DATA][getHeaderCartNotPayedByCustId][Query]")
@@ -137,8 +134,6 @@ func (d Data) GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([
 	return headers, nil
 }
 
-
-
 func (d Data) UpdateHeaderCartPeyed(ctx context.Context, cartId int) (string, error) {
 	var (
 		result string
@@ -151,16 +146,7 @@ func (d Data) UpdateHeaderCartPeyed(ctx context.Context, cartId int) (string, er
 		result = "Gagal Update"
 		return result, errors.Wrap(err, "[DATA][updateHeaderCartPayed]")
 	}
-	result = "Sukses Update " + strconv.Itoa(cartId) 
+	result = "Sukses Update " + strconv.Itoa(cartId)
 
 	return result, err
 }
-
-
-
-
-
-
-
-
-

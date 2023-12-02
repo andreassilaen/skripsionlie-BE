@@ -53,7 +53,7 @@ type Data interface {
 	GetHeaderCartNotPayedCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Cart, error)
 	GetHeaderTranLastDataByCusId(ctx context.Context, custId string) (SBeEntity.TH_Transaction, error)
 	InsertHeaderTran(ctx context.Context, header SBeEntity.TH_Transaction2) (string, error)
-	GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error) 
+	GetAllHeaderTranByCustId(ctx context.Context, custId string) ([]SBeEntity.TH_Transaction, error)
 	UpdateTHTranChecked(ctx context.Context, traId int) (string, error)
 
 	GetDetailTranByTraId(ctx context.Context, traId string) ([]SBeEntity.TD_Transaction, error)
@@ -64,6 +64,7 @@ type Data interface {
 	UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error)
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
 	UpdateProdById(ctx context.Context, header SBeEntity.T_Product3, prodId string) (string, error)
+	UpdateProdStockById(ctx context.Context, header SBeEntity.ProdStock, prodId int) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error)
@@ -91,10 +92,9 @@ type Data interface {
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error)
 	GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error)
 	GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error)
-	GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error) 
+	GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error)
 
-
-	DeleteProductByProdId(ctx context.Context, prodId int) (string, error) 
+	DeleteProductByProdId(ctx context.Context, prodId int) (string, error)
 }
 
 // AuthData ...
