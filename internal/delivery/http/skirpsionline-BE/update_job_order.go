@@ -33,10 +33,11 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		resp     response.Response
 		types    string
 
-		ordid  int
-		tradid int
-		cartid int
-		prodid int
+		ordid     int
+		tradid    int
+		cartid    int
+		prodid    int
+		prodstock int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -121,11 +122,15 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 
 	case "updateprodstockbyid":
 		prodid, _ = strconv.Atoi(r.FormValue("prodid"))
-		var header SBeEntity.UpdateProdStockById
-		body, _ := ioutil.ReadAll(r.Body)
-		json.Unmarshal(body, &header)
-		result, err = h.skripsionlineSvc.UpdateProdStockById(ctx, header, prodid)
-		log.Println("UpdateProdStockById =>", header, prodid)
+		prodstock, _ = strconv.Atoi(r.FormValue("prodstock"))
+		result, err = h.skripsionlineSvc.UpdateProdStockById(ctx, prodstock, prodid)
+		log.Println("UpdateProdStockById =>", prodstock, prodid)
+
+	case "updatestock":
+		tradid, _ = strconv.Atoi(r.FormValue("tradid"))
+		prodstock, _ = strconv.Atoi(r.FormValue("prodstock"))
+		result, err = h.skripsionlineSvc.UpdateStock(ctx, (r.FormValue("tradid")))
+		log.Println("UpdateStock =>", (r.FormValue("tradid")))
 
 	}
 

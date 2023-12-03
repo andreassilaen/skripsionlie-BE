@@ -88,14 +88,31 @@ func (s Service) DeleteProductByProdId(ctx context.Context, prodId int) (string,
 	return headers, err
 }
 
-func (s Service) UpdateProdStockById(ctx context.Context, header SBeEntity.UpdateProdStockById, prodId int) (string, error) {
+// func (s Service) UpdateProdStockById(ctx context.Context, header SBeEntity.UpdateProdStockById, prodId int) (string, error) {
+// 	var (
+// 		result string
+// 		err    error
+// 	)
+
+// 	result, err = s.skirpsionlineBE.UpdateProdStockById(ctx, header.ProdStockBody, prodId)
+// 	log.Println("admId =>", prodId)
+// 	if err != nil {
+// 		result = "Gagal Update"
+// 		return result, errors.Wrap(err, "[Service][UpdateProdStockById]")
+// 	} else {
+// 		result = "Sukses UpdateProdStockById"
+// 	}
+// 	return result, err
+// }
+
+func (s Service) UpdateProdStockById(ctx context.Context, prodStock int, prodId int) (string, error) {
 	var (
 		result string
 		err    error
 	)
 
-	result, err = s.skirpsionlineBE.UpdateProdStockById(ctx, header.ProdStockBody, prodId)
-	log.Println("admId =>", prodId)
+	result, err = s.skirpsionlineBE.UpdateProdStockById(ctx, prodStock, prodId)
+	log.Println("prodId =>", prodId)
 	if err != nil {
 		result = "Gagal Update"
 		return result, errors.Wrap(err, "[Service][UpdateProdStockById]")

@@ -177,6 +177,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetJoinOrdTHTraByCustId(ctx, r.FormValue("cusid"))
 		log.Println("getjoinordthtrabycustid", r.FormValue("cusid"))
 
+	case "getjoinordthtradelbycustid":
+		result, err = h.skripsionlineSvc.GetJoinOrdTHTraDelByCustId(ctx, r.FormValue("cusid"))
+		log.Println("getjoinordthtradelbycustid", r.FormValue("cusid"))
+
 	case "getcountdashboardadmin":
 		result, err = h.skripsionlineSvc.GetCountDashboardAdmin(ctx)
 		log.Println("getcountdashboardadmin")
@@ -187,9 +191,12 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 
 	case "getdetailreportbyordid":
 		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
-		result, err = h.skripsionlineSvc.GetDetailReportByOrdId(ctx,ordid)
+		result, err = h.skripsionlineSvc.GetDetailReportByOrdId(ctx, ordid)
 		log.Println("getdetailreportbyordid", ordid)
 
+	case "getjointdtranprodcustbytraid":
+		result, err = h.skripsionlineSvc.GetJoinTDTranProdCustByTraId(ctx, r.FormValue("traid"))
+		log.Println("getjointdtranprodcustbytraid => ", r.FormValue("traid"))
 
 	}
 

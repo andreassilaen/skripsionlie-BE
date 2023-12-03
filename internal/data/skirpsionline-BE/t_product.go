@@ -154,7 +154,28 @@ func (d Data) DeleteProductByProdId(ctx context.Context, prodId int) (string, er
 	return result, err
 }
 
-func (d Data) UpdateProdStockById(ctx context.Context, header SBeEntity.ProdStock, prodId int) (string, error) {
+// func (d Data) UpdateProdStockById(ctx context.Context, header SBeEntity.ProdStock, prodId int) (string, error) {
+// 	var (
+// 		result string
+// 		err    error
+// 	)
+
+// 	Id := strconv.Itoa(prodId)
+
+// 	_, err = (*d.stmt)[updateProdStockById].ExecContext(ctx,
+// 		header.ProdStock,
+// 		prodId)
+
+// 	if err != nil {
+// 		result = "Gagal Update Stock"
+// 		return result, errors.Wrap(err, "[DATA][UpdateProdStockById]")
+// 	}
+// 	result = "Sukses Update stock prod_id => " + Id
+
+// 	return result, err
+// }
+
+func (d Data) UpdateProdStockById(ctx context.Context, prodStock int, prodId int) (string, error) {
 	var (
 		result string
 		err    error
@@ -163,7 +184,7 @@ func (d Data) UpdateProdStockById(ctx context.Context, header SBeEntity.ProdStoc
 	Id := strconv.Itoa(prodId)
 
 	_, err = (*d.stmt)[updateProdStockById].ExecContext(ctx,
-		header.ProdStock,
+		prodStock,
 		prodId)
 
 	if err != nil {

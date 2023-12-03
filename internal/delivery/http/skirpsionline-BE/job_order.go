@@ -54,7 +54,7 @@ type IskripsionlineSvc interface {
 	UpdateEmployeeById(ctx context.Context, header SBeEntity.UpdateEmployeeById, empId string) (string, error)
 	UpdateCustomerById(ctx context.Context, header SBeEntity.UpdateCustomerById, cusId string) (string, error)
 	UpdateProdById(ctx context.Context, header SBeEntity.UpdateProdById, prodId string) (string, error)
-	UpdateProdStockById(ctx context.Context, header SBeEntity.UpdateProdStockById, prodId int) (string, error)
+	UpdateProdStockById(ctx context.Context, prodStock int, prodId int) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.InsertOrder) (string, error)
@@ -80,10 +80,13 @@ type IskripsionlineSvc interface {
 	GetAllProductCartNotPayedByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error)
+	GetJoinOrdTHTraDelByCustId(ctx context.Context, traId string) ([]SBeEntity.JoinOrdTHTraDelByCustId, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.UpdateQtyDetailJoinTHTDCartProd) (string, error)
 	GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error)
 	GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error)
 	GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error)
+	GetJoinTDTranProdCustByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTranProdCustByTraId, error)
+	UpdateStock(ctx context.Context, traid string) (string, error)
 
 	TokenUser(ctx context.Context) error
 

@@ -64,7 +64,7 @@ type Data interface {
 	UpdateEmployeeById(ctx context.Context, header SBeEntity.T_Employee2, empId string) (string, error)
 	UpdateCustomerById(ctx context.Context, header SBeEntity.T_Customer2, cusId string) (string, error)
 	UpdateProdById(ctx context.Context, header SBeEntity.T_Product3, prodId string) (string, error)
-	UpdateProdStockById(ctx context.Context, header SBeEntity.ProdStock, prodId int) (string, error)
+	UpdateProdStockById(ctx context.Context, prodStock int, prodId int) (string, error)
 
 	GetAllOrder(ctx context.Context) ([]SBeEntity.T_Order, error)
 	InsertOrder(ctx context.Context, header SBeEntity.T_Order2) (string, error)
@@ -89,10 +89,12 @@ type Data interface {
 	GetListJoinTHTDCartProdByCustIdAndCartId(ctx context.Context, custId string, cartId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetProductInJOinTHTDCartProdByProdId(ctx context.Context, custId string, cartId string, prodId string) ([]SBeEntity.JoinTHTDCartProd, error)
 	GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error)
+	GetJoinOrdTHTraDelByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraDelByCustId, error)
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error)
 	GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error)
 	GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error)
 	GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error)
+	GetJoinTDTranProdCustByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTranProdCustByTraId, error)
 
 	DeleteProductByProdId(ctx context.Context, prodId int) (string, error)
 }

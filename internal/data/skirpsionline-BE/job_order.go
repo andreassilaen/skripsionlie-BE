@@ -689,10 +689,23 @@ const (
 		h.tra_total,  
 		o.ord_confirmedyn,  
 		o.ord_ondeliveryyn, 
+		o.ord_lastupdate
+	FROM t_order o, th_transaction h
+	WHERE o.tra_id = h.tra_id 
+		AND h.cust_id = ?`
+
+	getJoinOrdTHTraDelByCustId  = "GetJoinOrdTHTraDelByCustId"
+	qGetJoinOrdTHTraDelByCustId = `
+		SELECT
+		o.ord_id,
+		h.tra_id,
+		h.tra_total,
+		o.ord_confirmedyn,
+		o.ord_ondeliveryyn,
 		o.ord_lastupdate,
 		d.delivery_doneyn
 	FROM t_order o, th_transaction h, t_delivery d
-	WHERE o.tra_id = h.tra_id 
+	WHERE o.tra_id = h.tra_id
 		AND o.ord_id = d.ord_id
 		AND h.cust_id = ?`
 
@@ -728,6 +741,25 @@ const (
 		AND del.emp_id = e.emp_id
 		AND del.ord_id = o.ord_id
 		AND o.ord_id = ?  `
+
+	getJoinTDTranProdCustByTraId  = " GetJoinTDTranProdCustByTraId"
+	qGetJoinTDTranProdCustByTraId = `
+	SELECT 
+		d.tra_id,
+		p.prod_id,
+		p.prod_name,
+		p.prod_stock,
+		p.prod_price,
+		d.tradtl_qty,
+		d.tradtl_amount,
+		h.tra_total,
+		c.cust_name, 
+		c.cust_address
+	FROM t_product p, td_transaction d, th_transaction h, t_customer c
+	WHERE p.prod_id = d.prod_id
+		AND h.tra_id = d.tra_id
+		AND h.cust_id = c.cust_id
+		AND d.tra_id = ?`
 )
 
 var (
@@ -781,9 +813,11 @@ var (
 		{getListJoinTHTDCartProdByCustIdAndCartId, qGetListJoinTHTDCartProdByCustIdAndCartId},
 		{getJoinTHTraRekByCusId, qGetJoinTHTraRekByCusId},
 		{getJoinOrdTHTraByCustId, qGetJoinOrdTHTraByCustId},
+		{getJoinOrdTHTraDelByCustId, qGetJoinOrdTHTraDelByCustId},
 		{getCountDashboardAdmin, qGetCountDashboardAdmin},
 		{getReportOrdTHTraByOrdDate, qGetReportOrdTHTraByOrdDate},
 		{getDetailReportByOrdId, qGetDetailReportByOrdId},
+		{getJoinTDTranProdCustByTraId, qGetJoinTDTranProdCustByTraId},
 	}
 	insertStmt = []statement{
 		{insertProduct, qInsertProduct},
