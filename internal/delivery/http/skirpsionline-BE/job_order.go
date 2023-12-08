@@ -96,6 +96,10 @@ type IskripsionlineSvc interface {
 	InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart) (interface{}, error)
 	InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailTran) (interface{}, error)
 
+
+	InsertCategory(ctx context.Context, ctgType string) (string, error)
+	InsertRekening(ctx context.Context, rekBank string, rekNumber int, rekName string) (string, error) 
+	
 	
 	DeleteProductByProdId(ctx context.Context, prodId int) (string, error)
 

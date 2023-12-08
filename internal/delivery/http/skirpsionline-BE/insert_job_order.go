@@ -6,7 +6,7 @@ import (
 	"log"
 	"net/http"
 	"skripsi-online-BE/pkg/response"
-	// "strconv"
+	"strconv"
 
 	SBeEntity "skripsi-online-BE/internal/entity/skirpsionline-BE"
 
@@ -34,6 +34,7 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		types string
 
 		// traid int
+		reknumber int
 
 	)
 	defer resp.RenderJSON(w, r)
@@ -164,6 +165,17 @@ func (h *Handler) InsertSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.InsertJoinHeaderDetailTran(ctx, header)
 		log.Println("Delivery InsertJoinHeaderDetailTran : ", header)
+
+
+	case "insertcategory":
+		result, err = h.skripsionlineSvc.InsertCategory(ctx, r.FormValue("ctgtype"))
+		log.Println("Delivery insertcategory : ", r.FormValue("ctgtype"))
+
+	case "insertrekening":
+		reknumber, _ = strconv.Atoi(r.FormValue("reknumber"))
+		result, err = h.skripsionlineSvc.InsertRekening(ctx, r.FormValue("rekbank"), reknumber, r.FormValue("rekname"))
+		log.Println("Delivery InsertRekening : ", r.FormValue("rekbank"), reknumber, r.FormValue("rekname"))
+
 
 	}
 

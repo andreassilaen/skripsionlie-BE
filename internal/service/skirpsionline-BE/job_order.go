@@ -94,6 +94,11 @@ type Data interface {
 	GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error) 
 
 
+
+	InsertCategory(ctx context.Context, ctgType string) (string, error)
+	InsertRekening(ctx context.Context, rekBank string, rekNumber int, rekName string) (string, error) 
+
+
 	DeleteProductByProdId(ctx context.Context, prodId int) (string, error) 
 }
 

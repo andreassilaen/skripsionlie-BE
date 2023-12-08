@@ -316,6 +316,12 @@ const (
 	qGetAllCategory = `
 	SELECT ctg_id, ctg_type FROM t_category`
 
+	insertCategory = "InsertCategory"
+	qInsertCategory = `
+	INSERT INTO t_category
+		(ctg_type)
+	VALUES	(?)`
+
 	////__________________________________________ TH_Cart ____________________________________________
 
 	getAllCart  = "GetAllCart"
@@ -547,6 +553,12 @@ const (
 	SELECT * 
 	FROM t_rekening
 	WHERE rek_id = ? `
+
+	insertRekening = "InsertRekening"
+	qInsertrekening = `
+	INSERT INTO t_rekening
+		(rek_bank, rek_number, rek_name)
+	VALUES	(?, ?, ?)`
 
 	///___________________________________________ JOIN TABLES ____________________________________
 
@@ -794,6 +806,8 @@ var (
 		{insertOrder, qInsertOrder},
 		{insertOrderAcc, qInsertOrderAcc},
 		{insertDeliveryProcess, qInsertDeliveryProcess},
+		{insertCategory, qInsertCategory},
+		{insertRekening, qInsertrekening},
 	}
 	updateStmt = []statement{
 		{updateAdminById, qUpdateAdminById},

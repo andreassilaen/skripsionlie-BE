@@ -21,3 +21,14 @@ func (s Service) GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, er
 
 	return headers, err
 }
+
+
+func (s Service) InsertCategory(ctx context.Context, ctgType string) (string, error) {
+	headers, err := s.skirpsionlineBE.InsertCategory(ctx, ctgType)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][InsertCategory]")
+	}
+
+	return headers, err
+}

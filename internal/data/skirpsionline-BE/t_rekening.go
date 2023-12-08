@@ -62,3 +62,25 @@ func (d Data) GetRekByRekId(ctx context.Context, rekId int) ([]SBeEntity.T_Reken
 	defer row.Close()
 	return headers, nil
 }
+
+
+
+func (d Data) InsertRekening(ctx context.Context, rekBank string, rekNumber int, rekName string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertRekening].ExecContext(ctx,
+		rekBank,
+		rekNumber, 
+		rekName,
+	)
+
+	if err != nil {
+		result = "Gagal Insert Data"
+		return result, errors.Wrap(err, "[DATA][InsertRekening]")
+	}
+	result = " Berhasil Input Data Rekening"
+	return result, err
+}

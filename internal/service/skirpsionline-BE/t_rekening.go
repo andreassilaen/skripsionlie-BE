@@ -32,3 +32,15 @@ func (s Service) GetRekByRekId(ctx context.Context, rekId int) ([]SBeEntity.T_Re
 
 	return headers, err
 }
+
+
+
+func (s Service) InsertRekening(ctx context.Context, rekBank string, rekNumber int, rekName string) (string, error) {
+	headers, err := s.skirpsionlineBE.InsertRekening(ctx, rekBank, rekNumber, rekName)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[SERVICE][InsertRekening]")
+	}
+
+	return headers, err
+}

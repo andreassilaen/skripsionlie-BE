@@ -36,3 +36,22 @@ func (d Data) GetAllCategory(ctx context.Context) ([]SBeEntity.T_Category, error
 	defer row.Close()
 	return headers, nil
 }
+
+
+func (d Data) InsertCategory(ctx context.Context, ctgType string) (string, error) {
+	var (
+		result string
+		err    error
+	)
+
+	_, err = (*d.stmt)[insertCategory].ExecContext(ctx,
+		ctgType,
+	)
+
+	if err != nil {
+		result = "Gagal Insert Data"
+		return result, errors.Wrap(err, "[DATA][insertCategory]")
+	}
+	result = " Data Sukses"
+	return result, err
+}
