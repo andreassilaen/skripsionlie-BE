@@ -211,7 +211,6 @@ func (d Data) UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.
 	return result, err
 }
 
-
 func (d Data) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error) {
 	var (
 		header  SBeEntity.JoinTHTraRek
@@ -236,9 +235,6 @@ func (d Data) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeE
 	defer row.Close()
 	return headers, nil
 }
-
-
-
 
 func (d Data) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error) {
 	var (
@@ -265,10 +261,34 @@ func (d Data) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBe
 	return headers, nil
 }
 
+func (d Data) GetJoinOrdTHTraDelByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraDelByCustId, error) {
+	var (
+		header  SBeEntity.JoinOrdTHTraDelByCustId
+		headers []SBeEntity.JoinOrdTHTraDelByCustId
+	)
+
+	row, err := (*d.stmt)[getJoinOrdTHTraDelByCustId].QueryxContext(ctx, custId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraDelByCustId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraDelByCustId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Header Transaction : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
 
 func (d Data) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error) {
 	var (
-		header  SBeEntity.CountTHTraOrdDel
+		header SBeEntity.CountTHTraOrdDel
 		// err		error
 	)
 
@@ -286,7 +306,6 @@ func (d Data) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraO
 
 	return header, err
 }
-
 
 func (d Data) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error) {
 	var (
@@ -313,11 +332,10 @@ func (d Data) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, 
 	return headers, nil
 }
 
-
 func (d Data) GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error) {
 	var (
-		header		SBeEntity.JoinDetailReport
-		err			error
+		header SBeEntity.JoinDetailReport
+		err    error
 	)
 	row, err := (*d.stmt)[getDetailReportByOrdId].QueryxContext(ctx, ordId)
 	if err != nil {
@@ -331,4 +349,29 @@ func (d Data) GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.
 		}
 	}
 	return header, nil
+}
+
+func (d Data) GetJoinTDTranProdCustByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTranProdCustByTraId, error) {
+	var (
+		header  SBeEntity.JoinTDTranProdCustByTraId
+		headers []SBeEntity.JoinTDTranProdCustByTraId
+	)
+
+	row, err := (*d.stmt)[getJoinTDTranProdCustByTraId].QueryxContext(ctx, traId)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getJoinTDTranProdCustByTraId][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getJoinTDTranProdCustByTraId][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Master getJoinTDTranProdCustByTraId  : ", headers)
+
+	defer row.Close()
+	return headers, nil
 }

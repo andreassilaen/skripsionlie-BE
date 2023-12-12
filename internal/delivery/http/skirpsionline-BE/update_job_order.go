@@ -33,9 +33,11 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		resp     response.Response
 		types    string
 
-		ordid int
-		tradid int
-		cartid int
+		ordid     int
+		tradid    int
+		cartid    int
+		prodid    int
+		prodstock int
 	)
 	defer resp.RenderJSON(w, r)
 
@@ -69,13 +71,12 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		result, err = h.skripsionlineSvc.UpdateTHTranChecked(ctx, tradid)
 		log.Println("UpdateTHTranChecked", tradid)
 
-
 	case "updateusermain":
 		var header SBeEntity.UpdateUserMain
 		body, _ := ioutil.ReadAll(r.Body)
 		json.Unmarshal(body, &header)
 		result, err = h.skripsionlineSvc.UpdateUserMain(ctx, header, r.FormValue("userid"), r.FormValue("role"))
-		log.Println("updateusermain => ", r.FormValue("role"), r.FormValue("userid"),  header)
+		log.Println("updateusermain => ", r.FormValue("role"), r.FormValue("userid"), header)
 
 	case "updatecustomerbyid":
 		var header SBeEntity.UpdateCustomerById
@@ -112,12 +113,24 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 	case "updatedeliverydone":
 		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
 		result, err = h.skripsionlineSvc.UpdateDeliveryDone(ctx, r.FormValue("ordid"))
-		log.Println("UpdateDeliveryDone",r.FormValue("ordid"))
+		log.Println("UpdateDeliveryDone", r.FormValue("ordid"))
 
 	case "updateheadercartpayed":
 		cartid, _ = strconv.Atoi(r.FormValue("cartid"))
 		result, err = h.skripsionlineSvc.UpdateHeaderCartPayed(ctx, cartid)
 		log.Println("Delivery UpdateHeaderCartPayed : ", ordid)
+
+	case "updateprodstockbyid":
+		prodid, _ = strconv.Atoi(r.FormValue("prodid"))
+		prodstock, _ = strconv.Atoi(r.FormValue("prodstock"))
+		result, err = h.skripsionlineSvc.UpdateProdStockById(ctx, prodstock, prodid)
+		log.Println("UpdateProdStockById =>", prodstock, prodid)
+
+	case "updatestock":
+		tradid, _ = strconv.Atoi(r.FormValue("tradid"))
+		prodstock, _ = strconv.Atoi(r.FormValue("prodstock"))
+		result, err = h.skripsionlineSvc.UpdateStock(ctx, (r.FormValue("tradid")))
+		log.Println("UpdateStock =>", (r.FormValue("tradid")))
 
 	}
 

@@ -88,7 +88,6 @@ func (s Service) UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEnti
 	return result, err
 }
 
-
 func (s Service) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTraRek, error) {
 	headers, err := s.skirpsionlineBE.GetJoinTHTraRekByCusId(ctx, custId)
 
@@ -98,7 +97,6 @@ func (s Service) GetJoinTHTraRekByCusId(ctx context.Context, custId string) ([]S
 
 	return headers, err
 }
-
 
 func (s Service) GetJoinOrdTHTDTraProdByOrdId(ctx context.Context, ordId string) ([]SBeEntity.JoinOrdTHTDTraProdByOrdId, error) {
 	headers, err := s.skirpsionlineBE.GetJoinOrdTHTDTraProdByOrdId(ctx, ordId)
@@ -110,7 +108,6 @@ func (s Service) GetJoinOrdTHTDTraProdByOrdId(ctx context.Context, ordId string)
 	return headers, err
 }
 
-
 func (s Service) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraByCustId, error) {
 	headers, err := s.skirpsionlineBE.GetJoinOrdTHTraByCustId(ctx, custId)
 
@@ -121,6 +118,15 @@ func (s Service) GetJoinOrdTHTraByCustId(ctx context.Context, custId string) ([]
 	return headers, err
 }
 
+func (s Service) GetJoinOrdTHTraDelByCustId(ctx context.Context, custId string) ([]SBeEntity.JoinOrdTHTraDelByCustId, error) {
+	header, err := s.skirpsionlineBE.GetJoinOrdTHTraDelByCustId(ctx, custId)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetJoinOrdTHTraDelByCustId]")
+	}
+
+	return header, err
+}
 
 func (s Service) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error) {
 	header, err := s.skirpsionlineBE.GetCountDashboardAdmin(ctx)
@@ -131,8 +137,6 @@ func (s Service) GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHT
 
 	return header, err
 }
-
-
 
 func (s Service) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error) {
 	header, err := s.skirpsionlineBE.GetReportOrdTHTraByOrdDate(ctx, startDate, endDate)
@@ -149,6 +153,16 @@ func (s Service) GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEnti
 
 	if err != nil {
 		return header, errors.Wrap(err, "[SERVICE][GetDetailReportByOrdId]")
+	}
+
+	return header, err
+}
+
+func (s Service) GetJoinTDTranProdCustByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTranProdCustByTraId, error) {
+	header, err := s.skirpsionlineBE.GetJoinTDTranProdCustByTraId(ctx, traId)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetJoinTDTranProdCustByTraId]")
 	}
 
 	return header, err

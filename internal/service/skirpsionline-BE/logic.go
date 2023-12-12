@@ -156,10 +156,10 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 
 		// detailCart       SBeEntity.TD_Cart2
 		// insertDetailCart []SBeEntity.TD_Cart2
-		updateQtyTHTDCart 	SBeEntity.UpdateQtyDetailJoinTHTDCartProd
+		updateQtyTHTDCart SBeEntity.UpdateQtyDetailJoinTHTDCartProd
 	)
 
-	carNotPayed, err := s.skirpsionlineBE.GetHeaderCartNotPayedCustId(ctx, header.HeaderCartBody.CustId) 
+	carNotPayed, err := s.skirpsionlineBE.GetHeaderCartNotPayedCustId(ctx, header.HeaderCartBody.CustId)
 	log.Println("carNotPayed => ", carNotPayed)
 	if err != nil {
 		result3 = "Gagal get Data carNotPayed"
@@ -170,61 +170,56 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 		println("masuk len(carNotPayed = 0)")
 		_, err = s.skirpsionlineBE.InsertHeaderCart(ctx, header.HeaderCartBody)
 		if err != nil {
-		result3 = "Gagal insert Data"
-		return result, errors.Wrap(err, "[DATA][InsertHeaderCart]")
-	}
+			result3 = "Gagal insert Data"
+			return result, errors.Wrap(err, "[DATA][InsertHeaderCart]")
+		}
 
-	carNotPayed, err := s.skirpsionlineBE.GetHeaderCartNotPayedCustId(ctx, header.HeaderCartBody.CustId) 
-	header.DetailCartBody.CartId = carNotPayed[0].CartId
-	header.DetailCartBody.CartDtlQty = 1
+		carNotPayed, err := s.skirpsionlineBE.GetHeaderCartNotPayedCustId(ctx, header.HeaderCartBody.CustId)
+		header.DetailCartBody.CartId = carNotPayed[0].CartId
+		header.DetailCartBody.CartDtlQty = 1
 
-	_, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
+		_, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
 		if err != nil {
-		result3 = "Gagal insert Data"
-		return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
-	}
+			result3 = "Gagal insert Data"
+			return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
+		}
 
-	log.Printf("InsertDetailCart >>>>> %+v", header.DetailCartBody)
+		log.Printf("InsertDetailCart >>>>> %+v", header.DetailCartBody)
 	}
 
 	if len(carNotPayed) != 0 {
-	println("masuk len(carNotPayed != 0)")
-	checkProdInCartNotPayed, err := s.skirpsionlineBE.GetProductInJOinTHTDCartProdByProdId(ctx, header.HeaderCartBody.CustId, carNotPayed[0].CartId, header.DetailCartBody.ProdId)
-	if err != nil {
-		result3 = "Gagal get Data carNotPayed"
-		return result, errors.Wrap(err, "[DATA][InsertHeaderCart]")
-	}
-	if len(checkProdInCartNotPayed) == 0 {
-		println("masuk len(checkProdInCartNotPayed = 0)")
-		header.DetailCartBody.CartId = carNotPayed[0].CartId
-		header.DetailCartBody.CartDtlQty = 1
-		_, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
+		println("masuk len(carNotPayed != 0)")
+		checkProdInCartNotPayed, err := s.skirpsionlineBE.GetProductInJOinTHTDCartProdByProdId(ctx, header.HeaderCartBody.CustId, carNotPayed[0].CartId, header.DetailCartBody.ProdId)
 		if err != nil {
-		result3 = "Gagal insert Data"
-		return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
-	}
-	} else {
-		println("masuk else, update qty doang di detail")
-		updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.CartId = carNotPayed[0].CartId
-		updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.CustId = header.HeaderCartBody.CustId
-		updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.ProdId = checkProdInCartNotPayed[0].ProdId
-		updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.CartDtlQty = checkProdInCartNotPayed[0].CartDtlQty+1
-		_, err = s.skirpsionlineBE.UpdateQtyDetailJoinTHTDCart(ctx, updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody)
-		if err != nil {
-			result3 = "Gagal update qty"
-			return result, errors.Wrap(err, "[DATA][updateQtyDetailCart]")
+			result3 = "Gagal get Data carNotPayed"
+			return result, errors.Wrap(err, "[DATA][InsertHeaderCart]")
 		}
+		if len(checkProdInCartNotPayed) == 0 {
+			println("masuk len(checkProdInCartNotPayed = 0)")
+			header.DetailCartBody.CartId = carNotPayed[0].CartId
+			header.DetailCartBody.CartDtlQty = 1
+			_, err = s.skirpsionlineBE.InsertDetailCart(ctx, header.DetailCartBody)
+			if err != nil {
+				result3 = "Gagal insert Data"
+				return result, errors.Wrap(err, "[DATA][InsertDetailCart]")
+			}
+		} else {
+			println("masuk else, update qty doang di detail")
+			updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.CartId = carNotPayed[0].CartId
+			updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.CustId = header.HeaderCartBody.CustId
+			updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.ProdId = checkProdInCartNotPayed[0].ProdId
+			updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody.CartDtlQty = checkProdInCartNotPayed[0].CartDtlQty + 1
+			_, err = s.skirpsionlineBE.UpdateQtyDetailJoinTHTDCart(ctx, updateQtyTHTDCart.UpdateQtyDetailJoinTHTDCartProdBody)
+			if err != nil {
+				result3 = "Gagal update qty"
+				return result, errors.Wrap(err, "[DATA][updateQtyDetailCart]")
+			}
 
-		log.Printf(">>>>>>>>>>>> updateQtyTHTDCart %+v",updateQtyTHTDCart)
-	} 
-}
+			log.Printf(">>>>>>>>>>>> updateQtyTHTDCart %+v", updateQtyTHTDCart)
+		}
+	}
 
 	result3 = "Berhasil Insert or Update qty Detail"
-	
-
-	
-
-
 
 	// _, err = s.skirpsionlineBE.InsertHeaderCart(ctx, header.HeaderCartBody)
 	// if err != nil {
@@ -292,11 +287,6 @@ func (s Service) InsertJoinHeaderDetailCart(ctx context.Context, header SBeEntit
 	return result3, err
 }
 
-
-
-
-
-
 func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailTran) (interface{}, error) {
 	var (
 		err error
@@ -310,8 +300,6 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 		insertDetailTran []SBeEntity.TD_Transaction2
 	)
 
-
-
 	_, err = s.skirpsionlineBE.InsertHeaderTran(ctx, header.HeaderTranBody)
 	if err != nil {
 		result3 = "Gagal insert Data"
@@ -324,7 +312,6 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 		result3 = "Gagal getlast Data"
 		return result, errors.Wrap(err, "[DATA][GetHeaderTranLastDataByCusId]")
 	}
-
 
 	cartNo, _ := strconv.Atoi(header.HeaderTranBody.CartId)
 	_, err = s.skirpsionlineBE.UpdateHeaderCartPeyed(ctx, cartNo)
@@ -343,11 +330,11 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 	if len(header.DetailTranBody) >= 1 {
 		for x := range header.DetailTranBody {
 			detailTran = SBeEntity.TD_Transaction2{
-				TraId:     body.TranId,
-				ProdId:     header.DetailTranBody[x].ProdId,
-				TraDtlQty: header.DetailTranBody[x].TraDtlQty,
-				TraDtlPrice : header.DetailTranBody[x].TraDtlPrice,
-				TraDtlAmount : header.DetailTranBody[x].TraDtlAmount,
+				TraId:        body.TranId,
+				ProdId:       header.DetailTranBody[x].ProdId,
+				TraDtlQty:    header.DetailTranBody[x].TraDtlQty,
+				TraDtlPrice:  header.DetailTranBody[x].TraDtlPrice,
+				TraDtlAmount: header.DetailTranBody[x].TraDtlAmount,
 			}
 
 			log.Println("cek x => ", x)
@@ -408,9 +395,6 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 // 	)
 // }
 
-
-
-
 // func (s Service) InsertCartMain(ctx context.Context, header SBeEntity.InsertJoinHeaderDetailCart, cusId string) (interface{}, error) {
 // 	var (
 // 		err error
@@ -429,27 +413,20 @@ func (s Service) InsertJoinHeaderDetailTran(ctx context.Context, header SBeEntit
 // 		baru, err = s.skirpsionlineBE.InsertHeaderCart(ctx, header.HeaderCartBody)
 // 	}
 
-
-
 // 	// _, err = s.skirpsionlineBE.GetDetailTranByTraId(ctx,traId)
-
-	
-
 
 // 	return result3, err
 // }
 
-
-
-func (s Service) GetAllProductCartNotPayedByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTDCartProd,error) {
+func (s Service) GetAllProductCartNotPayedByCusId(ctx context.Context, custId string) ([]SBeEntity.JoinTHTDCartProd, error) {
 	var (
-		headers		[]SBeEntity.JoinTHTDCartProd
+		headers []SBeEntity.JoinTHTDCartProd
 	)
 	checkCart, err := s.skirpsionlineBE.GetHeaderCartNotPayedCustId(ctx, custId)
 	if err != nil {
 		return headers, errors.Wrap(err, "[SERVICE][JOIN][GetHeaderCartNotPayedCustId]")
 	}
-	
+
 	getListCart, err := s.skirpsionlineBE.GetListJoinTHTDCartProdByCustIdAndCartId(ctx, custId, checkCart[0].CartId)
 	if err != nil {
 		return headers, errors.Wrap(err, "[SERVICE][JOIN][GetListJoinTHTDCartProdByCustIdAndCartId]")
@@ -460,15 +437,13 @@ func (s Service) GetAllProductCartNotPayedByCusId(ctx context.Context, custId st
 
 }
 
-
 func (s Service) GetUserMainByIdAndRole(ctx context.Context, userId string, role string) (interface{}, error) {
 	var (
 		// cek  SBeEntity.T_UserMain
 		// header  SBeEntity.T_UserMain
 		header interface{}
 
-
-		err		error
+		err error
 	)
 
 	if role == "cus" {
@@ -486,25 +461,22 @@ func (s Service) GetUserMainByIdAndRole(ctx context.Context, userId string, role
 		if err != nil {
 			return header, errors.Wrap(err, "[SERVICE][GetUserMainByIdAndRole][GetEmpById]")
 		}
-	} 
+	}
 
 	log.Printf(" header usermain => %+v", header)
 
 	return header, err
 }
 
-
-
 func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMain, userId string, role string) (interface{}, error) {
 	var (
 		// cek  SBeEntity.T_UserMain
 		// header  SBeEntity.T_UserMain
-		header interface{}
-		err		error
+		header  interface{}
+		err     error
 		bodyCus SBeEntity.T_Customer2
 		bodyAdm SBeEntity.T_Admin2
 		bodyEmp SBeEntity.T_Employee2
-		
 	)
 
 	if role == "cus" {
@@ -543,21 +515,19 @@ func (s Service) UpdateUserMain(ctx context.Context, body SBeEntity.UpdateUserMa
 		if err != nil {
 			return header, errors.Wrap(err, "[SERVICE][UpdateUserMain][UpdateAdminById]")
 		}
-	} 
+	}
 
 	log.Printf(" header usermain => %+v", header)
 
 	return header, err
 }
 
-
-
 func (s Service) InsertOrderByAdminCancelMain(ctx context.Context, header SBeEntity.InsertOrder) (interface{}, error) {
 	var (
 		// header SBeEntity.
 		// header 		SBeEntity.InsertOrder
-		result		string
-		err			error
+		result string
+		err    error
 	)
 
 	tra_id, _ := strconv.Atoi(header.InsertOrderBody.TraId)
@@ -578,13 +548,40 @@ func (s Service) InsertOrderByAdminCancelMain(ctx context.Context, header SBeEnt
 
 }
 
+func (s Service) UpdateStock(ctx context.Context, traid string) (string, error) {
+	var (
+		result string
+	)
+
+	header, err := s.skirpsionlineBE.GetJoinTDTranProdCustByTraId(ctx, traid)
+	if err != nil {
+		log.Println("GagalGetData")
+		result = "Gagal Get Data"
+		return result, errors.Wrap(err, "[DATA][GetProductStockDetail]")
+	}
+	log.Println("header GetJoinTDTranProdCustByTraId luar err", header)
+
+	for x := range header {
+		_, err = s.skirpsionlineBE.UpdateProdStockById(ctx, header[x].ProdStock-header[x].TraDtlQty, header[x].ProdId)
+		if err != nil {
+			log.Println("GagalUpdateStock ->", x)
+			return result, errors.Wrap(err, "[DATA][UpdateStock]")
+		}
+		log.Println("header UpdateProdStockById dalam for", header[x].ProdStock-header[x].TraDtlQty, header[x].ProdId)
+	}
+
+	result = "Berhasil"
+
+	return result, err
+
+}
 
 func (s Service) InsertOrderByAdminAccMain(ctx context.Context, header SBeEntity.InsertOrder) (interface{}, error) {
 	var (
 		// header SBeEntity.
 		// header 		SBeEntity.InsertOrder
-		result		string
-		err			error
+		result string
+		err    error
 	)
 
 	tra_id, _ := strconv.Atoi(header.InsertOrderBody.TraId)
@@ -593,6 +590,8 @@ func (s Service) InsertOrderByAdminAccMain(ctx context.Context, header SBeEntity
 	if err != nil {
 		return result, errors.Wrap(err, "[SERVICE][InsertOrderByAdminAccMain][UpdateTHTranChecked]")
 	}
+
+	_, err = s.UpdateStock(ctx, header.InsertOrderBody.TraId)
 
 	result, err = s.skirpsionlineBE.InsertOrderAcc(ctx, header.InsertOrderBody)
 	if err != nil {
@@ -604,3 +603,23 @@ func (s Service) InsertOrderByAdminAccMain(ctx context.Context, header SBeEntity
 	return result, err
 
 }
+
+// func (s Service) GetDataOrderDeliveryByCustId(ctx context.Context, custId string) (interface{}, error) {
+// 	var (
+// 		header     interface{}
+// 		err        error
+// 	)
+
+// 		api1, _ := s.GetJoinOrdTHTraByCustId(ctx, custId)
+// 		api2, _ := s.GetJoinOrdTHTraDelByCustId(ctx, custId)
+// 		if len(api1) =0 {
+// 		header = api2
+// 		}
+// 		if len(api2) =0 {
+// 		header = api1
+// 		}
+
+// 		append
+
+// 	return header, err
+// 	}
