@@ -84,13 +84,16 @@ func (d Data) InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Deli
 }
 
 
-func (d Data) UpdateDeliveryDone(ctx context.Context, ordId string) (string, error) {
+func (d Data) UpdateDeliveryDone(ctx context.Context, ordId string, header SBeEntity.DelImg, ) (string, error) {
 	var (
 		result string
 		err    error
 	)
 
-	_, err = (*d.stmt)[updateDeliveryDone].ExecContext(ctx, ordId)
+	_, err = (*d.stmt)[updateDeliveryDone].ExecContext(ctx, 
+		header.DeliveryImg,
+		ordId,
+	)
 
 	if err != nil {
 		result = "Gagal Update"

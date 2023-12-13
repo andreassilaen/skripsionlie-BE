@@ -167,6 +167,22 @@ type JoinReportOrdTHTra struct {
 
 }
 
+type JoinReportOrdTHTraDel struct {
+	OrdId string `db:"ord_id" json:"ord_id"`
+
+	TraId    string `db:"tra_id" json:"tra_id"`
+	TraTotal int    `db:"tra_total" json:"tra_total"`
+
+	OrdLastupdate string `db:"ord_lastupdate" json:"ord_lastupdate"`
+
+	DeliveryDoneYN 	string `db:"delivery_doneyn" json:"delivery_doneyn"`
+	DeliveryDate 	string `db:"delivery_date" json:"delivery_date"`
+	DeliveryImg 	string `db:"delivery_img" json:"delivery_img"`
+
+
+
+}
+
 type JoinDetailReport struct {
 	OrdId         string `db:"ord_id" json:"ord_id"`
 	OrdLastupdate string `db:"ord_lastupdate" json:"ord_lastupdate"`

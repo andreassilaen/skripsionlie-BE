@@ -59,13 +59,13 @@ func (s Service) InsertDeliveryProcess(ctx context.Context, header SBeEntity.Ins
 }
 
 
-func (s Service) UpdateDeliveryDone(ctx context.Context, ordId string) (string, error) {
+func (s Service) UpdateDeliveryDone(ctx context.Context, ordId string, header SBeEntity.UpdateDeliveryImg) (string, error) {
 	var (
 		result string
 		err    error
 	)
 
-	result, err = s.skirpsionlineBE.UpdateDeliveryDone(ctx, ordId)
+	result, err = s.skirpsionlineBE.UpdateDeliveryDone(ctx, ordId, header.UpdateDeliveryImgBody)
 	log.Println("ordId =>", ordId)
 	if err != nil {
 		result = "Gagal Update"

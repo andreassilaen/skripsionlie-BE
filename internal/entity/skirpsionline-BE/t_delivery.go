@@ -16,3 +16,12 @@ type T_Delivery2 struct {
 type InsertDelivery struct {
 	InsertDeliveryBody T_Delivery2 `json:"data"`
 }
+
+
+type DelImg struct {
+	DeliveryImg string `db:"delivery_img" json:"delivery_img"`
+}
+
+type UpdateDeliveryImg struct {
+	UpdateDeliveryImgBody DelImg `json:"data"`
+}

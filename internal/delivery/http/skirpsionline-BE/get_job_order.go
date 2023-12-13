@@ -189,6 +189,10 @@ func (h *Handler) GetSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) {
 		result, err = h.skripsionlineSvc.GetReportOrdTHTraByOrdDate(ctx, r.FormValue("startdate"), r.FormValue("enddate"))
 		log.Println("GetReportOrdTHTraByOrdDate => ", r.FormValue("startdate"), r.FormValue("enddate"))
 
+	case "getreportordthtradelbyorddate":
+		result, err = h.skripsionlineSvc.GetReportOrdTHTraDelByOrdDate(ctx, r.FormValue("custid"), r.FormValue("startdate"), r.FormValue("enddate"))
+		log.Println("GetReportOrdTHTraDelByOrdDate => ", r.FormValue("custid"), r.FormValue("startdate"), r.FormValue("enddate"))
+
 	case "getdetailreportbyordid":
 		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
 		result, err = h.skripsionlineSvc.GetDetailReportByOrdId(ctx, ordid)

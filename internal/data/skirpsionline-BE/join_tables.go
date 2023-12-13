@@ -316,17 +316,42 @@ func (d Data) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, 
 	row, err := (*d.stmt)[getReportOrdTHTraByOrdDate].QueryxContext(ctx, startDate, endDate)
 
 	if err != nil {
-		return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+		return headers, errors.Wrap(err, "[DATA][getReportOrdTHTraByOrdDate][Query]")
 	}
 
 	for row.Next() {
 		err = row.StructScan(&header)
 		if err != nil {
-			return headers, errors.Wrap(err, "[DATA][getJoinOrdTHTraByCustId][Query]")
+			return headers, errors.Wrap(err, "[DATA][getReportOrdTHTraByOrdDate][Query]")
 		}
 		headers = append(headers, header)
 	}
 	log.Println("Header JoinReportOrdTHTra : ", headers)
+
+	defer row.Close()
+	return headers, nil
+}
+
+func (d Data) GetReportOrdTHTraDelByOrdDate(ctx context.Context, custId string, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTraDel, error) {
+	var (
+		header  SBeEntity.JoinReportOrdTHTraDel
+		headers []SBeEntity.JoinReportOrdTHTraDel
+	)
+
+	row, err := (*d.stmt)[getReportOrdTHTraDelByOrdDate].QueryxContext(ctx, custId, startDate, endDate)
+
+	if err != nil {
+		return headers, errors.Wrap(err, "[DATA][getReportOrdTHTraDelByOrdDate][Query]")
+	}
+
+	for row.Next() {
+		err = row.StructScan(&header)
+		if err != nil {
+			return headers, errors.Wrap(err, "[DATA][getReportOrdTHTraDelByOrdDate][Query]")
+		}
+		headers = append(headers, header)
+	}
+	log.Println("Header JoinReportOrdTHTraDel : ", headers)
 
 	defer row.Close()
 	return headers, nil

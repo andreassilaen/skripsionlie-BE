@@ -74,7 +74,7 @@ type Data interface {
 	GetAllDelivery(ctx context.Context) ([]SBeEntity.T_Delivery, error)
 	GetDeliverByEmpId(ctx context.Context, empId string) ([]SBeEntity.T_Delivery, error)
 	InsertDeliveryProcess(ctx context.Context, header SBeEntity.T_Delivery2) (string, error)
-	UpdateDeliveryDone(ctx context.Context, ordId string) (string, error)
+	UpdateDeliveryDone(ctx context.Context, ordId string, header SBeEntity.DelImg ) (string, error)
 
 	GetAllRekening(ctx context.Context) ([]SBeEntity.T_Rekening, error)
 	GetRekByRekId(ctx context.Context, rekId int) ([]SBeEntity.T_Rekening, error)
@@ -93,6 +93,7 @@ type Data interface {
 	UpdateQtyDetailJoinTHTDCart(ctx context.Context, header SBeEntity.JoinTHTDCartProd2) (string, error)
 	GetCountDashboardAdmin(ctx context.Context) (SBeEntity.CountTHTraOrdDel, error)
 	GetReportOrdTHTraByOrdDate(ctx context.Context, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTra, error)
+	GetReportOrdTHTraDelByOrdDate(ctx context.Context, custId string, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTraDel, error) 
 	GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error)
 	GetJoinTDTranProdCustByTraId(ctx context.Context, traId string) ([]SBeEntity.JoinTDTranProdCustByTraId, error)
 

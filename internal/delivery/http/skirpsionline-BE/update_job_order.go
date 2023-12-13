@@ -111,9 +111,12 @@ func (h *Handler) UpdateSkripsiOnlineBE(w http.ResponseWriter, r *http.Request) 
 		log.Println("UpdateOrderOnDeliveryYes", r.FormValue("ordid"))
 
 	case "updatedeliverydone":
-		ordid, _ = strconv.Atoi(r.FormValue("ordid"))
-		result, err = h.skripsionlineSvc.UpdateDeliveryDone(ctx, r.FormValue("ordid"))
-		log.Println("UpdateDeliveryDone", r.FormValue("ordid"))
+		var header SBeEntity.UpdateDeliveryImg
+		body, _ := ioutil.ReadAll(r.Body)
+		json.Unmarshal(body, &header)
+		// ordid, _ = strconv.Atoi(r.FormValue("ordid"))
+		result, err = h.skripsionlineSvc.UpdateDeliveryDone(ctx, r.FormValue("ordid"), header)
+		log.Println("UpdateDeliveryDone +>>>", r.FormValue("ordid"), header)
 
 	case "updateheadercartpayed":
 		cartid, _ = strconv.Atoi(r.FormValue("cartid"))

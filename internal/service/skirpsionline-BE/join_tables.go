@@ -148,6 +148,16 @@ func (s Service) GetReportOrdTHTraByOrdDate(ctx context.Context, startDate strin
 	return header, err
 }
 
+func (s Service) GetReportOrdTHTraDelByOrdDate(ctx context.Context, custId string, startDate string, endDate string) ([]SBeEntity.JoinReportOrdTHTraDel, error) {
+	header, err := s.skirpsionlineBE.GetReportOrdTHTraDelByOrdDate(ctx, custId, startDate, endDate)
+
+	if err != nil {
+		return header, errors.Wrap(err, "[SERVICE][GetReportOrdTHTraDelByOrdDate]")
+	}
+
+	return header, err
+}
+
 func (s Service) GetDetailReportByOrdId(ctx context.Context, ordId int) (SBeEntity.JoinDetailReport, error) {
 	header, err := s.skirpsionlineBE.GetDetailReportByOrdId(ctx, ordId)
 

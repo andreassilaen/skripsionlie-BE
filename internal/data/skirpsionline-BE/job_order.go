@@ -525,7 +525,11 @@ const (
 
 	getDeliveryByEmpId  = "GetDeliverByEmpId"
 	qGetDeliveryByEmpId = `
-	SELECT * 
+	SELECT  
+		emp_id, 
+		ord_id,
+		delivery_doneyn,
+		delivery_date
 	FROM t_delivery
 	WHERE emp_id = ?
 	ORDER BY delivery_doneyn ASC,
@@ -544,6 +548,7 @@ const (
 	qUpdateDeliveryDone = `
 	UPDATE t_delivery
 	SET delivery_doneyn = "Y",
+		delivery_img = ?,
 		delivery_date= NOW()
 	WHERE ord_id = ?`
 
@@ -743,6 +748,19 @@ const (
 	GROUP BY a.tra_id, a.cart_id, a.cust_id, a.rek_id
 	ORDER BY c.ord_id`
 
+	getReportOrdTHTraDelByOrdDate  = "GetReportOrdTHTraDelByOrdDate"
+	qGetReportOrdTHTraDelByOrdDate = `
+	SELECT c.ord_id, a.tra_id, d.delivery_date , a.tra_total, d.delivery_doneyn, d.delivery_img 
+	FROM th_transaction a
+		INNER JOIN td_transaction b ON a.tra_id = b.tra_id 
+		INNER JOIN t_order c ON a.tra_id = c.tra_id
+		INNER JOIN t_delivery d ON c.ord_id = d.ord_id
+		AND a.cust_id = ?
+		AND DATE_FORMAT(c.ord_lastupdate, '%y%m%d') 
+		BETWEEN ? AND ?
+	GROUP BY a.tra_id, a.cart_id, a.cust_id, a.rek_id
+	ORDER BY c.ord_id`
+
 	getDetailReportByOrdId  = "GetDetailReportByOrdId"
 	qGetDetailReportByOrdId = `
 	SELECT o.ord_id, o.ord_lastupdate, a.adm_name, h.tra_id, h.tra_total, c.cust_name, c.cust_phone, c.cust_address,e.emp_name, del.delivery_date
@@ -828,6 +846,7 @@ var (
 		{getJoinOrdTHTraDelByCustId, qGetJoinOrdTHTraDelByCustId},
 		{getCountDashboardAdmin, qGetCountDashboardAdmin},
 		{getReportOrdTHTraByOrdDate, qGetReportOrdTHTraByOrdDate},
+		{getReportOrdTHTraDelByOrdDate, qGetReportOrdTHTraDelByOrdDate},
 		{getDetailReportByOrdId, qGetDetailReportByOrdId},
 		{getJoinTDTranProdCustByTraId, qGetJoinTDTranProdCustByTraId},
 	}
