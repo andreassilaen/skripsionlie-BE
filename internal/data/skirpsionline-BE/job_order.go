@@ -720,7 +720,8 @@ const (
 		o.ord_confirmedyn,
 		o.ord_ondeliveryyn,
 		o.ord_lastupdate,
-		d.delivery_doneyn
+		d.delivery_doneyn,
+		d.delivery_date
 	FROM t_order o, th_transaction h, t_delivery d
 	WHERE o.tra_id = h.tra_id
 		AND o.ord_id = d.ord_id

@@ -96,6 +96,7 @@ type JoinOrdTHTraDelByCustId struct {
 	OrdLastupdate   string `db:"ord_lastupdate" json:"ord_lastupdate"`
 
 	DeliveryDoneYN string `db:"delivery_doneyn" json:"delivery_doneyn"`
+	DeliveryDate string `db:"delivery_date" json:"delivery_date"`
 }
 type JoinOrdTHTraByCustId struct {
 	OrdId string `db:"ord_id" json:"ord_id"`
