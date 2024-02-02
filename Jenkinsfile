@@ -13,7 +13,7 @@ pipeline {
             steps {
                 script{
                     echo '> Creating image...'
-                    def dockerImage = docker.build("Test-be")
+                    def dockerImage = docker.build("test-be")
                 }
             }
         }  
