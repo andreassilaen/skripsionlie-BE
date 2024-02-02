@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Build the Go project
-                sh 'go build -o myapp'
+                sh 'make build'
             }
         }
         
