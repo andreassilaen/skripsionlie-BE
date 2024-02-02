@@ -12,7 +12,7 @@ pipeline {
         stage('Dockerize') {
             steps {
                 script{
-                    echo `> Creating image...`
+                    echo '> Creating image...'
                     def dockerImage = docker.build("Test-be")
                 }
             }
