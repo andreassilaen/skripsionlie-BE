@@ -24,4 +24,7 @@ pipeline {
         }
         
     }
+    success {
+        slackSend (color: '#00FF00', message: "Build successful!")
+    }
 }
