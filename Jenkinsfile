@@ -11,17 +11,11 @@ pipeline {
         
         stage('Dockerize') {
             steps {
-                // Build the Docker image
-                sh 'docker build -t myapp -f Dockerfile .'
+                script{
+                    echo `> Creating image...`
+                    def dockerImage = docker.build("Test-be")
+                }
             }
-        }
-        
-        stage('Push to Registry') {
-            steps {
-                // Push the Docker image to a registry
-                sh 'docker push myapp'
-            }
-        }
-        
+        }  
     }
 }
