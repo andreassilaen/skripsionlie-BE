@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes{
-            node(test-pod){
+            node('test-pod'){
                 stage('Build') {
                     steps {
                         // Build the Go project
