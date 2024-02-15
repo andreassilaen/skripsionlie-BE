@@ -1,5 +1,9 @@
 pipeline {
-    agent "test-agent"
+    agent {
+        kubernetes{
+            label "test-agent"
+        }
+    }
     
     stages {
         stage('Build') {
