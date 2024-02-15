@@ -1,19 +1,17 @@
 pipeline {
     agent {
         kubernetes{
-            node('test-pod'){
-                stage('Build') {
-                    steps {
-                        // Build the Go project
-                        sh 'make build'
-                    }
-                }
-            }
+            node('test-pod')
         }
     }
     
     stages {
-        
+        stage('Build') {
+            steps {
+                // Build the Go project
+                sh 'make build'
+            }
+        }
         stage('Dockerize') {
             steps {
                 script{
