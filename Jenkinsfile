@@ -1,8 +1,14 @@
 pipeline {
     agent {
-        kubernetes{
-            node('test-pod')
-        }
+        kubernetes {
+              inheritFrom 'test-pod'
+              yaml '''
+              spec:
+                containers:
+                - name: golang
+                  image: golang:latest
+                '''
+            }
     }
     
     stages {
